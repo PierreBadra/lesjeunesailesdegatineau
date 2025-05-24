@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          port: ${{ secrets.FTP_PORT || 21 }}
+          port: ${{ 21 }}
           local-dir: ./
           server-dir: /public_html/wp-content/themes/lesjeunesailesdegatineau/
           dangerous-clean-slate: false
