@@ -103,7 +103,7 @@
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu"
     class="xl:hidden fixed top-[88px] left-0 right-0 backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40 shadow-lg">
-    <div class="p-8">
+    <div class="p-6">
       <ul class="space-y-6">
         <?php
         $index = 0;
