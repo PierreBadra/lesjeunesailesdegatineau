@@ -6,17 +6,22 @@ $images = get_posts([
     'posts_per_page' => -1,
 ]);
 $image_urls = array_map('wp_get_attachment_url', wp_list_pluck($images, 'ID'));
+// Check if we have at least one image
+$has_images = !empty($image_urls);
+// Default background image as fallback
 ?>
 
-<section class="relative text-white overflow-hidden p-8 pt-20 sm:pt-24 lg:pt-28" id="hero-container">
+<section class="relative text-white overflow-hidden p-6 pt-20 sm:pt-24 lg:pt-28" id="hero-container">
     <!-- Background image container with two divs for crossfade -->
     <div id="bg-image-1"
         class="absolute inset-0 bg-center bg-cover bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-100"
-        style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/hero-bg-1.webp);"></div>
+        style="background-image: url(<?= $has_images ? $image_urls[0] : '' ?>"></div>
 
     <div id="bg-image-2"
         class="absolute inset-0 bg-center bg-cover bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-0"
-        style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/hero-bg-1.webp);"></div>
+        style="background-image: url(<?= $has_images ? (count($image_urls) > 1 ? $image_urls[1] : $image_urls[0]) : '' ?>);">
+    </div>
+
 
     <!-- Blue Overlay -->
     <div class="absolute inset-0 bg-[#092049]/85 z-[1]"></div>
@@ -47,94 +52,94 @@ $image_urls = array_map('wp_get_attachment_url', wp_list_pluck($images, 'ID'));
 
         <!-- Call to Action Button -->
         <a href="#"
-            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-[#092049] hover:bg-[#143267] border border-white text-white font-bold py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center transition-colors duration-200 rounded-sm sm:rounded-none">
+            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-[#092049] hover:bg-[#143267] border border-white text-white font-bold py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center transition-colors duration-200 rounded-none">
             INSCRIVEZ-VOUS MAINTENANT
         </a>
     </div>
 </section>
 
-<style>
-    @keyframes slowZoom {
-        from {
-            transform: scale(1);
+<?php if (count($image_urls) > 1): ?>
+    <style>
+        @keyframes slowZoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
         }
 
-        to {
-            transform: scale(1.1);
+        .bg-zoom-animation {
+            animation: slowZoom 5s linear forwards;
         }
-    }
+    </style>
 
-    .bg-zoom-animation {
-        animation: slowZoom 5s linear forwards;
-    }
-</style>
+    <script>
+        const bgImage1 = document.getElementById('bg-image-1');
+        const bgImage2 = document.getElementById('bg-image-2');
+        const wpImages = <?php echo json_encode($image_urls); ?>;
+        let currentIndex = 0;
+        let activeImage = 1; // Track which div is currently visible
+        const slideDuration = 5000; // 5 seconds per slide
 
-<script>
-    const bgImage1 = document.getElementById('bg-image-1');
-    const bgImage2 = document.getElementById('bg-image-2');
-    const wpImages = <?php echo json_encode($image_urls); ?>;
-    let currentIndex = 0;
-    let activeImage = 1; // Track which div is currently visible
-    const slideDuration = 5000; // 5 seconds per slide
-
-    // Set initial images if we have any
-    if (wpImages.length > 0) {
-        bgImage1.style.backgroundImage = `url(${wpImages[0]})`;
-        bgImage1.classList.add('bg-zoom-animation');
-
-        // If we have more than one image, prepare the second one
-        if (wpImages.length > 1) {
-            bgImage2.style.backgroundImage = `url(${wpImages[1]})`;
-        }
-    }
-
-    function switchImages() {
-        currentIndex = (currentIndex + 1) % wpImages.length;
-        const nextImageIndex = (currentIndex + 1) % wpImages.length;
-
-        if (activeImage === 1) {
-            // Prepare the next image in bg-image-2
-            bgImage2.style.backgroundImage = `url(${wpImages[currentIndex]})`;
-
-            // Start zoom on the next image that's about to appear
-            bgImage2.classList.add('bg-zoom-animation');
-
-            // Fade out current, fade in next
-            bgImage1.classList.remove('opacity-100');
-            bgImage1.classList.add('opacity-0');
-            bgImage2.classList.remove('opacity-0');
-            bgImage2.classList.add('opacity-100');
-
-            // After transition completes, reset the previous image
-            setTimeout(() => {
-                bgImage1.classList.remove('bg-zoom-animation');
-                bgImage1.style.backgroundImage = `url(${wpImages[nextImageIndex]})`;
-                activeImage = 2;
-            }, 1000);
-        } else {
-            // Prepare the next image in bg-image-1
-            bgImage1.style.backgroundImage = `url(${wpImages[currentIndex]})`;
-
-            // Start zoom on the next image that's about to appear
+        // Only run if we have at least 2 images
+        if (wpImages && wpImages.length > 1 && bgImage1 && bgImage2) {
+            // Set initial images
+            bgImage1.style.backgroundImage = `url(${wpImages[0]})`;
             bgImage1.classList.add('bg-zoom-animation');
+            bgImage2.style.backgroundImage = `url(${wpImages[1]})`;
 
-            // Fade out current, fade in next
-            bgImage2.classList.remove('opacity-100');
-            bgImage2.classList.add('opacity-0');
-            bgImage1.classList.remove('opacity-0');
-            bgImage1.classList.add('opacity-100');
+            function switchImages() {
+                currentIndex = (currentIndex + 1) % wpImages.length;
+                const nextImageIndex = (currentIndex + 1) % wpImages.length;
 
-            // After transition completes, reset the previous image
-            setTimeout(() => {
-                bgImage2.classList.remove('bg-zoom-animation');
-                bgImage2.style.backgroundImage = `url(${wpImages[nextImageIndex]})`;
-                activeImage = 1;
-            }, 1000);
+                if (activeImage === 1) {
+                    // Prepare the next image in bg-image-2
+                    bgImage2.style.backgroundImage = `url(${wpImages[currentIndex]})`;
+
+                    // Start zoom on the next image that's about to appear
+                    bgImage2.classList.add('bg-zoom-animation');
+
+                    // Fade out current, fade in next
+                    bgImage1.classList.remove('opacity-100');
+                    bgImage1.classList.add('opacity-0');
+                    bgImage2.classList.remove('opacity-0');
+                    bgImage2.classList.add('opacity-100');
+
+                    // After transition completes, reset the previous image
+                    setTimeout(() => {
+                        bgImage1.classList.remove('bg-zoom-animation');
+                        bgImage1.style.backgroundImage = `url(${wpImages[nextImageIndex]})`;
+                        activeImage = 2;
+                    }, 1000);
+                } else {
+                    // Prepare the next image in bg-image-1
+                    bgImage1.style.backgroundImage = `url(${wpImages[currentIndex]})`;
+
+                    // Start zoom on the next image that's about to appear
+                    bgImage1.classList.add('bg-zoom-animation');
+
+                    // Fade out current, fade in next
+                    bgImage2.classList.remove('opacity-100');
+                    bgImage2.classList.add('opacity-0');
+                    bgImage1.classList.remove('opacity-0');
+                    bgImage1.classList.add('opacity-100');
+
+                    // After transition completes, reset the previous image
+                    setTimeout(() => {
+                        bgImage2.classList.remove('bg-zoom-animation');
+                        bgImage2.style.backgroundImage = `url(${wpImages[nextImageIndex]})`;
+                        activeImage = 1;
+                    }, 1000);
+                }
+            }
+
+            // Start the slideshow
+            setInterval(switchImages, slideDuration);
+        } else if (wpImages && wpImages.length === 1 && bgImage1) {
+            // If we only have one image, just apply the zoom effect to it
+            bgImage1.classList.add('bg-zoom-animation');
         }
-    }
-
-    // Start the slideshow if we have more than one image
-    if (wpImages.length > 1) {
-        setInterval(switchImages, slideDuration);
-    }
-</script>
+    </script>
+<?php endif; ?>
