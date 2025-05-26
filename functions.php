@@ -20,7 +20,7 @@ add_action('admin_menu', function() {
     // Remove Appearance
     // remove_menu_page('themes.php');
     // Remove Plugins
-    remove_menu_page('plugins.php');
+    // remove_menu_page('plugins.php');
     // Remove Tools
     remove_menu_page('tools.php');
     // Remove Settings
