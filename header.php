@@ -37,8 +37,11 @@
         <!-- Desktop Menu -->
         <ul class="hidden xl:flex gap-10 tracking-widest text-sm text-white font-light">
           <?php
+          $accueil_page = get_page_by_title('Accueil');
+          $accueil_id = $accueil_page ? $accueil_page->ID : '';
+
           $pages = get_pages([
-            'exclude' => '44',
+            'exclude' => $accueil_id,
             'sort_column' => 'menu_order',
             'sort_order' => 'asc',
           ]);
@@ -101,11 +104,6 @@
           <div class="p-8">
             <ul class="space-y-6">
               <?php
-              $pages = get_pages([
-                'exclude' => '44',
-                'sort_column' => 'menu_order',
-                'sort_order' => 'asc',
-              ]);
               $index = 0;
               foreach ($pages as $page):
                 $index++;
