@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <header class="p-6 fixed w-full z-50 backdrop-blur-sm">
+  <header class="p-6 fixed w-full z-50 bg-gray-900/50 backdrop-blur-sm transition-all duration-300">
     <div class="flex justify-between items-center">
       <a href="/" class="flex items-center gap-2 z-50 relative">
         <img class="w-16 h-16" src="<?= get_template_directory_uri(); ?>/assets/images/logo.webp" alt="Logo Image">
@@ -102,7 +102,7 @@
   </header>
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu"
-    class="xl:hidden fixed top-[88px] left-0 right-0 backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40 shadow-lg">
+    class="xl:hidden fixed top-0 left-0 right-0 pt-[88px] backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40 shadow-lg">
     <div class="p-6">
       <ul class="space-y-6">
         <?php
@@ -167,6 +167,10 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      const header = document.querySelector('header');
+      const heroSection = document.getElementById('hero-container'); // Adjust this selector to match your hero section
+      const headerMobileMenu = document.getElementById('mobile-menu');
+
       const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       const hamburgerLine1 = document.getElementById('hamburger-line-1');
@@ -186,9 +190,11 @@
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen) {
-          // Open menu - slide down from header
+          // Open menu - slide down from top
           mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
           mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+          header.classList.remove('bg-gray-900');
+          header.classList.remove('bg-gray-900/50');
 
           // Animate hamburger to X
           hamburgerLine1.classList.add('rotate-45', 'translate-y-2');
@@ -197,9 +203,12 @@
 
           mobileMenuToggle.setAttribute('aria-expanded', 'true');
         } else {
-          // Close menu - slide up to header
+          // Close menu - slide up
           mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
           mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+
+          // Remove the overflow hidden
+          document.body.classList.remove('overflow-hidden');
 
           // Animate X back to hamburger
           hamburgerLine1.classList.remove('rotate-45', 'translate-y-2');
@@ -216,6 +225,7 @@
           }
         }
       });
+
 
       // Toggle programmes dropdown in mobile menu
       if (programmesToggle) {
@@ -248,5 +258,36 @@
           mobileMenuToggle.click();
         }
       });
+
+      // Function to handle scroll events
+      function handleScroll() {
+        if (heroSection) {
+          const heroHeight = heroSection.offsetHeight;
+          const scrollPosition = window.scrollY;
+
+          if (scrollPosition > heroHeight - header.offsetHeight) {
+            // User has scrolled past hero section
+            if (!isMenuOpen)
+              header.classList.add('bg-gray-900'); // Add your desired background color class
+            header.classList.remove('bg-gray-900/50');
+            headerMobileMenu.classList.add('bg-gray-900');
+            headerMobileMenu.classList.remove('bg-gray-900/50');
+          } else {
+            // User is still within hero section
+            if (!isMenuOpen)
+              header.classList.add('bg-gray-900/50');
+            header.classList.remove('bg-gray-900');
+            headerMobileMenu.classList.add('bg-gray-900/50');
+            headerMobileMenu.classList.remove('bg-gray-900');
+          }
+        }
+      }
+
+      // Initial check on page load
+      handleScroll();
+
+      // Add scroll event listener
+      window.addEventListener('scroll', handleScroll);
+
     });
   </script>
