@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <header class="p-6 fixed w-full z-50 bg-gray-900/50 backdrop-blur-sm transition-all duration-300">
+  <header class="p-6 fixed w-full z-50 backdrop-blur-sm transition-all duration-300">
     <div class="flex justify-between items-center">
       <a href="/" class="flex items-center gap-2 z-50 relative">
         <img class="w-16 h-16" src="<?= get_template_directory_uri(); ?>/assets/images/logo.webp" alt="Logo Image">
@@ -168,11 +168,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const header = document.querySelector('header');
-      const heroSection = document.getElementById('hero-container'); // Adjust this selector to match your hero section
-      const headerMobileMenu = document.getElementById('mobile-menu');
+      const heroSection = document.getElementById('hero-container');
+      const mobileMenu = document.getElementById('mobile-menu');
 
       const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
       const hamburgerLine1 = document.getElementById('hamburger-line-1');
       const hamburgerLine2 = document.getElementById('hamburger-line-2');
       const hamburgerLine3 = document.getElementById('hamburger-line-3');
@@ -184,6 +183,45 @@
 
       let isMenuOpen = false;
       let isProgrammesOpen = false;
+      let isScrolledPastHero = false;
+
+      // Function to handle scroll events
+      function handleScroll() {
+        if (heroSection) {
+          const heroHeight = heroSection.offsetHeight;
+          const scrollPosition = window.scrollY;
+
+          isScrolledPastHero = scrollPosition > heroHeight - header.offsetHeight;
+
+          if (isScrolledPastHero) {
+            // User has scrolled past hero section
+            if (!isMenuOpen) {
+              header.classList.add('bg-gray-900');
+              header.classList.remove('bg-gray-900/50');
+            }
+            mobileMenu.classList.add('bg-gray-900');
+            mobileMenu.classList.remove('bg-gray-900/50');
+          } else {
+            // User is still within hero section
+            if (!isMenuOpen) {
+              header.classList.add('bg-gray-900/50');
+              header.classList.remove('bg-gray-900');
+            } else {
+              header.classList.remove('bg-gray-900/50');
+              // header.classList.add('bg-gray-900');
+            }
+            mobileMenu.classList.add('bg-gray-900/50');
+            mobileMenu.classList.remove('bg-gray-900');
+          }
+        } else {
+          // No hero section on the page
+          isScrolledPastHero = true;
+          header.classList.add('bg-gray-900');
+          header.classList.remove('bg-gray-900/50');
+          mobileMenu.classList.add('bg-gray-900');
+          mobileMenu.classList.remove('bg-gray-900/50');
+        }
+      }
 
       // Toggle mobile menu
       mobileMenuToggle.addEventListener('click', function () {
@@ -193,7 +231,9 @@
           // Open menu - slide down from top
           mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
           mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
-          header.classList.remove('bg-gray-900');
+
+          // Always set header to solid when menu is open
+          // header.classList.add('bg-gray-900');
           header.classList.remove('bg-gray-900/50');
 
           // Animate hamburger to X
@@ -207,8 +247,14 @@
           mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
           mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
 
-          // Remove the overflow hidden
-          document.body.classList.remove('overflow-hidden');
+          // Reset header background based on scroll position
+          if (!isScrolledPastHero && heroSection) {
+            header.classList.remove('bg-gray-900');
+            header.classList.add('bg-gray-900/50');
+          } else {
+            header.classList.add('bg-gray-900');
+            header.classList.remove('bg-gray-900/50');
+          }
 
           // Animate X back to hamburger
           hamburgerLine1.classList.remove('rotate-45', 'translate-y-2');
@@ -225,7 +271,6 @@
           }
         }
       });
-
 
       // Toggle programmes dropdown in mobile menu
       if (programmesToggle) {
@@ -252,42 +297,18 @@
         });
       });
 
-      // Close menu when clicking outside (optional - you might want to remove this for dropdown style)
+      // Close menu when clicking outside
       document.addEventListener('click', function (e) {
         if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
           mobileMenuToggle.click();
         }
       });
 
-      // Function to handle scroll events
-      function handleScroll() {
-        if (heroSection) {
-          const heroHeight = heroSection.offsetHeight;
-          const scrollPosition = window.scrollY;
-
-          if (scrollPosition > heroHeight - header.offsetHeight) {
-            // User has scrolled past hero section
-            if (!isMenuOpen)
-              header.classList.add('bg-gray-900'); // Add your desired background color class
-            header.classList.remove('bg-gray-900/50');
-            headerMobileMenu.classList.add('bg-gray-900');
-            headerMobileMenu.classList.remove('bg-gray-900/50');
-          } else {
-            // User is still within hero section
-            if (!isMenuOpen)
-              header.classList.add('bg-gray-900/50');
-            header.classList.remove('bg-gray-900');
-            headerMobileMenu.classList.add('bg-gray-900/50');
-            headerMobileMenu.classList.remove('bg-gray-900');
-          }
-        }
-      }
-
       // Initial check on page load
       handleScroll();
 
       // Add scroll event listener
       window.addEventListener('scroll', handleScroll);
-
     });
+
   </script>
