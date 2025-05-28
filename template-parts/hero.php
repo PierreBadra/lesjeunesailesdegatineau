@@ -52,9 +52,15 @@ $has_images = !empty($image_urls);
 
         <!-- Call to Action Button -->
         <a href="#"
-            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-[#092049] hover:bg-[#143267] border border-white text-white font-bold py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center transition-colors duration-200 rounded-none">
+            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
             INSCRIVEZ-VOUS MAINTENANT
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="inline-block">
+                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
         </a>
+
     </div>
 </section>
 
@@ -82,7 +88,6 @@ $has_images = !empty($image_urls);
         let currentIndex = 0;
         let activeImage = 1; // Track which div is currently visible
         const slideDuration = 5000; // 5 seconds per slide
-
         // Only run if we have at least 2 images
         if (wpImages && wpImages.length > 1 && bgImage1 && bgImage2) {
             // Set initial images
