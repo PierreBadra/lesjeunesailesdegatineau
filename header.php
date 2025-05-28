@@ -10,6 +10,7 @@
   <link href="<?= get_template_directory_uri(); ?>/assets/css/output.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="<?= get_template_directory_uri() ?>/assets/images/logo.webp" type="image/x-icon">
   <title><?php wp_title('|', true, 'right'); ?> Les Jeunes Ailés de Gatineau</title>
 </head>
 
