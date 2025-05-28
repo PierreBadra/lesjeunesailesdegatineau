@@ -1,13 +1,20 @@
 <?php
 
 // Shortcodes
-function my_hero_shortcode() {
+function hero_shortcode() {
     ob_start();
     get_template_part('template-parts/hero');
     return ob_get_clean();
 }
-add_shortcode('hero', 'my_hero_shortcode');
+add_shortcode('hero', 'hero_shortcode');
 
+
+function objectifs_shortcode() {
+    ob_start();
+    get_template_part('template-parts/objectifs');
+    return ob_get_clean();
+}
+add_shortcode('objectifs', 'objectifs_shortcode');
 
 // Actions
 add_action('admin_menu', function() {
