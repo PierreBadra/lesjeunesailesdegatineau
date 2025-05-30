@@ -45,8 +45,7 @@
                 'post_status' => 'publish',
                 'order' => 'ASC',
             ]);
-            // var_dump($collections);
-            
+
             foreach ($collections as $collection):
                 $titre = get_field('titre', $collection->ID);
                 $salaire_par_heure = get_field('salaire_par_heure', $collection->ID);
@@ -66,9 +65,9 @@
                                     <rect width="20" height="14" x="2" y="6" rx="2"></rect>
                                 </svg>
                                 <div class="inline-flex items-center rounded-full border font-semibold 
-                    transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
-                    focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
-                    hover:bg-secondary/80 text-xs font-[Inter]">
+                                    transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
+                                    focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
+                                    hover:bg-secondary/80 text-xs font-[Inter]">
                                     Emplois
                                 </div>
                             </div>
@@ -107,7 +106,7 @@
                         $plain_text = wp_strip_all_tags($description);
 
                         // Truncate to 150 characters (or whatever you want)
-                        $max_length = 145;
+                        $max_length = 135;
                         if (strlen($plain_text) > $max_length) {
                             $truncated = mb_substr($plain_text, 0, $max_length) . '...';
                         } else {
