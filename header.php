@@ -15,8 +15,26 @@
 </head>
 
 <body>
-  <header class="p-6 fixed w-full z-50 backdrop-blur-sm transition-all duration-300">
-    <div class="flex justify-between items-center">
+  <style>
+    .gradient-animate {
+      background-size: 200% 200%;
+      background-position: left center;
+      transition: background-position 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Keep the original hover on the element itself */
+    .gradient-animate:hover {
+      background-position: right center;
+    }
+
+    /* Add the parent hover effect */
+    .group:hover .gradient-animate {
+      background-position: right center;
+    }
+  </style>
+  <header
+    class="p-6 fixed w-full z-50 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 transition-all duration-300">
+    <div class="flex justify-between items-center container max-w-7xl mx-auto">
       <a href="/" class="flex items-center gap-2 z-50 relative">
         <img class="w-16 h-16" src="<?= get_template_directory_uri(); ?>/assets/images/logo.webp" alt="Logo Image">
         <h2 class="hidden md:block tracking-widest text-2xl text-white font-[Oswald]">LES JEUNES AILÉS DE GATINEAU</h2>
@@ -58,7 +76,7 @@
             <?php if ($index === 2): ?>
               <li class="relative group">
                 <button class="flex items-center hover:text-gray-300 transition-colors duration-200">
-                  Programmes
+                  <a href="/programmes">Programmes</a>
                   <svg class="ml-1 h-5 w-5 transform group-hover:rotate-180 transition-transform duration-200"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
@@ -71,7 +89,7 @@
                   class="absolute left-0 mt-2 w-fit bg-white text-gray-900 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transform scale-95 group-hover:scale-100 transition-all duration-200 z-50">
                   <?php
                   $collections = get_posts([
-                    'post_type' => 'programme',
+                    'post_type' => 'programmes',
                     'post_status' => 'publish',
                     'order' => 'ASC',
                   ]);
@@ -84,6 +102,11 @@
                     </li>
                   <?php endforeach; ?>
                 </ul>
+              </li>
+              <li>
+                <a href="/emplois" class="hover:text-gray-300 transition-colors duration-200">
+                  Emplois
+                </a>
               </li>
             <?php endif; ?>
           <?php endforeach; ?>
@@ -103,7 +126,7 @@
   </header>
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu"
-    class="xl:hidden fixed top-0 left-0 right-0 pt-[88px] backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40 shadow-lg">
+    class="xl:hidden fixed top-0 left-0 right-0 pt-[88px] backdrop-blur-sm bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-opacity-0 transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40 shadow-lg">
     <div class="p-6">
       <ul class="space-y-6">
         <?php
@@ -121,7 +144,7 @@
             <li>
               <button id="mobile-programmes-toggle"
                 class="flex items-center justify-between w-full text-xl text-white tracking-widest font-light hover:text-gray-300 transition-colors duration-200 py-2">
-                <span>Programmes</span>
+                <a href="/programmes">Programmes</a>
                 <svg id="mobile-dropdown-arrow" class="h-5 w-5 transform transition-transform duration-200"
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
@@ -134,7 +157,7 @@
                 class="mt-2 ml-4 space-y-3 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                 <?php
                 $collections = get_posts([
-                  'post_type' => 'programme',
+                  'post_type' => 'programmes',
                   'post_status' => 'publish',
                   'order' => 'ASC',
                 ]);
@@ -147,6 +170,12 @@
                   </li>
                 <?php endforeach; ?>
               </ul>
+            </li>
+            <li>
+              <a href="/emplois"
+                class="block text-xl text-white tracking-widest font-light hover:text-gray-300 transition-colors duration-200 py-2">
+                Emplois
+              </a>
             </li>
           <?php endif; ?>
         <?php endforeach; ?>
@@ -186,44 +215,6 @@
       let isProgrammesOpen = false;
       let isScrolledPastHero = false;
 
-      // Function to handle scroll events
-      function handleScroll() {
-        if (heroSection) {
-          const heroHeight = heroSection.offsetHeight;
-          const scrollPosition = window.scrollY;
-
-          isScrolledPastHero = scrollPosition > heroHeight - header.offsetHeight;
-
-          if (isScrolledPastHero) {
-            // User has scrolled past hero section
-            if (!isMenuOpen) {
-              header.classList.add('bg-gray-900');
-              header.classList.remove('bg-gray-900/50');
-            }
-            mobileMenu.classList.add('bg-gray-900');
-            mobileMenu.classList.remove('bg-gray-900/50');
-          } else {
-            // User is still within hero section
-            if (!isMenuOpen) {
-              header.classList.add('bg-gray-900/50');
-              header.classList.remove('bg-gray-900');
-            } else {
-              header.classList.remove('bg-gray-900/50');
-              // header.classList.add('bg-gray-900');
-            }
-            mobileMenu.classList.add('bg-gray-900/50');
-            mobileMenu.classList.remove('bg-gray-900');
-          }
-        } else {
-          // No hero section on the page
-          isScrolledPastHero = true;
-          header.classList.add('bg-gray-900');
-          header.classList.remove('bg-gray-900/50');
-          mobileMenu.classList.add('bg-gray-900');
-          mobileMenu.classList.remove('bg-gray-900/50');
-        }
-      }
-
       // Toggle mobile menu
       mobileMenuToggle.addEventListener('click', function () {
         isMenuOpen = !isMenuOpen;
@@ -232,10 +223,6 @@
           // Open menu - slide down from top
           mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
           mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
-
-          // Always set header to solid when menu is open
-          // header.classList.add('bg-gray-900');
-          header.classList.remove('bg-gray-900/50');
 
           // Animate hamburger to X
           hamburgerLine1.classList.add('rotate-45', 'translate-y-2');
@@ -247,15 +234,6 @@
           // Close menu - slide up
           mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
           mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
-
-          // Reset header background based on scroll position
-          if (!isScrolledPastHero && heroSection) {
-            header.classList.remove('bg-gray-900');
-            header.classList.add('bg-gray-900/50');
-          } else {
-            header.classList.add('bg-gray-900');
-            header.classList.remove('bg-gray-900/50');
-          }
 
           // Animate X back to hamburger
           hamburgerLine1.classList.remove('rotate-45', 'translate-y-2');
@@ -304,12 +282,6 @@
           mobileMenuToggle.click();
         }
       });
-
-      // Initial check on page load
-      handleScroll();
-
-      // Add scroll event listener
-      window.addEventListener('scroll', handleScroll);
     });
 
   </script>
