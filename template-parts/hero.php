@@ -11,7 +11,7 @@ $has_images = !empty($image_urls);
 // Default background image as fallback
 ?>
 
-<section class="relative text-white overflow-hidden p-6 pt-20 sm:pt-24 lg:pt-28" id="hero-container">
+<section class="relative text-white overflow-hidden px-6 pt-20 sm:pt-24 lg:pt-28" id="hero-container">
     <!-- Background image container with two divs for crossfade -->
     <div id="bg-image-1"
         class="absolute inset-0 bg-center bg-cover bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-100"
@@ -27,7 +27,7 @@ $has_images = !empty($image_urls);
     <div class="absolute inset-0 bg-[#092049]/85 z-[1]"></div>
 
     <div
-        class="flex relative flex-col items-start justify-center w-full max-w-4xl min-h-[85vh] sm:min-h-[90vh] text-start z-10">
+        class="flex relative flex-col items-start justify-center w-full container max-w-7xl mx-auto min-h-[85vh] sm:min-h-[90vh] text-start z-10">
         <!-- Rest of your content remains the same -->
         <h1 class="text-5xl/15 sm:text-6xl/20 md:text-7xl/25 font-medium tracking-widest font-[Oswald]">
             LES JEUNES AILÉS <br>DE GATINEAU
