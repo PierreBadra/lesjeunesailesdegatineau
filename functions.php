@@ -3,6 +3,22 @@ define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USERNAME', 'pierresoccer8@gmail.com');
 define('SMTP_PASSWORD', 'ghci kwuj shln vrza');
 
+// Make sure WordPress constants are available
+if (!defined('ABSPATH')) {
+    define('ABSPATH', dirname(__FILE__) . '/');
+}
+if (!defined('WPINC')) {
+    define('WPINC', 'wp-includes');
+}
+
+// Include PHPMailer classes from WordPress core
+require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
+require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Shortcodes
 function hero_shortcode()
 {
@@ -95,5 +111,53 @@ function calculate_time_difference_between_dates(string $start_date, string $end
         return ['text' => "{$weeks} semaine" . ($weeks > 1 ? "s" : ""), 'days' => $totalDays];
     } else {
         return ['text' => "{$totalDays} jour" . ($totalDays != 1 ? "s" : ""), 'days' => $totalDays];
+    }
+}
+
+function send_contact_email($form_data)
+{
+    // Check if PHPMailer is available
+    if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+        return ['success' => false, 'message' => "PHPMailer n'est pas disponible."];
+    }
+
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
+        $mail->addAddress('pierresoccer8@gmail.com');
+        $mail->addReplyTo($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
+
+        // Content
+        $mail->isHTML(true);
+        $domain = parse_url(home_url(), PHP_URL_HOST);
+        $mail->Subject = 'Nouveau message de ' . $domain;
+        $mail->Body = "<h3>Nouveau message du formulaire de contact</h3>" .
+            "<p><strong>Nom:</strong> " . $form_data['firstName'] . " " . $form_data['lastName'] . "</p>" .
+            "<p><strong>Courriel:</strong> " . $form_data['email'] . "</p>" .
+            (!empty($form_data['phoneNumber'])
+                ? "<p><strong>Téléphone:</strong> " . $form_data['phoneNumber'] . "</p>"
+                : ""
+            ) .
+            "<p><strong>Message:</strong><br>" . nl2br(esc_html($form_data['message'])) . "</p>";
+
+        $mail->send();
+        return ['success' => true, 'message' => 'Votre message a été envoyé avec succès!'];
+
+    } catch (Exception $e) {
+        var_dump("Contact form email error: " . $mail->ErrorInfo);
+        return ['success' => false, 'message' => "Erreur lors de l'envoi du message. Veuillez réessayer."];
     }
 }

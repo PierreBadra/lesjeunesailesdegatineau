@@ -1,68 +1,8 @@
 <?php get_header(); ?>
 
 <?php
-// Make sure WordPress constants are available
-if (!defined('ABSPATH')) {
-    define('ABSPATH', dirname(__FILE__) . '/');
-}
-if (!defined('WPINC')) {
-    define('WPINC', 'wp-includes');
-}
-
-// Include PHPMailer classes from WordPress core
-require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
-require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
-require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 $form_message = '';
 $form_success = false;
-
-function send_contact_email($form_data)
-{
-    // Check if PHPMailer is available
-    if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        return ['success' => false, 'message' => "PHPMailer n'est pas disponible."];
-    }
-
-    $mail = new PHPMailer(true);
-
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = SMTP_HOST;
-        $mail->SMTPAuth = true;
-        $mail->Username = SMTP_USERNAME;
-        $mail->Password = SMTP_PASSWORD;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-
-        // Recipients
-        $mail->setFrom($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
-        $mail->addAddress('pierresoccer8@gmail.com');
-        $mail->addReplyTo($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
-
-        // Content
-        $mail->isHTML(false);
-        $mail->Subject = 'Nouveau message de contact - ' . get_bloginfo('name');
-        $mail->Body = "Nouveau message de contact:\n\n" .
-            "Nom: " . $form_data['firstName'] . " " . $form_data['lastName'] . "\n" .
-            "Email: " . $form_data['email'] . "\n" .
-            "Téléphone: " . $form_data['phoneNumber'] . "\n\n" .
-            "Message:\n" . $form_data['message'] . "\n\n" .
-            "---\n" .
-            "Envoyé depuis: " . home_url();
-
-        $mail->send();
-        return ['success' => true, 'message' => 'Votre message a été envoyé avec succès!'];
-
-    } catch (Exception $e) {
-        var_dump("Contact form email error: " . $mail->ErrorInfo);
-        return ['success' => false, 'message' => "Erreur lors de l'envoi du message. Veuillez réessayer."];
-    }
-}
 
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit'])) {
@@ -167,6 +107,13 @@ if (!$form_success && isset($form_data)) {
                     src="<?= get_template_directory_uri() ?>/assets/images/default-image.svg" alt="Image d'avant page">
             </div>
         </div>
+        <!-- Display form message -->
+        <?php if (!empty($form_message)): ?>
+            <div
+                class="mb-6 p-4 rounded-lg <?php echo $form_success ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'; ?>">
+                <?php echo esc_html($form_message); ?>
+            </div>
+        <?php endif; ?>
 
         <h2
             class="font-semibold flex mb-6 items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
@@ -236,13 +183,6 @@ if (!$form_success && isset($form_data)) {
                 <span class="text-red-500">*</span> Champs obligatoires.
                 Nous respectons votre vie privée et ne partagerons jamais vos informations.
             </p>
-            <!-- Display form message -->
-            <?php if (!empty($form_message)): ?>
-                <div
-                    class="mb-6 p-4 rounded-lg <?php echo $form_success ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'; ?>">
-                    <?php echo esc_html($form_message); ?>
-                </div>
-            <?php endif; ?>
 
             <button type="submit" id="submit-btn"
                 class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
