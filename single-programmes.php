@@ -74,15 +74,15 @@ $horaire = get_field('horaire');
             data-inactive-classes="text-gray-500">
             <h2 id="accordion-flush-heading-1">
                 <button type="button"
-                    class="flex items-center justify-between w-full py-5 px-4 font-medium mb-6 text-left border-b border-gray-200  bg-white  text-gray-900 "
+                    class="min-w-0 flex items-center justify-between w-full py-5 px-4 font-medium mb-6 text-left border-b border-gray-200  bg-white  text-gray-900 "
                     data-accordion-target="#accordion-flush-body-1" aria-expanded="true"
                     aria-controls="accordion-flush-body-1">
-                    <p
-                        class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+                    <div
+                        class="truncate min-w-0 flex-1 mr-4 font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
                         <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="url(#handshake-gradient)" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide w-6 h-6 lucide-info-icon lucide-info">
+                            class="flex-shrink-0 lucide w-6 h-6 lucide-info-icon lucide-info">
                             <defs>
                                 <linearGradient id="handshake-gradient" x1="0" y1="0" x2="24" y2="0"
                                     gradientUnits="userSpaceOnUse">
@@ -95,8 +95,10 @@ $horaire = get_field('horaire');
                             <path d="M12 16v-4"></path>
                             <path d="M12 8h.01"></path>
                         </svg>
-                        Informations Générales
-                    </p>
+                        <span
+                            class="font-semibold text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-oswald tracking-widest truncate min-w-0">Informations
+                            Générales</span>
+                    </div>
                     <svg data-accordion-icon="" class="w-6 h-6 shrink-0 rotate-180" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -169,12 +171,12 @@ $horaire = get_field('horaire');
                     class="flex items-center justify-between w-full py-5 px-4 mb-6 font-medium text-left border-b border-gray-200  text-gray-500"
                     data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
                     aria-controls="accordion-flush-body-2">
-                    <p
-                        class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+                    <div
+                        class="truncate min-w-0 flex-1 mr-4 font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
                         <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="url(#handshake-gradient)" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide w-6 h-6 lucide-calendar-days-icon lucide-calendar-days text-blue-950">
+                            class="flex-shrink-0 lucide w-6 h-6 lucide-calendar-days-icon lucide-calendar-days text-blue-950">
                             <defs>
                                 <linearGradient id="handshake-gradient" x1="0" y1="0" x2="24" y2="0"
                                     gradientUnits="userSpaceOnUse">
@@ -194,8 +196,9 @@ $horaire = get_field('horaire');
                             <path d="M12 18h.01"></path>
                             <path d="M16 18h.01"></path>
                         </svg>
-                        Horaire
-                    </p>
+                        <span
+                            class="font-semibold text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-oswald tracking-widest truncate min-w-0">Horaire</span>
+                    </div>
                     <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -271,12 +274,12 @@ $horaire = get_field('horaire');
                     class="flex items-center justify-between w-full py-5 px-4 mb-6 font-medium text-left border-b border-gray-200  text-gray-500"
                     data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
                     aria-controls="accordion-flush-body-3">
-                    <p
-                        class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+                    <div
+                        class="truncate min-w-0 flex-1 mr-4 font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
                         <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="url(#handshake-gradient)" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide w-6 h-6 lucide-circle-plus-icon lucide-circle-plus">
+                            class="flex-shrink-0 lucide w-6 h-6 lucide-circle-plus-icon lucide-circle-plus">
                             <defs>
                                 <linearGradient id="handshake-gradient" x1="0" y1="0" x2="24" y2="0"
                                     gradientUnits="userSpaceOnUse">
@@ -289,8 +292,11 @@ $horaire = get_field('horaire');
                             <path d="M8 12h8"></path>
                             <path d="M12 8v8"></path>
                         </svg>
-                        Informations Supplémentaires
-                    </p>
+                        <span
+                            class="font-semibold text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-oswald tracking-widest truncate min-w-0">
+                            Informations Supplémentaires
+                        </span>
+                    </div>
                     <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -302,7 +308,7 @@ $horaire = get_field('horaire');
             <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
                 <?php if (!empty(get_field('informations_supplementaires'))): ?>
                     <div class="flex items-center justify-start px-5 h-full">
-                        <span class="text-gray-600"><?= get_field('informations_supplementaires') ?></span>
+                        <span class="text-gray-600 leading-relaxed"><?= get_field('informations_supplementaires') ?></span>
                     </div>
                 <?php else: ?>
                     <div class="flex items-center justify-start px-5 h-full">
