@@ -13,27 +13,35 @@
                             talent</p>
                     </div>
                 </div>
-                <p class="text-xl md:text-base font-[Inter] text-gray-300 text-muted-foreground">Nous offrons des programmes
+                <p class="text-xl md:text-base font-[Inter] text-gray-300 text-muted-foreground">Nous offrons des
+                    programmes
                     enrichissants pour développer le potentiel de chaque jeune.</p>
             </div>
             <div class="">
                 <h4 class="uppercase text-2xl md:text-lg mb-4 font-[Oswald] tracking-widest">Navigation</h4>
-                <ul class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
-                    <li><a href="/objectifs" class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Objectifs</a>
+                <ul
+                    class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
+                    <li><a href="/objectifs"
+                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Objectifs</a>
                     </li>
-                    <li><a href="/camp-de-jour" class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Camp de
+                    <li><a href="/camp-de-jour"
+                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Camp de
                             Jour</a></li>
-                    <li><a href="/programmes" class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Programmes</a>
+                    <li><a href="/programmes"
+                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Programmes</a>
                     </li>
-                    <li><a href="/emplois" class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Emplois</a>
+                    <li><a href="/emplois"
+                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Emplois</a>
                     </li>
-                    <li><a href="/nous-joindre" class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Nous
+                    <li><a href="/nous-joindre"
+                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Nous
                             Joindre</a></li>
                 </ul>
             </div>
-            <div class="">
+            <div class="w-full max-w-xs xl:max-w-fit">
                 <h4 class="uppercase text-2xl md:text-lg mb-4 font-[Oswald] tracking-widest">Programmes</h4>
-                <ul class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
+                <ul
+                    class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
                     <?php
                     $collections = get_posts([
                         'post_type' => 'programmes',
@@ -43,7 +51,7 @@
                     foreach ($collections as $collection): ?>
                         <li>
                             <a href="<?= get_permalink($collection->ID); ?>"
-                                class="truncate hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">
+                                class="truncate hover:text-gray-300 transition-colors duration-200 py-2 md:py-0 block">
                                 <?= esc_html(get_the_title($collection->ID)); ?>
                             </a>
                         </li>
@@ -103,7 +111,8 @@
         </div>
         <div class="mt-8 pt-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-center font-[Inter] text-blue-200 text-sm">© <?= date('Y') ?> Les Jeunes Ailés de Gatineau. Tous
+                <p class="text-center font-[Inter] text-blue-200 text-sm">© <?= date('Y') ?> Les Jeunes Ailés de
+                    Gatineau. Tous
                     droits réservés.
                 </p>
             </div>
