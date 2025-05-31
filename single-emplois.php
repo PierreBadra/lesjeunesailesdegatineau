@@ -170,7 +170,7 @@
                             <?php endif; ?>
                         </p>
                     </div>
-                    <a href="<?= $jours_restants <= 0 ? '#' : get_field('lien_de_candidature') ?>"  <?= $jours_restants <= 0 ? '' : 'target="_blank"' ?> class=" <?= $jours_restants <= 0 ? 'opacity-50 cursor-not-allowed' : 'transition-colors duration-200 gradient-animate' ?>  w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
+                    <a href="<?= $jours_restants <= 0 ? '#' : get_field('lien_de_candidature') ?>" <?= $jours_restants <= 0 ? '' : 'target="_blank"' ?> class=" <?= $jours_restants <= 0 ? 'opacity-50 cursor-not-allowed' : 'transition-colors duration-200 gradient-animate' ?>  w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
           first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
           text-center flex items-center justify-center gap-2">
                         POSTULER EN LIGNE
@@ -189,7 +189,8 @@
                         équipe.
                     </p>
                     <div class="space-y-3">
-                        <a href="tel:8197757836" class="w-fit text-sm flex items-center gap-3 text-blue-950 underline"><svg class="w-4 h-4"
+                        <a href="tel:8197757836"
+                            class="w-fit text-sm flex items-center gap-3 text-blue-950 underline"><svg class="w-4 h-4"
                                 fill="none" stroke="url(#handshake-gradient)" viewBox="0 0 24 24">
                                 <defs>
                                     <linearGradient id="handshake-gradient" x1="0" y1="0" x2="24" y2="0"
@@ -204,7 +205,8 @@
                                 </path>
                             </svg>(819) 775-7836
                         </a>
-                        <a href="mailto:hakitebio17@gmail.com" class="text-sm w-fit flex items-center gap-3 text-blue-950 underline"><svg class="w-4 h-4"
+                        <a href="mailto:<?= get_option('admin_email') ?>"
+                            class="text-sm w-fit flex items-center gap-3 text-blue-950 underline"><svg class="w-4 h-4"
                                 fill="none" stroke="url(#handshake-gradient)" viewBox="0 0 24 24">
                                 <defs>
                                     <linearGradient id="handshake-gradient" x1="0" y1="0" x2="24" y2="0"
@@ -217,7 +219,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                                 </path>
-                            </svg>hakitebio17@gmail.com</a>
+                            </svg><?= get_option('admin_email') ?></a>
                     </div>
                 </div>
             </div>

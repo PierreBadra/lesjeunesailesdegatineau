@@ -153,7 +153,7 @@
                         d'offres d'emploi ouvertes pour le moment, mais nous recrutons régulièrement de nouveaux talents.
                         Revenez consulter cette page prochainement ou postulez spontanément.</p>
                     <div class="">
-                        <a href="mailto:hakitebio17@gmail.com?subject=Candidature%20Spontanée"
+                        <a href="mailto:<?= get_option('admin_email')?>?subject=Candidature%20Spontanée"
                             class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center uppercase flex items-center justify-center gap-2">
                             Postuler spontanément
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
