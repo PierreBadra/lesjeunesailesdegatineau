@@ -21,21 +21,17 @@
                 <h4 class="uppercase text-2xl md:text-lg mb-4 font-[Oswald] tracking-widest">Navigation</h4>
                 <ul
                     class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
-                    <li><a href="/objectifs"
-                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Objectifs</a>
-                    </li>
-                    <li><a href="/camp-de-jour"
-                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Camp de
-                            Jour</a></li>
-                    <li><a href="/programmes"
-                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Programmes</a>
-                    </li>
-                    <li><a href="/emplois"
-                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Emplois</a>
-                    </li>
-                    <li><a href="/nous-joindre"
-                            class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Nous
-                            Joindre</a></li>
+                    <?php
+                    $pages = get_pages([
+                        'sort_column' => 'menu_order',
+                        'sort_order' => 'asc',
+                    ]);
+                    foreach ($pages as $page): ?>
+                        <li>
+                            <a href="<?= get_permalink($page->ID); ?>"
+                                class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0"><?= esc_html($page->post_title); ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <div class="w-full max-w-xs xl:max-w-fit">
