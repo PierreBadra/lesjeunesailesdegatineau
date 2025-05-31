@@ -119,7 +119,7 @@
                         Description du poste
                     </h2>
                     <div class="prose max-w-none">
-                        <div class="text-gray-600 leading-relaxed whitespace-pre-line"><?= get_field('description') ?>
+                        <div class="text-gray-600 leading-relaxed"><?= get_field('description') ?>
                         </div>
                     </div>
                 </div>
