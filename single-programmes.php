@@ -314,7 +314,7 @@ $horaire = get_field('horaire');
     </div>
 
     <div
-        class="container max-w-7xl mx-auto rounded-lg h-[500px] xl:h-96 flex items-center justify-center border bg-card shadow-sm bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white">
+        class="container max-w-7xl mx-auto rounded-lg min-h-[500px] xl:h-96 flex items-center justify-center border bg-card shadow-sm bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white">
         <div class="p-8 text-center">
             <h2 class="text-2xl mb-4 uppercase font-[Oswald] tracking-widest">Prêt à rejoindre ce programme ?</h2>
             <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl ">Inscrivez-vous dès
