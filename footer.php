@@ -26,11 +26,20 @@
                         'sort_column' => 'menu_order',
                         'sort_order' => 'asc',
                     ]);
+                    $index = 0;
                     foreach ($pages as $page): ?>
                         <li>
                             <a href="<?= get_permalink($page->ID); ?>"
                                 class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0"><?= esc_html($page->post_title); ?></a>
                         </li>
+
+                        <?php if ($index == 2): ?>
+                            <li>
+                                <a href="/emplois/"
+                                    class="hover:text-gray-300 transition-colors duration-200 py-2 md:py-0">Emplois</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php $index++; ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

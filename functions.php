@@ -1,4 +1,7 @@
 <?php
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_USERNAME', 'pierresoccer8@gmail.com');
+define('SMTP_PASSWORD', 'ghci kwuj shln vrza');
 
 // Shortcodes
 function hero_shortcode()
@@ -31,6 +34,8 @@ add_action('admin_menu', function () {
     remove_menu_page('tools.php');
     remove_menu_page('edit.php?post_type=collection');
 });
+
+
 
 // Helpers
 function is_array_fully_empty($array)
