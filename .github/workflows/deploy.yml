@@ -3,7 +3,7 @@ name: Deploy WordPress Theme to Hostinger
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main # or your default branch
   workflow_dispatch:
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Create .env file
         run: |
           echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > .env
@@ -19,6 +19,10 @@ jobs:
           echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> .env
         working-directory: ./ # or ./ if your theme is at the repo root
         # If your theme is in a subfolder, use: working-directory: ./path/to/theme
+
+      - name: Install Composer dependencies
+        run: composer install
+        working-directory: ${{ github.workspace }}/path/to/your/theme
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
