@@ -1,7 +1,7 @@
 <?php
 define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USERNAME', 'pierresoccer8@gmail.com');
-define('SMTP_PASSWORD', 'ghci kwuj shln vrza');
+define('SMTP_USERNAME', 'jeunesailesgatineau17@gmail.com');
+define('SMTP_PASSWORD', 'ttdl blig euta ifvm');
 
 // Make sure WordPress constants are available
 if (!defined('ABSPATH')) {
@@ -137,7 +137,7 @@ function send_contact_email($form_data)
 
         // Recipients
         $mail->setFrom($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
-        $mail->addAddress('pierresoccer8@gmail.com');
+        $mail->addAddress(SMTP_USERNAME);
         $mail->addReplyTo($form_data['email'], $form_data['firstName'] . ' ' . $form_data['lastName']);
 
         // Content
