@@ -1,7 +1,16 @@
 <?php
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USERNAME', 'jeunesailesgatineau17@gmail.com');
-define('SMTP_PASSWORD', 'ttdl blig euta ifvm');
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+if (class_exists('Dotenv\Dotenv')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
+}
+
+define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? '');
+define('SMTP_USERNAME', $_ENV['SMTP_USERNAME'] ?? '');
+define('SMTP_PASSWORD', $_ENV['SMTP_PASSWORD'] ?? '');
 
 // Make sure WordPress constants are available
 if (!defined('ABSPATH')) {
