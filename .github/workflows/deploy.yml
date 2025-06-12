@@ -35,3 +35,4 @@ jobs:
           local-dir: ./
           server-dir: domains/lesjeunesailesdegatineau.ca/public_html/wp-content/themes/lesjeunesailesdegatineau/
           dangerous-clean-slate: false
+
