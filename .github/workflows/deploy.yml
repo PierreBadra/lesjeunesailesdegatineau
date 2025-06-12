@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install
-        working-directory: ${{ github.workspace }}/path/to/your/theme
+        working-directory: ./
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
