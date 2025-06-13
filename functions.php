@@ -59,7 +59,11 @@ add_action('admin_menu', function () {
     remove_menu_page('tools.php');
     remove_menu_page('edit.php?post_type=collection');
 });
-
+add_action('after_setup_theme', 'woocommerce_support');
+function woocommerce_support()
+{
+    add_theme_support('woocommerce');
+}
 
 
 // Helpers
