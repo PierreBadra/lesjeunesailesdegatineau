@@ -110,7 +110,7 @@
           <?php endforeach; ?>
           <li class="flex items-center gap-3">
             <a href="/panier" class="hover:opacity-70 transition-opacity duration-200">
-              <img class="w-5 h-5" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
+              <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
                 alt="Lien Panier">
             </a>
             <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
