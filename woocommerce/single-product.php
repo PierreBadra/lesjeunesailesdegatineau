@@ -10,14 +10,14 @@ $product = wc_get_product();
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <section class="w-full p-6 pt-40">
-	<div class="mb-8 container max-w-7xl mx-auto"><a href="/programmes"
+	<div class="mb-8 container max-w-7xl mx-auto"><a href="/camps-de-jour"
 			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
 				xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
 				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 				class="lucide lucide-arrow-left w-4 h-4">
 				<path d="m12 19-7-7 7-7"></path>
 				<path d="M19 12H5"></path>
-			</svg>Retour aux programmes</a></div>
+			</svg>Retour aux camps de jour</a></div>
 	<div class="flex flex-col xl:flex-row items-center gap-8 mb-12 container max-w-7xl mx-auto">
 		<!-- Text Content -->
 		<div class="w-full xl:w-1/2 text-start">
@@ -37,17 +37,17 @@ $product = wc_get_product();
 					transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
 					focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
 					hover:bg-secondary/80 text-xs font-[Inter]">
-					Programme de Soccer
+					Camp de Jour
 				</div>
 			</div>
 
 			<h1
 				class="text-3xl sm:text-4xl/10 md:text-5xl/15 font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent mb-4 uppercase font-[Oswald] tracking-widest">
-				<?= get_field('titre') ?>
+				<?= $product->get_name(); ?>
 			</h1>
 
 			<p class="text-lg sm:text-xl text-gray-600 mb-4 font-[Inter]">
-				<?= get_field('description') ?>
+				<?= $product->get_description(); ?>
 			</p>
 
 			<a href="<?= get_field('lien_dinscription') ?>" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
