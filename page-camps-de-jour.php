@@ -64,6 +64,7 @@
                     $date_de_debut = get_field('date_de_debut', $collection->ID);
                     ?>
                     <p><?= $date_de_debut ?></p>
+                    <a href="<?= get_permalink($collection->ID); ?>" class="group">test</a>
                     <!-- <a href="<?= get_permalink($collection->ID); ?>" class="group">
                         <div class="py-6">
                             <div class="flex items-center justify-between mb-3">
