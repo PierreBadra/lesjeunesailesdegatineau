@@ -61,11 +61,18 @@
                     // $type_demploi = get_field('$type_demploi', $collection->ID);
                     // $date_limite_pour_la_candidature = get_field('date_limite_pour_la_candidature', $collection->ID);
                     // $description = get_field('description', $collection->ID);
+                    $product = wc_get_product($collection->ID);
                     $date_de_debut = get_field('date_de_debut', $collection->ID);
+                    $date_de_fin = get_field('date_de_fin', $collection->ID);
+                    $time_difference = calculate_time_difference_between_dates($date_de_debut, $date_de_fin)['text'];
+                    $image = get_field('image_davant_page', $collection->ID);
                     ?>
-                    <p><?= $date_de_debut ?></p>
-                    <a href="<?= get_permalink($collection->ID); ?>" class="group">test</a>
-                    <!-- <a href="<?= get_permalink($collection->ID); ?>" class="group">
+                    <a href="<?= get_permalink($collection->ID); ?>" class="group">
+                        <div class="relative">
+                            <img alt="Programmes d'été"
+                                class="w-full h-48 rounded-lg object-cover transition-transform duration-300"
+                                src="<?= $image ?>">
+                        </div>
                         <div class="py-6">
                             <div class="flex items-center justify-between mb-3">
                                 <div
@@ -80,7 +87,7 @@
                                     transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
                                     focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
                                     hover:bg-secondary/80 text-xs font-[Inter]">
-                                        Emplois
+                                        Camps de Jour
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2 text-sm text-gray-500">
@@ -92,27 +99,16 @@
                                         <rect width="18" height="18" x="3" y="4" rx="2"></rect>
                                         <path d="M3 10h18"></path>
                                     </svg>
-                                    <?php
-                                    // $date = new DateTime($collection->post_date);
-                                    // $formatter = new IntlDateFormatter(
-                                    //     'fr_FR',
-                                    //     IntlDateFormatter::LONG,
-                                    //     IntlDateFormatter::NONE,
-                                    //     'America/Toronto',
-                                    //     IntlDateFormatter::GREGORIAN,
-                                    //     'd MMMM yyyy'
-                                    // );
-                                    ?>
-                                    <span><?= $formatter->format($date) ?></span>
+                                    <span><?= $time_difference ?></span>
                                 </div>
                             </div>
                             <h3
                                 class="truncate w-full text-xl font-medium bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent mb-3 uppercase font-[Oswald] tracking-widest">
-                                <?= $titre ?>
+                                <?= $product->get_name(); ?>
                             </h3>
                             <?php
                             // Get the WYSIWYG content
-                            $description = get_field('description', $collection->ID);
+                            $description = $product->get_description();
 
                             // Strip HTML tags and decode entities
                             $plain_text = wp_strip_all_tags($description);
@@ -141,7 +137,7 @@
                                 </svg>
                             </div>
                         </div>
-                    </a> -->
+                    </a>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
