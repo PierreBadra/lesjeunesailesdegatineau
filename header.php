@@ -56,11 +56,8 @@
         <!-- Desktop Menu -->
         <ul class="hidden xl:flex gap-10 tracking-widest text-sm text-white font-light">
           <?php
-          $accueil_page = get_page_by_title('Accueil');
-          $accueil_id = $accueil_page ? $accueil_page->ID : '';
 
           $pages = get_pages([
-            'exclude' => $accueil_id,
             'sort_column' => 'menu_order',
             'sort_order' => 'asc',
           ]);
@@ -103,6 +100,8 @@
                   <?php endforeach; ?>
                 </ul>
               </li>
+            <?php endif; ?>
+            <?php if ($index === 3): ?>
               <li>
                 <a href="/emplois" class="hover:text-gray-300 transition-colors duration-200">
                   Emplois
@@ -171,6 +170,8 @@
                 <?php endforeach; ?>
               </ul>
             </li>
+          <?php endif; ?>
+          <?php if ($index === 3): ?>
             <li>
               <a href="/emplois"
                 class="block text-xl text-white tracking-widest font-light hover:text-gray-300 transition-colors duration-200 py-2">

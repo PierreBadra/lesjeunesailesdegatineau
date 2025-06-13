@@ -16,13 +16,13 @@
                     </svg>
                     <div
                         class="inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 text-xs font-[Inter]">
-                        Objectifs
+                        Académie
                     </div>
                 </div>
 
                 <h1
                     class="text-3xl sm:text-4xl/10 md:text-5xl/15 font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent mb-4 uppercase font-[Oswald] tracking-wider sm:tracking-widest">
-                    Nos Objectifs
+                    Notre Académie
                 </h1>
 
                 <p class="text-lg sm:text-xl text-gray-600 mb-4 font-[Inter]">
