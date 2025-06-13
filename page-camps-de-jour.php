@@ -6,11 +6,18 @@
             <div class="w-full xl:w-1/2 text-start">
                 <div
                     class="flex items-center gap-1 text-blue-950 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 justify-center px-4 py-1 rounded-md w-fit mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-briefcase w-4 h-4">
-                        <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        <rect width="20" height="14" x="2" y="6" rx="2"></rect>
+                    <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun w-4 h-4">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
                     </svg>
                     <div class="inline-flex items-center rounded-full border font-semibold 
                     transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
@@ -57,8 +64,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                 <?php foreach ($collections as $collection):
                     $product = wc_get_product($collection->ID);
-                    $date_de_debut = get_field('date_de_debut', $collection->ID);
-                    $date_de_fin = get_field('date_de_fin', $collection->ID);
+                    $date_de_debut = parse_french_string_date_to_english(get_field('date_de_debut', $collection->ID));
+                    $date_de_fin = parse_french_string_date_to_english(get_field('date_de_fin', $collection->ID));
                     $time_difference = calculate_time_difference_between_dates($date_de_debut, $date_de_fin)['text'];
                     $image = get_field('image_davant_page', $collection->ID);
                     ?>
