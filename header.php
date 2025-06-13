@@ -109,10 +109,14 @@
             <?php endif; ?>
           <?php endforeach; ?>
           <li class="flex items-center gap-3">
-            <a href="/panier" class="hover:opacity-70 transition-opacity duration-200">
+            <a href="/panier" class="relative hover:opacity-70 transition-opacity duration-200">
               <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
                 alt="Lien Panier">
+              <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
+                <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+              <?php endif; ?>
             </a>
+
             <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
               <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/facebook-icon.svg"
                 alt="Lien Facebook">
@@ -187,9 +191,12 @@
 
         <!-- Mobile Social Links -->
         <li class="flex items-center gap-6 pt-4 border-t border-white">
-          <a href="/panier" class="hover:opacity-70 transition-opacity duration-200">
-            <img class="w-5 h-5" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
+          <a href="/panier" class="relative hover:opacity-70 transition-opacity duration-200">
+            <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
               alt="Lien Panier">
+            <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
+              <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+            <?php endif; ?>
           </a>
           <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
             <img class="w-5 h-5" src="<?= get_template_directory_uri(); ?>/assets/images/facebook-icon.svg"
