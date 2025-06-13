@@ -63,6 +63,10 @@ $product = wc_get_product();
 						stroke-linejoin="round" />
 				</svg>
 			</a>
+			<?php if (function_exists('woocommerce_template_single_add_to_cart')) {
+				woocommerce_template_single_add_to_cart();
+			}
+			?>
 		</div>
 
 		<!-- Image -->
