@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
-<section class="px-6 pt-36">
+<section class="px-6 pt-40">
     <div class="container mx-auto max-w-7xl">
         <div class="flex flex-col xl:flex-row items-center gap-8 mb-20 container max-w-7xl mx-auto">
             <!-- Text Content -->
             <div class="w-full xl:w-1/2 text-start">
                 <div
-                    class="flex items-center gap-1 text-blue-950 bg-amber-300 justify-center px-4 py-1 rounded-md w-fit mb-3">
+                    class="flex items-center gap-1 text-blue-950 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 justify-center px-4 py-1 rounded-md w-fit mb-3">
                     <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="w-4 h-4 lucide lucide-target-icon lucide-target">

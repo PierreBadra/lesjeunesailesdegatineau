@@ -8,7 +8,7 @@ $horaire = get_field('horaire');
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<section class="w-full p-6 pt-36">
+<section class="w-full p-6 pt-40">
     <div class="mb-8 container max-w-7xl mx-auto"><a href="/programmes"
             class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -21,7 +21,7 @@ $horaire = get_field('horaire');
         <!-- Text Content -->
         <div class="w-full xl:w-1/2 text-start">
             <div
-                class="flex items-center gap-1 text-blue-950 bg-amber-300 justify-center px-4 py-1 rounded-md w-fit mb-3">
+                class="flex items-center gap-1 text-blue-950 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 justify-center px-4 py-1 rounded-md w-fit mb-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="h-4 w-4">
@@ -145,7 +145,7 @@ $horaire = get_field('horaire');
                             <h2 class="font-semibold text-blue-950 mb-2 font-[Oswald] tracking-widest uppercase">
                                 Prix</h2>
                             <p class="text-2xl font-bold text-blue-950"><?= get_field('prix') ?>$</p>
-                            <p class="text-xs text-gray-600 mt-1">Pour la saison complète</p>
+                            <p class="text-xs text-gray-600 mt-1">Pour la période complète</p>
                         </div>
                     </div>
                     <div class="rounded-lg border text-card-foreground shadow-sm border-blue-200 bg-blue-50/50">

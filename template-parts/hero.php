@@ -29,18 +29,19 @@ $has_images = !empty($image_urls);
     <div
         class="flex relative flex-col items-start justify-center w-full container max-w-7xl mx-auto min-h-[85vh] sm:min-h-[90vh] text-start z-10">
         <!-- Rest of your content remains the same -->
-        <h1 class="text-5xl/15 sm:text-6xl/20 md:text-7xl/25 font-medium tracking-widest font-[Oswald]">
+        <h1 class="bg-gradient-to-b from-yellow-300 via-amber-400 to-orange-500 text-transparent bg-clip-text text-5xl/15 sm:text-6xl/20 md:text-7xl/25 font-medium tracking-widest font-[Oswald]">
             LES JEUNES AILÉS <br>DE GATINEAU
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.webp"
                 alt="Les Jeunes Ailés de Gatineau Logo" class="hidden md:inline w-30 h-30">
         </h1>
 
         <!-- Slogan -->
-        <p class="text-xl md:-mt-6 font-light opacity-80 mb-6 sm:mb-8 lg:mb-11 max-w-md sm:max-w-lg lg:max-w-none">
+        <p
+            class="text-xl md:-mt-6 font-light opacity-80 mb-6 sm:mb-8 lg:mb-11 max-w-md sm:max-w-lg lg:max-w-none sm:text-2xl md:text-3xl">
             Là où renaît le talent
         </p>
 
-        <h2 class="text-xl sm:text-2xl md:text-3xl font-[Oswald] tracking-wider sm:tracking-widest font-medium">
+        <h2 class="text-white text-xl sm:text-2xl md:text-3xl font-[Oswald] tracking-wider sm:tracking-widest font-medium">
             INSCRIPTIONS POUR L'ÉTÉ 2025
         </h2>
 
@@ -52,7 +53,7 @@ $has_images = !empty($image_urls);
 
         <!-- Call to Action Button -->
         <a href="#"
-            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
+            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-gradient-to-br gradient-animate from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 text-gray-900 rounded-xl  transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
             INSCRIVEZ-VOUS MAINTENANT
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                 class="inline-block">

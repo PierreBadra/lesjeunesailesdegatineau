@@ -1,6 +1,6 @@
 <?php get_header() ?>
 
-<section class="w-full px-6 py-12 pt-36">
+<section class="w-full px-6 py-12 pt-40">
     <div class="container max-w-7xl mx-auto">
         <div class="mb-8"><a href="/emplois"
                 class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
@@ -14,7 +14,7 @@
             <div class="lg:col-span-2">
                 <div class=" rounded-xl   mb-8">
                     <div
-                        class="flex items-center gap-1 text-blue-950 bg-amber-300 justify-center px-4 py-1 rounded-md w-fit mb-3">
+                        class="flex items-center gap-1 text-blue-950 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 justify-center px-4 py-1 rounded-md w-fit mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-briefcase w-4 h-4">
