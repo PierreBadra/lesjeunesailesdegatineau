@@ -4,7 +4,7 @@
 
 $days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 $horaire = get_field('horaire');
-
+$product = wc_get_product();
 ?>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
