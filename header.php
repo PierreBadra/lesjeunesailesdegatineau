@@ -12,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="<?= get_template_directory_uri() ?>/assets/images/logo.webp" type="image/x-icon">
   <title><?php wp_title('|', true, 'right'); ?> Les Jeunes Ailés de Gatineau</title>
+  <?php wp_head(); ?>
 </head>
 
-<body>
+<body <?php body_class(); ?>>
   <style>
     .gradient-animate {
       background-size: 200% 200%;

@@ -1,4 +1,5 @@
 </body>
+<?php wp_footer(); ?>
 <footer class="px-6 pt-20 pb-16 w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
     <div class="container mx-auto max-w-7xl">
         <div
@@ -95,7 +96,8 @@
                                 src="<?= get_template_directory_uri(); ?>/assets/images/facebook-icon.svg"
                                 alt="Lien Facebook">
                         </a>
-                        <a href="https://www.instagram.com/jeunesailesdegatineau/" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
+                        <a href="https://www.instagram.com/jeunesailesdegatineau/" target="_blank"
+                            class="hover:opacity-70 transition-opacity duration-200">
                             <img class="w-5 h-5 md:w-4 md:h-4"
                                 src="<?= get_template_directory_uri(); ?>/assets/images/instagram-icon.svg"
                                 alt="Lien Instagram">
