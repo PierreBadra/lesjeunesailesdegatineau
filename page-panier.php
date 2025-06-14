@@ -216,12 +216,14 @@ get_header();
 
                     <!-- Order Summary -->
                     <div class="lg:col-span-1">
-                        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-8">
-                            <h2 class="text-xl font-bold text-gray-900 mb-6">Résumé de commande</h2>
+                        <div class="sticky top-8">
+                            <h2
+                                class="text-xl font-[Oswald] tracking-widest uppercase font-medium mb-4 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">
+                                Résumé de commande</h2>
 
                             <div class="space-y-4 mb-6">
                                 <div class="flex justify-between">
-                                    <span class="text-gray-600">Sous-total</span>
+                                    <span class="text-gray-600 font-[Inter]">Sous-total</span>
                                     <span class="font-medium"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
                                 </div>
 
@@ -259,14 +261,14 @@ get_header();
                                 </div>
                             </div>
 
-                            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>"
-                                class="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-6 py-4 rounded-lg font-bold transition-colors flex items-center justify-center gap-2">
+                            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
+          first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
+          text-center flex items-center justify-center gap-2">
                                 Procéder au paiement
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="inline-block">
+                                    <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </a>
 
