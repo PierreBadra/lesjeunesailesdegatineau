@@ -332,7 +332,6 @@ get_header();
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
         // Show loading overlay
         function showLoading() {
             document.getElementById('cart-loading').classList.remove('hidden');
@@ -441,6 +440,7 @@ get_header();
                             if (quantityDisplay) {
                                 if (responseData.new_quantity !== undefined && responseData.new_quantity !== null) {
                                     quantityDisplay.textContent = responseData.new_quantity;
+                                    const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
                                     headerCartCounts.forEach(count => {
                                         const headerCartCount = count.querySelector('.absolute.-top-2.-right-2.flex.items-center.justify-center.w-4.h-4.bg-red-500.text-white.text-xs.rounded-full.font-medium');
                                         headerCartCount.textContent = responseData.new_quantity;
@@ -580,6 +580,7 @@ get_header();
                                     </div>
                                 </div>
                             </div>`;
+                            const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
                             headerCartCounts.forEach(count => {
                                 if (count)
                                     count.remove();
