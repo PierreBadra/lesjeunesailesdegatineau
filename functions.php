@@ -319,3 +319,130 @@ function remove_woocommerce_layout_conditionally()
         wp_deregister_style('woocommerce-layout');
     }
 }
+
+
+
+// TESTING SOMETING
+add_action('wp_ajax_update_cart_quantity', 'handle_update_cart_quantity');
+add_action('wp_ajax_nopriv_update_cart_quantity', 'handle_update_cart_quantity');
+
+function handle_update_cart_quantity() {
+    // Verify nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'update_cart_quantity')) {
+        wp_die('Security check failed');
+    }
+
+    if (!class_exists('WooCommerce')) {
+        wp_send_json_error(['message' => 'WooCommerce not active']);
+        return;
+    }
+
+    $cart_key = sanitize_text_field($_POST['cart_key']);
+    $quantity = intval($_POST['quantity']);
+
+    if (empty($cart_key) || $quantity < 0) {
+        wp_send_json_error(['message' => 'Invalid parameters']);
+        return;
+    }
+
+    try {
+        // Update cart quantity
+        $updated = WC()->cart->set_quantity($cart_key, $quantity, true);
+
+        if ($updated) {
+            // Get cart item to calculate item total
+            $cart_item = WC()->cart->get_cart_item($cart_key);
+            $item_total = '';
+            
+            if ($cart_item && $quantity > 0) {
+                $_product = $cart_item['data'];
+                $item_total = WC()->cart->get_product_subtotal($_product, $quantity);
+            }
+
+            wp_send_json_success([
+                'message' => 'Quantité mise à jour',
+                'new_quantity' => $quantity,
+                'item_total' => $item_total,
+                'cart_subtotal' => WC()->cart->get_cart_subtotal(),
+                'cart_total' => WC()->cart->get_total(),
+                'tax_total' => wc_price(WC()->cart->get_taxes_total()),
+                'cart_count' => WC()->cart->get_cart_contents_count()
+            ]);
+        } else {
+            wp_send_json_error(['message' => 'Impossible de mettre à jour la quantité']);
+        }
+    } catch (Exception $e) {
+        wp_send_json_error(['message' => $e->getMessage()]);
+    }
+}
+
+// AJAX handler for removing cart item
+add_action('wp_ajax_remove_cart_item', 'handle_remove_cart_item');
+add_action('wp_ajax_nopriv_remove_cart_item', 'handle_remove_cart_item');
+
+function handle_remove_cart_item() {
+    // Verify nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'remove_cart_item')) {
+        wp_die('Security check failed');
+    }
+
+    if (!class_exists('WooCommerce')) {
+        wp_send_json_error(['message' => 'WooCommerce not active']);
+        return;
+    }
+
+    $cart_key = sanitize_text_field($_POST['cart_key']);
+
+    if (empty($cart_key)) {
+        wp_send_json_error(['message' => 'Invalid cart key']);
+        return;
+    }
+
+    try {
+        // Remove item from cart
+        $removed = WC()->cart->remove_cart_item($cart_key);
+
+        if ($removed) {
+            wp_send_json_success([
+                'message' => 'Article supprimé',
+                'cart_subtotal' => WC()->cart->get_cart_subtotal(),
+                'cart_total' => WC()->cart->get_total(),
+                'tax_total' => wc_price(WC()->cart->get_taxes_total()),
+                'cart_count' => WC()->cart->get_cart_contents_count()
+            ]);
+        } else {
+            wp_send_json_error(['message' => 'Impossible de supprimer l\'article']);
+        }
+    } catch (Exception $e) {
+        wp_send_json_error(['message' => $e->getMessage()]);
+    }
+}
+
+// Optional: Add some styling for loading states
+add_action('wp_head', 'cart_custom_styles');
+function cart_custom_styles() {
+    if (is_page_template('page-panier.php')) { // Adjust template name as needed
+        ?>
+        <style>
+        .cart-item.updating {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .quantity-display {
+            min-width: 2rem;
+            text-align: center;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .cart-item.updating .quantity-display {
+            animation: pulse 1s infinite;
+        }
+        </style>
+        <?php
+    }
+}
