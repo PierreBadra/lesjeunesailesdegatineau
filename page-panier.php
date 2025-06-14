@@ -138,6 +138,24 @@ get_header();
 
                                             <!-- Quantity Controls -->
                                             <div class="flex items-center gap-3">
+                                                <div class="flex items-center border border-gray-300 rounded-lg"
+                                                    __v0_r="0,5141,5194"><button class="p-2 hover:bg-gray-100 transition-colors"
+                                                        __v0_r="0,5349,5390"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="lucide lucide-minus w-4 h-4" __v0_r="0,5460,5469">
+                                                            <path d="M5 12h14"></path>
+                                                        </svg></button><span class="px-4 py-2 font-medium"
+                                                        __v0_r="0,5547,5570">2</span><button
+                                                        class="p-2 hover:bg-gray-100 transition-colors" __v0_r="0,5747,5788"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="lucide lucide-plus w-4 h-4" __v0_r="0,5857,5866">
+                                                            <path d="M5 12h14"></path>
+                                                            <path d="M12 5v14"></path>
+                                                        </svg></button></div>
+
                                                 <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
                                                     class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
