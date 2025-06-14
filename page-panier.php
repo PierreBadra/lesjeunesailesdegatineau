@@ -183,12 +183,11 @@ get_header();
                                                             <line x1="14" x2="14" y1="11" y2="17"></line>
                                                         </svg>
                                                     </a>
-                                                </div>
-
-                                                <!-- Item Total -->
-                                                <div class="hidden sm:block text-right">
-                                                    <div class="font-bold text-blue-950 text-sm lg:text-base">
-                                                        <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                                    <!-- Item Total -->
+                                                    <div class="hidden sm:block text-right">
+                                                        <div class="font-bold text-blue-950 text-sm lg:text-base">
+                                                            <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
