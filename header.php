@@ -56,11 +56,19 @@
         <!-- Desktop Menu -->
         <ul class="hidden xl:flex gap-10 tracking-widest text-sm text-white font-light">
           <?php
-
+          // Get the ID of the "panier" page by its slug
+          $panier_page = get_page_by_path('panier');
+          $panier_id = $panier_page ? $panier_page->ID : 0;
+          $commande_page = get_page_by_path('commande');
+          $commande_id = $commande_page ? $commande_page->ID : 0;
+          // Get all 'programmes' posts, excluding the "panier" page if needed
           $pages = get_pages([
             'sort_column' => 'menu_order',
             'sort_order' => 'asc',
+            'exclude' => [$panier_id, $commande_id]
           ]);
+
+
           $index = 0;
           foreach ($pages as $page):
             $index++;
@@ -85,16 +93,10 @@
                 <ul
                   class="absolute left-0 mt-2 w-fit bg-white text-gray-900 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transform scale-95 group-hover:scale-100 transition-all duration-200 z-50">
                   <?php
-                  // Get the ID of the "panier" page by its slug
-                  $panier_page = get_page_by_path('panier');
-                  $panier_id = $panier_page ? $panier_page->ID : 0;
-
-                  // Get all 'programmes' posts, excluding the "panier" page if needed
                   $collections = get_posts([
                     'post_type' => 'programmes',
                     'post_status' => 'publish',
-                    'order' => 'ASC',
-                    'post__not_in' => [$panier_id], // Exclude the panier page
+                    'order' => 'ASC'
                   ]);
                   foreach ($collections as $collection): ?>
                     <li>
