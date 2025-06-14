@@ -119,33 +119,6 @@ get_header();
 
                                                 <!-- Quantity Controls -->
                                                 <div class="flex items-center gap-3">
-                                                    <div class="flex items-center border border-gray-300 rounded-lg">
-                                                        <button type="button"
-                                                            class="quantity-decrease p-2 hover:bg-gray-100 transition-colors"
-                                                            data-cart-key="<?php echo $cart_item_key; ?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                                class="lucide lucide-minus w-4 h-4">
-                                                                <path d="M5 12h14"></path>
-                                                            </svg>
-                                                        </button>
-
-                                                        <?php
-                                                        woocommerce_quantity_input(
-                                                            array(
-                                                                'input_name' => "cart[{$cart_item_key}][qty]",
-                                                                'input_value' => $cart_item['quantity'],
-                                                                'max_value' => $_product->get_max_purchase_quantity(),
-                                                                'min_value' => '0',
-                                                                'product_name' => $_product->get_name(),
-                                                                'classes' => array('px-4', 'py-2', 'font-medium', 'text-center', 'border-0', 'w-16'),
-                                                            ),
-                                                            $_product,
-                                                            false
-                                                        );
-                                                        ?>
-
                                                         <button type="button"
                                                             class="quantity-increase p-2 hover:bg-gray-100 transition-colors"
                                                             data-cart-key="<?php echo $cart_item_key; ?>">
