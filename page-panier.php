@@ -119,19 +119,6 @@ get_header();
 
                                                 <!-- Quantity Controls -->
                                                 <div class="flex items-center gap-3">
-                                                        <button type="button"
-                                                            class="quantity-increase p-2 hover:bg-gray-100 transition-colors"
-                                                            data-cart-key="<?php echo $cart_item_key; ?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                                class="lucide lucide-plus w-4 h-4">
-                                                                <path d="M5 12h14"></path>
-                                                                <path d="M12 5v14"></path>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-
                                                     <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
                                                         class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
