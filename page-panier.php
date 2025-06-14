@@ -254,8 +254,8 @@ get_header();
                     <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl">Découvrez nos camps de
                         jour et ajoutez des articles à votre
                         panier.</p>
-                    <div class="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>">
-                        <a href="/nous-joindre"
+                    <div class="">
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
                             class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 uppercase transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
                             Voir nos camps de jour
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
