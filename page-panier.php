@@ -93,8 +93,6 @@ get_header();
                                                 </div>
                                                 <div class="text-sm text-gray-600 mb-2">
                                                     <?php
-                                                    // Display ACF fields if they exist
-                                                    $age_range = get_field('tranche_age', $product_id);
                                                     $dates = get_field('dates', $product_id);
 
                                                     $details = array();
@@ -133,7 +131,7 @@ get_header();
                                                     ?>
                                                 </div>
 
-                                                <div class="text-lg font-bold text-blue-600">
+                                                <div class="text-lg font-bold text-blue-950">
                                                     <?php echo WC()->cart->get_product_price($_product); ?>
                                                 </div>
                                             </div>
@@ -158,7 +156,7 @@ get_header();
 
                                             <!-- Item Total -->
                                             <div class="text-right">
-                                                <div class="font-bold text-gray-900">
+                                                <div class="font-bold text-blue-950">
                                                     <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
                                                 </div>
                                             </div>
@@ -184,13 +182,13 @@ get_header();
                         <div class="space-y-4 mb-6">
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-[Inter]">Sous-total</span>
-                                <span class="font-medium"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+                                <span class="font-medium font-[Inter]"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
                             </div>
 
                             <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()): ?>
                                 <div class="flex justify-between">
-                                    <span class="text-gray-600">Livraison</span>
-                                    <span class="font-medium">
+                                    <span class="text-gray-600 font-[Inter]">Livraison</span>
+                                    <span class="font-medium font-[Inter]">
                                         <?php
                                         $shipping_total = WC()->cart->get_shipping_total();
                                         if ($shipping_total > 0) {
@@ -206,17 +204,17 @@ get_header();
                             <?php if (wc_tax_enabled() && !WC()->cart->display_prices_including_tax()): ?>
                                 <?php if (WC()->cart->get_taxes_total() > 0): ?>
                                     <div class="flex justify-between">
-                                        <span class="text-gray-600">Taxes (TPS/TVQ)</span>
-                                        <span class="font-medium"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
+                                        <span class="text-gray-600 font-[Inter]">Taxes (TPS/TVQ)</span>
+                                        <span class="font-medium font-[Inter]"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
                                     </div>
                                 <?php endif; ?>
                             <?php endif; ?>
 
                             <div class="border-t border-gray-200 pt-4">
                                 <div class="flex justify-between">
-                                    <span class="text-lg font-bold text-gray-900">Total</span>
+                                    <span class="text-lg font-bold text-blue-950">Total</span>
                                     <span
-                                        class="text-lg font-bold text-gray-900"><?php echo WC()->cart->get_total(); ?></span>
+                                        class="text-lg font-bold text-blue-950"><?php echo WC()->cart->get_total(); ?></span>
                                 </div>
                             </div>
                         </div>
