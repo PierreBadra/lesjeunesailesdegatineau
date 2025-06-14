@@ -218,10 +218,6 @@ function send_contact_email($form_data)
     }
 }
 
-// Enable guest checkout (add this to your existing functions.php)
-add_filter('woocommerce_checkout_registration_required', '__return_false');
-add_filter('woocommerce_checkout_registration_enabled', '__return_false');
-
 // Improve cart functionality
 function improve_cart_functionality()
 {
