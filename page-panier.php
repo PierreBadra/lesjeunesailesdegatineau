@@ -17,7 +17,7 @@ get_header();
                     class="lucide lucide-arrow-left w-4 h-4">
                     <path d="m12 19-7-7 7-7"></path>
                     <path d="M19 12H5"></path>
-                </svg>Retour aux camps de jour
+                </svg>Continuer vos achats
             </a>
         </div>
 
