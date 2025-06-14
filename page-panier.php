@@ -434,12 +434,17 @@ get_header();
                         if (cartItem) {
                             // Update quantity display
                             const quantityDisplay = cartItem.querySelector('.quantity-display');
+                            const headerCartCounts = document.getElementsByClassName('.cart-count-indicator');
                             console.log('🔢 Quantity display element:', quantityDisplay);
                             console.log('🔢 New quantity from server:', responseData.new_quantity, 'Type:', typeof responseData.new_quantity);
 
                             if (quantityDisplay) {
                                 if (responseData.new_quantity !== undefined && responseData.new_quantity !== null) {
                                     quantityDisplay.textContent = responseData.new_quantity;
+                                    headerCartCounts.forEach(count => {
+                                        const headerCartCount = count.querySelector('.absolute.-top-2.-right-2.flex.items-center.justify-center.w-4.h-4.bg-red-500.text-white.text-xs.rounded-full.font-medium');
+                                        headerCartCount.textContent = responseData.new_quantity;
+                                    });
                                     console.log('✅ Updated quantity display to:', responseData.new_quantity);
                                 } else {
                                     console.error('❌ new_quantity is undefined or null');
