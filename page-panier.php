@@ -47,12 +47,14 @@ get_header();
                                             ?>
                                             <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
                                                 <!-- Product Image -->
-                                                <?php
-                                                $acf_image_url = get_field('image_davant_page', $_product->get_id());
-                                                ?>
-                                                <img src="<?= esc_url($acf_image_url); ?>"
-                                                    alt="<?= esc_attr($_product->get_name()); ?>"
-                                                    class="w-20 h-20 object-cover rounded-lg">
+                                                <div class="w-20 h-20 flex-shrink-0">
+                                                    <?php
+                                                    $acf_image_url = get_field('image_davant_page', $_product->get_id());
+                                                    ?>
+                                                    <img src="<?= esc_url($acf_image_url); ?>"
+                                                        alt="<?= esc_attr($_product->get_name()); ?>"
+                                                        class="w-full h-full object-cover rounded-lg">
+                                                </div>
 
                                                 <!-- Product Details -->
                                                 <div class="flex-grow">
