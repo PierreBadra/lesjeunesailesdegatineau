@@ -21,7 +21,7 @@ get_header();
         </div>
 
         <?php if (class_exists('WooCommerce') && !WC()->cart->is_empty()): ?>
-            <div class="grid lg:grid-cols-3 gap-8">
+            <div class="grid lg:grid-cols-3 gap-8" id="cart-container">
                 <div class="lg:col-span-2">
                     <div>
                         <div class="flex items-center justify-between mb-6">
@@ -29,7 +29,7 @@ get_header();
                                 class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
                                 Votre
                                 panier</h1>
-                            <span class="text-gray-600">
+                            <span class="text-gray-600" id="cart-count">
                                 <?php
                                 $cart_count = WC()->cart->get_cart_contents_count();
                                 echo $cart_count . ' article' . ($cart_count > 1 ? 's' : '');
@@ -38,7 +38,7 @@ get_header();
                         </div>
                         <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>"
                             method="post">
-                            <div class="space-y-6">
+                            <div class="space-y-6" id="cart-items">
                                 <?php
                                 foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                     $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -48,8 +48,8 @@ get_header();
                                     if ($_product && $_product->exists() && $cart_item['quantity'] > 0) {
                                         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
                                         ?>
-                                        <div
-                                            class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-gray-200 rounded-lg">
+                                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-gray-200 rounded-lg cart-item"
+                                            data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
                                             <!-- Product Image -->
                                             <div class="w-full sm:w-20 sm:h-20 h-32 flex-shrink-0">
                                                 <?php
@@ -100,7 +100,6 @@ get_header();
                                                 <div class="text-xs sm:text-sm text-gray-600 mb-2">
                                                     <?php
                                                     $dates = get_field('dates', $product_id);
-
                                                     $details = array();
 
                                                     if ($age_range) {
@@ -148,7 +147,9 @@ get_header();
 
                                                 <div class="flex items-center gap-3">
                                                     <div class="flex items-center border border-gray-300 rounded-lg">
-                                                        <button class="p-1.5 sm:p-2 hover:bg-gray-100 transition-colors">
+                                                        <button type="button"
+                                                            class="quantity-decrease p-1.5 sm:p-2 hover:bg-gray-100 transition-colors"
+                                                            data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -157,8 +158,10 @@ get_header();
                                                             </svg>
                                                         </button>
                                                         <span
-                                                            class="px-2 sm:px-4 py-1.5 sm:py-2 font-medium text-sm sm:text-base min-w-[2rem] text-center"><?= $cart_item['quantity']; ?></span>
-                                                        <button class="p-1.5 sm:p-2 hover:bg-gray-100 transition-colors">
+                                                            class="quantity-display px-2 sm:px-4 py-1.5 sm:py-2 font-medium text-sm sm:text-base min-w-[2rem] text-center"><?= $cart_item['quantity']; ?></span>
+                                                        <button type="button"
+                                                            class="quantity-increase p-1.5 sm:p-2 hover:bg-gray-100 transition-colors"
+                                                            data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -169,9 +172,9 @@ get_header();
                                                         </button>
                                                     </div>
 
-                                                    <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
-                                                        class="p-1.5 sm:p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
+                                                    <button type="button"
+                                                        class="remove-item p-1.5 sm:p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                             stroke-linecap="round" stroke-linejoin="round"
@@ -182,10 +185,10 @@ get_header();
                                                             <line x1="10" x2="10" y1="11" y2="17"></line>
                                                             <line x1="14" x2="14" y1="11" y2="17"></line>
                                                         </svg>
-                                                    </a>
+                                                    </button>
                                                     <!-- Item Total -->
                                                     <div class="hidden sm:block text-right">
-                                                        <div class="font-bold text-blue-950 text-sm lg:text-base">
+                                                        <div class="font-bold text-blue-950 text-sm lg:text-base item-total">
                                                             <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
                                                         </div>
                                                     </div>
@@ -194,7 +197,7 @@ get_header();
 
                                             <!-- Item Total Mobile -->
                                             <div class="sm:hidden w-full text-right border-t border-gray-100 pt-3">
-                                                <div class="font-bold text-blue-950 text-base">
+                                                <div class="font-bold text-blue-950 text-base item-total-mobile">
                                                     Total:
                                                     <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
                                                 </div>
@@ -213,7 +216,7 @@ get_header();
 
                 <!-- Order Summary -->
                 <div class="lg:col-span-1">
-                    <div class="sticky top-8">
+                    <div class="sticky top-8" id="order-summary">
                         <h2
                             class="text-xl font-[Oswald] tracking-widest uppercase font-medium mb-4 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">
                             Résumé de commande</h2>
@@ -221,13 +224,14 @@ get_header();
                         <div class="space-y-4 mb-6">
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-[Inter]">Sous-total</span>
-                                <span class="font-medium font-[Inter]"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+                                <span class="font-medium font-[Inter]"
+                                    id="cart-subtotal"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
                             </div>
 
                             <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()): ?>
                                 <div class="flex justify-between">
                                     <span class="text-gray-600 font-[Inter]">Livraison</span>
-                                    <span class="font-medium font-[Inter]">
+                                    <span class="font-medium font-[Inter]" id="shipping-total">
                                         <?php
                                         $shipping_total = WC()->cart->get_shipping_total();
                                         if ($shipping_total > 0) {
@@ -244,8 +248,8 @@ get_header();
                                 <?php if (WC()->cart->get_taxes_total() > 0): ?>
                                     <div class="flex justify-between">
                                         <span class="text-gray-600 font-[Inter]">Taxes (TPS/TVQ)</span>
-                                        <span
-                                            class="font-medium font-[Inter]"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
+                                        <span class="font-medium font-[Inter]"
+                                            id="tax-total"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
                                     </div>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -253,8 +257,8 @@ get_header();
                             <div class="border-t border-gray-200 pt-4">
                                 <div class="flex justify-between">
                                     <span class="text-lg font-bold text-blue-950">Total</span>
-                                    <span
-                                        class="text-lg font-bold text-blue-950"><?php echo WC()->cart->get_total(); ?></span>
+                                    <span class="text-lg font-bold text-blue-950"
+                                        id="cart-total"><?php echo WC()->cart->get_total(); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -316,6 +320,180 @@ get_header();
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Loading overlay -->
+    <div id="cart-loading" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 flex items-center gap-3">
+            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-950"></div>
+            <span class="text-gray-700">Mise à jour du panier...</span>
+        </div>
+    </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Show loading overlay
+        function showLoading() {
+            document.getElementById('cart-loading').classList.remove('hidden');
+            document.getElementById('cart-loading').classList.add('flex');
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+            document.getElementById('cart-loading').classList.add('hidden');
+            document.getElementById('cart-loading').classList.remove('flex');
+        }
+
+        // Update cart totals
+        function updateCartTotals(data) {
+            if (data.cart_subtotal) {
+                document.getElementById('cart-subtotal').innerHTML = data.cart_subtotal;
+            }
+            if (data.cart_total) {
+                document.getElementById('cart-total').innerHTML = data.cart_total;
+            }
+            if (data.tax_total && document.getElementById('tax-total')) {
+                document.getElementById('tax-total').innerHTML = data.tax_total;
+            }
+            if (data.cart_count !== undefined) {
+                const cartCount = document.getElementById('cart-count');
+                cartCount.textContent = data.cart_count + ' article' + (data.cart_count > 1 ? 's' : '');
+            }
+        }
+
+        // Handle quantity changes
+        function updateQuantity(cartKey, quantity) {
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('action', 'update_cart_quantity');
+            formData.append('cart_key', cartKey);
+            formData.append('quantity', quantity);
+            formData.append('nonce', '<?php echo wp_create_nonce('update_cart_quantity'); ?>');
+
+            fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+
+                    if (data.success) {
+                        // Update quantity display
+                        const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
+                        if (cartItem) {
+                            const quantityDisplay = cartItem.querySelector('.quantity-display');
+                            quantityDisplay.textContent = data.new_quantity;
+
+                            // Update item totals
+                            const itemTotal = cartItem.querySelector('.item-total');
+                            const itemTotalMobile = cartItem.querySelector('.item-total-mobile');
+                            if (itemTotal) itemTotal.innerHTML = data.item_total;
+                            if (itemTotalMobile) itemTotalMobile.innerHTML = 'Total: ' + data.item_total;
+                        }
+
+                        // Update cart totals
+                        updateCartTotals(data);
+
+                        // If quantity is 0, remove the item
+                        if (data.new_quantity === 0) {
+                            const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
+                            if (cartItem) {
+                                cartItem.remove();
+                            }
+
+                            // Check if cart is empty
+                            if (data.cart_count === 0) {
+                                location.reload(); // Reload to show empty cart message
+                            }
+                        }
+                    } else {
+                        alert('Erreur lors de la mise à jour du panier: ' + (data.message || 'Erreur inconnue'));
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    console.error('Error:', error);
+                    alert('Erreur lors de la mise à jour du panier');
+                });
+        }
+
+        // Handle item removal
+        function removeItem(cartKey) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cet article?')) {
+                return;
+            }
+
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('action', 'remove_cart_item');
+            formData.append('cart_key', cartKey);
+            formData.append('nonce', '<?php echo wp_create_nonce('remove_cart_item'); ?>');
+
+            fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+
+                    if (data.success) {
+                        // Remove the item from DOM
+                        const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
+                        if (cartItem) {
+                            cartItem.remove();
+                        }
+
+                        // Update cart totals
+                        updateCartTotals(data);
+
+                        // Check if cart is empty
+                        if (data.cart_count === 0) {
+                            location.reload(); // Reload to show empty cart message
+                        }
+                    } else {
+                        alert('Erreur lors de la suppression: ' + (data.message || 'Erreur inconnue'));
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    console.error('Error:', error);
+                    alert('Erreur lors de la suppression');
+                });
+        }
+
+        // Event listeners for quantity buttons
+        document.querySelectorAll('.quantity-increase').forEach(button => {
+            button.addEventListener('click', function () {
+                const cartKey = this.dataset.cartKey;
+                const cartItem = this.closest('.cart-item');
+                const currentQuantity = parseInt(cartItem.querySelector('.quantity-display').textContent);
+                updateQuantity(cartKey, currentQuantity + 1);
+            });
+        });
+
+        document.querySelectorAll('.quantity-decrease').forEach(button => {
+            button.addEventListener('click', function () {
+                const cartKey = this.dataset.cartKey;
+                const cartItem = this.closest('.cart-item');
+                const currentQuantity = parseInt(cartItem.querySelector('.quantity-display').textContent);
+                if (currentQuantity > 1) {
+                    updateQuantity(cartKey, currentQuantity - 1);
+                }
+            });
+        });
+
+        // Event listeners for remove buttons
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function () {
+                const cartKey = this.dataset.cartKey;
+                removeItem(cartKey);
+            });
+        });
+    });
+</script>
 
 <?php get_footer(); ?>
