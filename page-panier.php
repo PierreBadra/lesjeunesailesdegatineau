@@ -581,6 +581,12 @@ get_header();
                                 if (count)
                                     count.remove();
                             });
+                        } else {
+                            const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
+                            headerCartCounts.forEach(count => {
+                                if (count)
+                                    count.textContent = responseData.cart_count;
+                            });
                         }
                     } else {
                         console.error('❌ Remove item error:', data);
