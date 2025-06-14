@@ -65,10 +65,6 @@ function woocommerce_support()
     add_theme_support('woocommerce');
 }
 
-add_filter('woocommerce_is_sold_individually', function ($return, $product) {
-    return true;
-}, 10, 2);
-
 
 // Helpers
 function is_array_fully_empty($array)
