@@ -25,7 +25,9 @@ get_header();
                 <div class="lg:col-span-2">
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <h1 class="text-2xl font-bold text-gray-900 font-[Oswald] tracking-widest uppercase">Votre
+                            <h1
+                                class="font-semibold flex mb-6 items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+                                Votre
                                 panier</h1>
                             <span class="text-gray-600">
                                 <?php
