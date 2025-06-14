@@ -8,7 +8,6 @@ get_header();
 
 <section class="w-full px-6 py-12 pt-40">
     <div class="container max-w-7xl mx-auto">
-        <!-- <div class="container mx-auto px-4 py-8"> -->
         <div class="mb-8 container max-w-7xl mx-auto">
             <a href="/camps-de-jour"
                 class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
@@ -59,10 +58,10 @@ get_header();
 
                                             <!-- Product Details -->
                                             <div class="flex-grow">
-                                                <h3 class="font-bold text-gray-900 mb-1">
+                                                <h3 class="font-bold text-gray-900 mb-1 truncate">
                                                     <?php
                                                     if ($product_permalink) {
-                                                        echo '<a href="' . esc_url($product_permalink) . '" class="hover:text-blue-600">' . $_product->get_name() . '</a>';
+                                                        echo '<a href="' . esc_url($product_permalink) . '" class="hover:text-blue-600 truncate">' . $_product->get_name() . '</a>';
                                                     } else {
                                                         echo $_product->get_name();
                                                     }
@@ -250,7 +249,6 @@ get_header();
                 <p class="text-xl text-gray-600">Le système de panier n'est pas disponible pour le moment.</p>
             </div>
         <?php endif; ?>
-        <!-- </div> -->
     </div>
 </section>
 
