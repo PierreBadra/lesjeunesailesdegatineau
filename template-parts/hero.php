@@ -53,7 +53,7 @@ $has_images = !empty($image_urls);
         </p>
 
         <!-- Call to Action Button -->
-        <a href="#"
+        <a href="camps-de-jour"
             class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-gradient-to-br gradient-animate from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 text-gray-900 rounded-xl  transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
             INSCRIVEZ-VOUS MAINTENANT
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
