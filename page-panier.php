@@ -23,9 +23,10 @@ get_header();
         <?php if (class_exists('WooCommerce') && !WC()->cart->is_empty()): ?>
             <div class="grid lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
-                    <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div>
                         <div class="flex items-center justify-between mb-6">
-                            <h1 class="text-2xl font-bold text-gray-900">Votre panier</h1>
+                            <h1 class="text-2xl font-bold text-gray-900 font-[Oswald] tracking-widest uppercase">Votre
+                                panier</h1>
                             <span class="text-gray-600">
                                 <?php
                                 $cart_count = WC()->cart->get_cart_contents_count();
@@ -33,7 +34,6 @@ get_header();
                                 ?>
                             </span>
                         </div>
-
                         <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>"
                             method="post">
                             <div class="space-y-6">
@@ -67,7 +67,9 @@ get_header();
                                                     }
                                                     ?>
                                                 </h3>
-
+                                                <div class="text-sm text-gray-600 mb-2" __v0_r="0,4571,4599"><span>Taille:
+                                                        M</span><span class="mx-2" __v0_r="0,4741,4747">•</span><span>Couleur:
+                                                        Bleu</span></div>
                                                 <div class="text-sm text-gray-600 mb-2">
                                                     <?php
                                                     // Display ACF fields if they exist
