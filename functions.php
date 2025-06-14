@@ -79,6 +79,10 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     return $fragments;
 });
 
+add_filter('woocommerce_is_sold_individually', function ($return, $product) {
+    return true;
+}, 10, 2);
+
 
 // Helpers
 function is_array_fully_empty($array)
