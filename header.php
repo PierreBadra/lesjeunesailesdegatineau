@@ -85,10 +85,16 @@
                 <ul
                   class="absolute left-0 mt-2 w-fit bg-white text-gray-900 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transform scale-95 group-hover:scale-100 transition-all duration-200 z-50">
                   <?php
+                  // Get the ID of the "panier" page by its slug
+                  $panier_page = get_page_by_path('panier');
+                  $panier_id = $panier_page ? $panier_page->ID : 0;
+
+                  // Get all 'programmes' posts, excluding the "panier" page if needed
                   $collections = get_posts([
                     'post_type' => 'programmes',
                     'post_status' => 'publish',
                     'order' => 'ASC',
+                    'post__not_in' => [$panier_id], // Exclude the panier page
                   ]);
                   foreach ($collections as $collection): ?>
                     <li>
@@ -113,9 +119,11 @@
             <a href="/panier" class="relative hover:opacity-70 transition-opacity duration-200">
               <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
                 alt="Lien Panier">
-              <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
-                <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
-              <?php endif; ?>
+              <span id="cart-dot-indicator">
+                <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
+                  <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                <?php endif; ?>
+              </span>
             </a>
 
             <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">

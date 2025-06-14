@@ -65,6 +65,20 @@ function woocommerce_support()
     add_theme_support('woocommerce');
 }
 
+// Filters
+add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+    ob_start();
+    ?>
+    <span id="cart-dot-indicator">
+        <?php if (WC()->cart->get_cart_contents_count() > 0): ?>
+            <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+        <?php endif; ?>
+    </span>
+    <?php
+    $fragments['#cart-dot-indicator'] = ob_get_clean();
+    return $fragments;
+});
+
 
 // Helpers
 function is_array_fully_empty($array)
