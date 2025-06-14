@@ -373,7 +373,9 @@ get_header();
             }
         }
 
-        // Handle quantity changes
+
+        // Replace the updateQuantity function in your JavaScript with this fixed version:
+
         function updateQuantity(cartKey, quantity) {
             console.log('🔄 Starting quantity update for cart key:', cartKey, 'to quantity:', quantity);
 
@@ -398,12 +400,11 @@ get_header();
             })
                 .then(response => {
                     console.log('📥 Raw response status:', response.status);
-                    return response.text(); // Get as text first to see raw response
+                    return response.text();
                 })
                 .then(responseText => {
                     console.log('📥 Raw response text:', responseText);
 
-                    // Try to parse as JSON
                     let data;
                     try {
                         data = JSON.parse(responseText);
@@ -421,6 +422,11 @@ get_header();
                     if (data.success) {
                         console.log('✅ Server returned success, processing update...');
 
+                        // FIXED: Access the actual data from the nested structure
+                        const responseData = data.data || data; // WordPress AJAX puts data in 'data' property
+
+                        console.log('📊 Actual response data:', responseData);
+
                         // Find the cart item
                         const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
                         console.log('🎯 Found cart item:', cartItem);
@@ -429,12 +435,12 @@ get_header();
                             // Update quantity display
                             const quantityDisplay = cartItem.querySelector('.quantity-display');
                             console.log('🔢 Quantity display element:', quantityDisplay);
-                            console.log('🔢 New quantity from server:', data.new_quantity, 'Type:', typeof data.new_quantity);
+                            console.log('🔢 New quantity from server:', responseData.new_quantity, 'Type:', typeof responseData.new_quantity);
 
                             if (quantityDisplay) {
-                                if (data.new_quantity !== undefined && data.new_quantity !== null) {
-                                    quantityDisplay.textContent = data.new_quantity;
-                                    console.log('✅ Updated quantity display to:', data.new_quantity);
+                                if (responseData.new_quantity !== undefined && responseData.new_quantity !== null) {
+                                    quantityDisplay.textContent = responseData.new_quantity;
+                                    console.log('✅ Updated quantity display to:', responseData.new_quantity);
                                 } else {
                                     console.error('❌ new_quantity is undefined or null');
                                 }
@@ -448,21 +454,21 @@ get_header();
 
                             console.log('💰 Item total element:', itemTotal);
                             console.log('💰 Item total mobile element:', itemTotalMobile);
-                            console.log('💰 Item total from server:', data.item_total, 'Type:', typeof data.item_total);
+                            console.log('💰 Item total from server:', responseData.item_total, 'Type:', typeof responseData.item_total);
 
                             if (itemTotal) {
-                                if (data.item_total !== undefined && data.item_total !== null && data.item_total !== '') {
-                                    itemTotal.innerHTML = data.item_total;
-                                    console.log('✅ Updated item total to:', data.item_total);
+                                if (responseData.item_total !== undefined && responseData.item_total !== null && responseData.item_total !== '') {
+                                    itemTotal.innerHTML = responseData.item_total;
+                                    console.log('✅ Updated item total to:', responseData.item_total);
                                 } else {
                                     console.error('❌ item_total is undefined, null, or empty');
                                 }
                             }
 
                             if (itemTotalMobile) {
-                                if (data.item_total !== undefined && data.item_total !== null && data.item_total !== '') {
-                                    itemTotalMobile.innerHTML = 'Total: ' + data.item_total;
-                                    console.log('✅ Updated mobile item total to:', 'Total: ' + data.item_total);
+                                if (responseData.item_total !== undefined && responseData.item_total !== null && responseData.item_total !== '') {
+                                    itemTotalMobile.innerHTML = 'Total: ' + responseData.item_total;
+                                    console.log('✅ Updated mobile item total to:', 'Total: ' + responseData.item_total);
                                 } else {
                                     console.error('❌ item_total is undefined for mobile update');
                                 }
@@ -471,11 +477,11 @@ get_header();
                             console.error('❌ Could not find cart item with key:', cartKey);
                         }
 
-                        // Update cart totals
-                        updateCartTotals(data);
+                        // Update cart totals with the correct data
+                        updateCartTotals(responseData);
 
                         // If quantity is 0, remove the item
-                        if (data.new_quantity === 0) {
+                        if (responseData.new_quantity === 0) {
                             console.log('🗑️ Quantity is 0, removing item');
                             const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
                             if (cartItem) {
@@ -483,14 +489,16 @@ get_header();
                             }
 
                             // Check if cart is empty
-                            if (data.cart_count === 0) {
+                            if (responseData.cart_count === 0) {
                                 console.log('🛒 Cart is now empty, reloading page');
                                 location.reload();
                             }
                         }
                     } else {
                         console.error('❌ Server returned error:', data);
-                        alert('Erreur lors de la mise à jour du panier: ' + (data.message || 'Erreur inconnue'));
+                        // FIXED: Handle error message properly
+                        const errorMessage = data.data ? data.data.message : (data.message || 'Erreur inconnue');
+                        alert('Erreur lors de la mise à jour du panier: ' + errorMessage);
                     }
                 })
                 .catch(error => {
@@ -500,7 +508,7 @@ get_header();
                 });
         }
 
-        // Handle item removal
+        // Also update the removeItem function similarly:
         function removeItem(cartKey) {
             if (!confirm('Êtes-vous sûr de vouloir supprimer cet article?')) {
                 return;
@@ -524,22 +532,26 @@ get_header();
                     hideLoading();
 
                     if (data.success) {
+                        // FIXED: Access the actual data from the nested structure
+                        const responseData = data.data || data;
+
                         // Remove the item from DOM
                         const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
                         if (cartItem) {
                             cartItem.remove();
                         }
 
-                        // Update cart totals
-                        updateCartTotals(data);
+                        // Update cart totals with the correct data
+                        updateCartTotals(responseData);
 
                         // Check if cart is empty
-                        if (data.cart_count === 0) {
+                        if (responseData.cart_count === 0) {
                             location.reload();
                         }
                     } else {
                         console.error('❌ Remove item error:', data);
-                        alert('Erreur lors de la suppression: ' + (data.message || 'Erreur inconnue'));
+                        const errorMessage = data.data ? data.data.message : (data.message || 'Erreur inconnue');
+                        alert('Erreur lors de la suppression: ' + errorMessage);
                     }
                 })
                 .catch(error => {
