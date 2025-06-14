@@ -346,23 +346,37 @@ get_header();
 
         // Update cart totals
         function updateCartTotals(data) {
+            console.log('📊 Updating cart totals with data:', data);
+
             if (data.cart_subtotal) {
-                document.getElementById('cart-subtotal').innerHTML = data.cart_subtotal;
+                const subtotalEl = document.getElementById('cart-subtotal');
+                console.log('💰 Subtotal element:', subtotalEl, 'New value:', data.cart_subtotal);
+                if (subtotalEl) subtotalEl.innerHTML = data.cart_subtotal;
             }
+
             if (data.cart_total) {
-                document.getElementById('cart-total').innerHTML = data.cart_total;
+                const totalEl = document.getElementById('cart-total');
+                console.log('💳 Total element:', totalEl, 'New value:', data.cart_total);
+                if (totalEl) totalEl.innerHTML = data.cart_total;
             }
+
             if (data.tax_total && document.getElementById('tax-total')) {
                 document.getElementById('tax-total').innerHTML = data.tax_total;
             }
+
             if (data.cart_count !== undefined) {
                 const cartCount = document.getElementById('cart-count');
-                cartCount.textContent = data.cart_count + ' article' + (data.cart_count > 1 ? 's' : '');
+                if (cartCount) {
+                    console.log('🛒 Cart count:', data.cart_count);
+                    cartCount.textContent = data.cart_count + ' article' + (data.cart_count > 1 ? 's' : '');
+                }
             }
         }
 
         // Handle quantity changes
         function updateQuantity(cartKey, quantity) {
+            console.log('🔄 Starting quantity update for cart key:', cartKey, 'to quantity:', quantity);
+
             showLoading();
 
             const formData = new FormData();
@@ -371,26 +385,90 @@ get_header();
             formData.append('quantity', quantity);
             formData.append('nonce', '<?php echo wp_create_nonce('update_cart_quantity'); ?>');
 
+            console.log('📤 Sending data:', {
+                action: 'update_cart_quantity',
+                cart_key: cartKey,
+                quantity: quantity,
+                nonce: '<?php echo wp_create_nonce('update_cart_quantity'); ?>'
+            });
+
             fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.json())
-                .then(data => {
+                .then(response => {
+                    console.log('📥 Raw response status:', response.status);
+                    return response.text(); // Get as text first to see raw response
+                })
+                .then(responseText => {
+                    console.log('📥 Raw response text:', responseText);
+
+                    // Try to parse as JSON
+                    let data;
+                    try {
+                        data = JSON.parse(responseText);
+                    } catch (e) {
+                        console.error('❌ Failed to parse JSON:', e);
+                        console.error('❌ Response was:', responseText);
+                        hideLoading();
+                        alert('Erreur: Réponse du serveur invalide');
+                        return;
+                    }
+
+                    console.log('📥 Parsed response data:', data);
                     hideLoading();
 
                     if (data.success) {
-                        // Update quantity display
+                        console.log('✅ Server returned success, processing update...');
+
+                        // Find the cart item
                         const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
+                        console.log('🎯 Found cart item:', cartItem);
+
                         if (cartItem) {
+                            // Update quantity display
                             const quantityDisplay = cartItem.querySelector('.quantity-display');
-                            quantityDisplay.textContent = data.new_quantity;
+                            console.log('🔢 Quantity display element:', quantityDisplay);
+                            console.log('🔢 New quantity from server:', data.new_quantity, 'Type:', typeof data.new_quantity);
+
+                            if (quantityDisplay) {
+                                if (data.new_quantity !== undefined && data.new_quantity !== null) {
+                                    quantityDisplay.textContent = data.new_quantity;
+                                    console.log('✅ Updated quantity display to:', data.new_quantity);
+                                } else {
+                                    console.error('❌ new_quantity is undefined or null');
+                                }
+                            } else {
+                                console.error('❌ Could not find quantity display element');
+                            }
 
                             // Update item totals
                             const itemTotal = cartItem.querySelector('.item-total');
                             const itemTotalMobile = cartItem.querySelector('.item-total-mobile');
-                            if (itemTotal) itemTotal.innerHTML = data.item_total;
-                            if (itemTotalMobile) itemTotalMobile.innerHTML = 'Total: ' + data.item_total;
+
+                            console.log('💰 Item total element:', itemTotal);
+                            console.log('💰 Item total mobile element:', itemTotalMobile);
+                            console.log('💰 Item total from server:', data.item_total, 'Type:', typeof data.item_total);
+
+                            if (itemTotal) {
+                                if (data.item_total !== undefined && data.item_total !== null && data.item_total !== '') {
+                                    itemTotal.innerHTML = data.item_total;
+                                    console.log('✅ Updated item total to:', data.item_total);
+                                } else {
+                                    console.error('❌ item_total is undefined, null, or empty');
+                                }
+                            }
+
+                            if (itemTotalMobile) {
+                                if (data.item_total !== undefined && data.item_total !== null && data.item_total !== '') {
+                                    itemTotalMobile.innerHTML = 'Total: ' + data.item_total;
+                                    console.log('✅ Updated mobile item total to:', 'Total: ' + data.item_total);
+                                } else {
+                                    console.error('❌ item_total is undefined for mobile update');
+                                }
+                            }
+                        } else {
+                            console.error('❌ Could not find cart item with key:', cartKey);
                         }
 
                         // Update cart totals
@@ -398,6 +476,7 @@ get_header();
 
                         // If quantity is 0, remove the item
                         if (data.new_quantity === 0) {
+                            console.log('🗑️ Quantity is 0, removing item');
                             const cartItem = document.querySelector(`[data-cart-key="${cartKey}"]`);
                             if (cartItem) {
                                 cartItem.remove();
@@ -405,16 +484,18 @@ get_header();
 
                             // Check if cart is empty
                             if (data.cart_count === 0) {
-                                location.reload(); // Reload to show empty cart message
+                                console.log('🛒 Cart is now empty, reloading page');
+                                location.reload();
                             }
                         }
                     } else {
+                        console.error('❌ Server returned error:', data);
                         alert('Erreur lors de la mise à jour du panier: ' + (data.message || 'Erreur inconnue'));
                     }
                 })
                 .catch(error => {
                     hideLoading();
-                    console.error('Error:', error);
+                    console.error('❌ Fetch error:', error);
                     alert('Erreur lors de la mise à jour du panier');
                 });
         }
@@ -425,6 +506,7 @@ get_header();
                 return;
             }
 
+            console.log('🗑️ Removing item with cart key:', cartKey);
             showLoading();
 
             const formData = new FormData();
@@ -438,6 +520,7 @@ get_header();
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log('📥 Remove item response:', data);
                     hideLoading();
 
                     if (data.success) {
@@ -452,15 +535,16 @@ get_header();
 
                         // Check if cart is empty
                         if (data.cart_count === 0) {
-                            location.reload(); // Reload to show empty cart message
+                            location.reload();
                         }
                     } else {
+                        console.error('❌ Remove item error:', data);
                         alert('Erreur lors de la suppression: ' + (data.message || 'Erreur inconnue'));
                     }
                 })
                 .catch(error => {
                     hideLoading();
-                    console.error('Error:', error);
+                    console.error('❌ Remove item fetch error:', error);
                     alert('Erreur lors de la suppression');
                 });
         }
@@ -470,8 +554,20 @@ get_header();
             button.addEventListener('click', function () {
                 const cartKey = this.dataset.cartKey;
                 const cartItem = this.closest('.cart-item');
-                const currentQuantity = parseInt(cartItem.querySelector('.quantity-display').textContent);
-                updateQuantity(cartKey, currentQuantity + 1);
+                const quantityDisplay = cartItem.querySelector('.quantity-display');
+
+                console.log('➕ Increase button clicked');
+                console.log('🔑 Cart key:', cartKey);
+                console.log('📦 Cart item:', cartItem);
+                console.log('🔢 Quantity display:', quantityDisplay);
+
+                if (quantityDisplay) {
+                    const currentQuantity = parseInt(quantityDisplay.textContent);
+                    console.log('🔢 Current quantity:', currentQuantity);
+                    updateQuantity(cartKey, currentQuantity + 1);
+                } else {
+                    console.error('❌ Could not find quantity display element');
+                }
             });
         });
 
@@ -479,9 +575,21 @@ get_header();
             button.addEventListener('click', function () {
                 const cartKey = this.dataset.cartKey;
                 const cartItem = this.closest('.cart-item');
-                const currentQuantity = parseInt(cartItem.querySelector('.quantity-display').textContent);
-                if (currentQuantity > 1) {
-                    updateQuantity(cartKey, currentQuantity - 1);
+                const quantityDisplay = cartItem.querySelector('.quantity-display');
+
+                console.log('➖ Decrease button clicked');
+                console.log('🔑 Cart key:', cartKey);
+
+                if (quantityDisplay) {
+                    const currentQuantity = parseInt(quantityDisplay.textContent);
+                    console.log('🔢 Current quantity:', currentQuantity);
+                    if (currentQuantity > 1) {
+                        updateQuantity(cartKey, currentQuantity - 1);
+                    } else {
+                        console.log('⚠️ Cannot decrease quantity below 1');
+                    }
+                } else {
+                    console.error('❌ Could not find quantity display element');
                 }
             });
         });
@@ -490,7 +598,20 @@ get_header();
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', function () {
                 const cartKey = this.dataset.cartKey;
+                console.log('🗑️ Remove button clicked for cart key:', cartKey);
                 removeItem(cartKey);
+            });
+        });
+
+        // Debug: Log all cart items and their structure
+        console.log('🔍 Debugging cart structure:');
+        document.querySelectorAll('.cart-item').forEach((item, index) => {
+            console.log(`Cart item ${index}:`, {
+                element: item,
+                cartKey: item.dataset.cartKey,
+                quantityDisplay: item.querySelector('.quantity-display'),
+                itemTotal: item.querySelector('.item-total'),
+                itemTotalMobile: item.querySelector('.item-total-mobile')
             });
         });
     });
