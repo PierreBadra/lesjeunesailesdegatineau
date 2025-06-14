@@ -319,3 +319,18 @@ function remove_woocommerce_layout_conditionally()
         wp_deregister_style('woocommerce-layout');
     }
 }
+
+// In your functions.php
+add_filter('woocommerce_product_single_add_to_cart_text', 'custom_add_to_cart_text');
+function custom_add_to_cart_text($text)
+{
+    return 'AJOUTER AU PANIER';
+}
+
+// Add custom classes to the add to cart button
+add_filter('woocommerce_loop_add_to_cart_args', 'custom_add_to_cart_class', 10, 2);
+function custom_add_to_cart_class($args, $product)
+{
+    $args['class'] = 'w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate';
+    return $args;
+}
