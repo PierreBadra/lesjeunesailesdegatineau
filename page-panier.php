@@ -71,7 +71,7 @@ get_header();
                                                     }
                                                     ?>
                                                 </h3>
-                                                <div class="text-sm text-gray-600 mb-2 flex items-center gap-2"
+                                                <div class="text-sm font-[Inter] text-gray-600 mb-2 flex items-center gap-2"
                                                     __v0_r="0,4571,4599"><svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg"
                                                         width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -231,10 +231,6 @@ get_header();
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </a>
-
-                        <div class="mt-4 text-center">
-                            <p class="text-xs text-gray-500">Paiement sécurisé • Livraison rapide • Retours gratuits</p>
-                        </div>
                     </div>
                 </div>
             </div>
