@@ -584,8 +584,10 @@ get_header();
                         } else {
                             const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
                             headerCartCounts.forEach(count => {
-                                if (count)
-                                    count.textContent = responseData.cart_count;
+                                if (count) {
+                                    const headerCartCount = count.querySelector('.absolute.-top-2.-right-2.flex.items-center.justify-center.w-4.h-4.bg-red-500.text-white.text-xs.rounded-full.font-medium');
+                                    headerCartCount.textContent = responseData.cart_count;
+                                }
                             });
                         }
                     } else {
