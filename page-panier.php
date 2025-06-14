@@ -6,284 +6,312 @@ Template Name: Panier
 get_header();
 ?>
 
-<div class="pt-24">
-    <div class="container mx-auto px-4 py-8">
-        <div class="mb-8">
-            <nav class="flex items-center gap-2 text-sm text-gray-600">
-                <a href="/" class="hover:text-blue-600">Accueil</a>
-                <span>/</span>
-                <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>" class="hover:text-blue-600">Camps</a>
-                <span>/</span>
-                <span class="text-gray-900">Panier</span>
-            </nav>
-        </div>
+<section class="w-full px-6 py-12 pt-40">
+    <div class="container max-w-7xl mx-auto">
+        <div class="container mx-auto px-4 py-8">
+            <div class="mb-8">
+                <nav class="flex items-center gap-2 text-sm text-gray-600">
+                    <a href="/" class="hover:text-blue-600">Accueil</a>
+                    <span>/</span>
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
+                        class="hover:text-blue-600">Camps</a>
+                    <span>/</span>
+                    <span class="text-gray-900">Panier</span>
+                </nav>
+            </div>
 
-        <?php if (class_exists('WooCommerce') && !WC()->cart->is_empty()) : ?>
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2">
-                    <div class="bg-white rounded-xl shadow-lg p-6">
-                        <div class="flex items-center justify-between mb-6">
-                            <h1 class="text-2xl font-bold text-gray-900">Votre panier</h1>
-                            <span class="text-gray-600">
-                                <?php 
-                                $cart_count = WC()->cart->get_cart_contents_count();
-                                echo $cart_count . ' article' . ($cart_count > 1 ? 's' : '');
-                                ?>
-                            </span>
-                        </div>
+            <?php if (class_exists('WooCommerce') && !WC()->cart->is_empty()): ?>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h1 class="text-2xl font-bold text-gray-900">Votre panier</h1>
+                                <span class="text-gray-600">
+                                    <?php
+                                    $cart_count = WC()->cart->get_cart_contents_count();
+                                    echo $cart_count . ' article' . ($cart_count > 1 ? 's' : '');
+                                    ?>
+                                </span>
+                            </div>
 
-                        <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
-                            <div class="space-y-6">
-                                <?php
-                                foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-                                    $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
-                                    $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+                            <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>"
+                                method="post">
+                                <div class="space-y-6">
+                                    <?php
+                                    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+                                        $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+                                        $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
-                                    if ($_product && $_product->exists() && $cart_item['quantity'] > 0) {
-                                        $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
-                                        ?>
-                                        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
-                                            <!-- Product Image -->
-                                            <div class="w-20 h-20 flex-shrink-0">
-                                                <?php
-                                                $thumbnail = $_product->get_image('thumbnail', array('class' => 'w-20 h-20 object-cover rounded-lg'));
-                                                if ($product_permalink) {
-                                                    echo '<a href="' . esc_url($product_permalink) . '">' . $thumbnail . '</a>';
-                                                } else {
-                                                    echo $thumbnail;
-                                                }
-                                                ?>
-                                            </div>
-
-                                            <!-- Product Details -->
-                                            <div class="flex-grow">
-                                                <h3 class="font-bold text-gray-900 mb-1">
+                                        if ($_product && $_product->exists() && $cart_item['quantity'] > 0) {
+                                            $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
+                                            ?>
+                                            <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
+                                                <!-- Product Image -->
+                                                <div class="w-20 h-20 flex-shrink-0">
                                                     <?php
+                                                    $thumbnail = $_product->get_image('thumbnail', array('class' => 'w-20 h-20 object-cover rounded-lg'));
                                                     if ($product_permalink) {
-                                                        echo '<a href="' . esc_url($product_permalink) . '" class="hover:text-blue-600">' . $_product->get_name() . '</a>';
+                                                        echo '<a href="' . esc_url($product_permalink) . '">' . $thumbnail . '</a>';
                                                     } else {
-                                                        echo $_product->get_name();
+                                                        echo $thumbnail;
                                                     }
                                                     ?>
-                                                </h3>
-                                                
-                                                <div class="text-sm text-gray-600 mb-2">
-                                                    <?php
-                                                    // Display ACF fields if they exist
-                                                    $age_range = get_field('tranche_age', $product_id);
-                                                    $dates = get_field('dates', $product_id);
-                                                    
-                                                    $details = array();
-                                                    
-                                                    if ($age_range) {
-                                                        $details[] = 'Âge: ' . esc_html($age_range);
-                                                    }
-                                                    
-                                                    if ($dates && is_array($dates)) {
-                                                        $date_debut = $dates['date_debut'] ?? '';
-                                                        $date_fin = $dates['date_fin'] ?? '';
-                                                        if ($date_debut && $date_fin) {
-                                                            $details[] = 'Dates: ' . esc_html($date_debut) . ' - ' . esc_html($date_fin);
+                                                </div>
+
+                                                <!-- Product Details -->
+                                                <div class="flex-grow">
+                                                    <h3 class="font-bold text-gray-900 mb-1">
+                                                        <?php
+                                                        if ($product_permalink) {
+                                                            echo '<a href="' . esc_url($product_permalink) . '" class="hover:text-blue-600">' . $_product->get_name() . '</a>';
+                                                        } else {
+                                                            echo $_product->get_name();
                                                         }
-                                                    }
-                                                    
-                                                    // Display product attributes/variations
-                                                    if ($_product->is_type('variation')) {
-                                                        $attributes = $_product->get_variation_attributes();
-                                                        foreach ($attributes as $attribute_name => $attribute_value) {
-                                                            $taxonomy = str_replace('attribute_', '', $attribute_name);
-                                                            if (taxonomy_exists($taxonomy)) {
-                                                                $term = get_term_by('slug', $attribute_value, $taxonomy);
-                                                                if ($term) {
-                                                                    $details[] = wc_attribute_label($taxonomy) . ': ' . $term->name;
-                                                                }
-                                                            } else {
-                                                                $details[] = wc_attribute_label($attribute_name) . ': ' . $attribute_value;
+                                                        ?>
+                                                    </h3>
+
+                                                    <div class="text-sm text-gray-600 mb-2">
+                                                        <?php
+                                                        // Display ACF fields if they exist
+                                                        $age_range = get_field('tranche_age', $product_id);
+                                                        $dates = get_field('dates', $product_id);
+
+                                                        $details = array();
+
+                                                        if ($age_range) {
+                                                            $details[] = 'Âge: ' . esc_html($age_range);
+                                                        }
+
+                                                        if ($dates && is_array($dates)) {
+                                                            $date_debut = $dates['date_debut'] ?? '';
+                                                            $date_fin = $dates['date_fin'] ?? '';
+                                                            if ($date_debut && $date_fin) {
+                                                                $details[] = 'Dates: ' . esc_html($date_debut) . ' - ' . esc_html($date_fin);
                                                             }
                                                         }
-                                                    }
-                                                    
-                                                    if (!empty($details)) {
-                                                        echo implode(' <span class="mx-2">•</span> ', $details);
-                                                    }
-                                                    ?>
-                                                </div>
-                                                
-                                                <div class="text-lg font-bold text-blue-600">
-                                                    <?php echo WC()->cart->get_product_price($_product); ?>
-                                                </div>
-                                            </div>
 
-                                            <!-- Quantity Controls -->
-                                            <div class="flex items-center gap-3">
-                                                <div class="flex items-center border border-gray-300 rounded-lg">
-                                                    <button type="button" class="quantity-decrease p-2 hover:bg-gray-100 transition-colors" data-cart-key="<?php echo $cart_item_key; ?>">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus w-4 h-4">
-                                                            <path d="M5 12h14"></path>
+                                                        // Display product attributes/variations
+                                                        if ($_product->is_type('variation')) {
+                                                            $attributes = $_product->get_variation_attributes();
+                                                            foreach ($attributes as $attribute_name => $attribute_value) {
+                                                                $taxonomy = str_replace('attribute_', '', $attribute_name);
+                                                                if (taxonomy_exists($taxonomy)) {
+                                                                    $term = get_term_by('slug', $attribute_value, $taxonomy);
+                                                                    if ($term) {
+                                                                        $details[] = wc_attribute_label($taxonomy) . ': ' . $term->name;
+                                                                    }
+                                                                } else {
+                                                                    $details[] = wc_attribute_label($attribute_name) . ': ' . $attribute_value;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        if (!empty($details)) {
+                                                            echo implode(' <span class="mx-2">•</span> ', $details);
+                                                        }
+                                                        ?>
+                                                    </div>
+
+                                                    <div class="text-lg font-bold text-blue-600">
+                                                        <?php echo WC()->cart->get_product_price($_product); ?>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Quantity Controls -->
+                                                <div class="flex items-center gap-3">
+                                                    <div class="flex items-center border border-gray-300 rounded-lg">
+                                                        <button type="button"
+                                                            class="quantity-decrease p-2 hover:bg-gray-100 transition-colors"
+                                                            data-cart-key="<?php echo $cart_item_key; ?>">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-minus w-4 h-4">
+                                                                <path d="M5 12h14"></path>
+                                                            </svg>
+                                                        </button>
+
+                                                        <?php
+                                                        woocommerce_quantity_input(
+                                                            array(
+                                                                'input_name' => "cart[{$cart_item_key}][qty]",
+                                                                'input_value' => $cart_item['quantity'],
+                                                                'max_value' => $_product->get_max_purchase_quantity(),
+                                                                'min_value' => '0',
+                                                                'product_name' => $_product->get_name(),
+                                                                'classes' => array('px-4', 'py-2', 'font-medium', 'text-center', 'border-0', 'w-16'),
+                                                            ),
+                                                            $_product,
+                                                            false
+                                                        );
+                                                        ?>
+
+                                                        <button type="button"
+                                                            class="quantity-increase p-2 hover:bg-gray-100 transition-colors"
+                                                            data-cart-key="<?php echo $cart_item_key; ?>">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-plus w-4 h-4">
+                                                                <path d="M5 12h14"></path>
+                                                                <path d="M12 5v14"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                    <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
+                                                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="lucide lucide-trash2 w-5 h-5">
+                                                            <path d="M3 6h18"></path>
+                                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                                                            <line x1="14" x2="14" y1="11" y2="17"></line>
                                                         </svg>
-                                                    </button>
-                                                    
-                                                    <?php
-                                                    woocommerce_quantity_input(
-                                                        array(
-                                                            'input_name'   => "cart[{$cart_item_key}][qty]",
-                                                            'input_value'  => $cart_item['quantity'],
-                                                            'max_value'    => $_product->get_max_purchase_quantity(),
-                                                            'min_value'    => '0',
-                                                            'product_name' => $_product->get_name(),
-                                                            'classes'      => array('px-4', 'py-2', 'font-medium', 'text-center', 'border-0', 'w-16'),
-                                                        ),
-                                                        $_product,
-                                                        false
-                                                    );
-                                                    ?>
-                                                    
-                                                    <button type="button" class="quantity-increase p-2 hover:bg-gray-100 transition-colors" data-cart-key="<?php echo $cart_item_key; ?>">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg>
-                                                    </button>
+                                                    </a>
                                                 </div>
-                                                
-                                                <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>" 
-                                                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2 w-5 h-5">
-                                                        <path d="M3 6h18"></path>
-                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                                                        <line x1="10" x2="10" y1="11" y2="17"></line>
-                                                        <line x1="14" x2="14" y1="11" y2="17"></line>
-                                                    </svg>
-                                                </a>
-                                            </div>
 
-                                            <!-- Item Total -->
-                                            <div class="text-right">
-                                                <div class="font-bold text-gray-900">
-                                                    <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                                <!-- Item Total -->
+                                                <div class="text-right">
+                                                    <div class="font-bold text-gray-900">
+                                                        <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <?php
-                                    }
-                                }
-                                ?>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                <div class="flex justify-between items-center">
-                                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>" 
-                                       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left w-4 h-4">
-                                            <path d="m12 19-7-7 7-7"></path>
-                                            <path d="M19 12H5"></path>
-                                        </svg>
-                                        Continuer vos achats
-                                    </a>
-                                    
-                                    <button type="submit" name="update_cart" value="Mettre à jour le panier" 
-                                            class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                                        Mettre à jour le panier
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Order Summary -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow-lg p-6 sticky top-8">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Résumé de commande</h2>
-                        
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Sous-total</span>
-                                <span class="font-medium"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
-                            </div>
-                            
-                            <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Livraison</span>
-                                    <span class="font-medium">
-                                        <?php 
-                                        $shipping_total = WC()->cart->get_shipping_total();
-                                        if ($shipping_total > 0) {
-                                            echo wc_price($shipping_total);
-                                        } else {
-                                            echo 'Gratuite';
+                                            <?php
                                         }
-                                        ?>
-                                    </span>
+                                    }
+                                    ?>
                                 </div>
-                            <?php endif; ?>
-                            
-                            <?php if (wc_tax_enabled() && !WC()->cart->display_prices_including_tax()) : ?>
-                                <?php if (WC()->cart->get_taxes_total() > 0) : ?>
+
+                                <div class="mt-6 pt-6 border-t border-gray-200">
+                                    <div class="flex justify-between items-center">
+                                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
+                                            class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-arrow-left w-4 h-4">
+                                                <path d="m12 19-7-7 7-7"></path>
+                                                <path d="M19 12H5"></path>
+                                            </svg>
+                                            Continuer vos achats
+                                        </a>
+
+                                        <button type="submit" name="update_cart" value="Mettre à jour le panier"
+                                            class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                                            Mettre à jour le panier
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-6">Résumé de commande</h2>
+
+                            <div class="space-y-4 mb-6">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Sous-total</span>
+                                    <span class="font-medium"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+                                </div>
+
+                                <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()): ?>
                                     <div class="flex justify-between">
-                                        <span class="text-gray-600">Taxes (TPS/TVQ)</span>
-                                        <span class="font-medium"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
+                                        <span class="text-gray-600">Livraison</span>
+                                        <span class="font-medium">
+                                            <?php
+                                            $shipping_total = WC()->cart->get_shipping_total();
+                                            if ($shipping_total > 0) {
+                                                echo wc_price($shipping_total);
+                                            } else {
+                                                echo 'Gratuite';
+                                            }
+                                            ?>
+                                        </span>
                                     </div>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                            
-                            <div class="border-t border-gray-200 pt-4">
-                                <div class="flex justify-between">
-                                    <span class="text-lg font-bold text-gray-900">Total</span>
-                                    <span class="text-lg font-bold text-gray-900"><?php echo WC()->cart->get_total(); ?></span>
+
+                                <?php if (wc_tax_enabled() && !WC()->cart->display_prices_including_tax()): ?>
+                                    <?php if (WC()->cart->get_taxes_total() > 0): ?>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Taxes (TPS/TVQ)</span>
+                                            <span class="font-medium"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+
+                                <div class="border-t border-gray-200 pt-4">
+                                    <div class="flex justify-between">
+                                        <span class="text-lg font-bold text-gray-900">Total</span>
+                                        <span
+                                            class="text-lg font-bold text-gray-900"><?php echo WC()->cart->get_total(); ?></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" 
-                           class="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-6 py-4 rounded-lg font-bold transition-colors flex items-center justify-center gap-2">
-                            Procéder au paiement
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5">
-                                <path d="M5 12h14"></path>
-                                <path d="m12 5 7 7-7 7"></path>
-                            </svg>
-                        </a>
-                        
-                        <div class="mt-4 text-center">
-                            <p class="text-xs text-gray-500">Paiement sécurisé • Livraison rapide • Retours gratuits</p>
+
+                            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>"
+                                class="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-6 py-4 rounded-lg font-bold transition-colors flex items-center justify-center gap-2">
+                                Procéder au paiement
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5">
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+                            </a>
+
+                            <div class="mt-4 text-center">
+                                <p class="text-xs text-gray-500">Paiement sécurisé • Livraison rapide • Retours gratuits</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        <?php elseif (class_exists('WooCommerce')) : ?>
-            <!-- Empty Cart -->
-            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
-                <div class="mb-8">
-                    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
-                    </svg>
-                    <h1 class="text-3xl font-bold text-gray-800 mb-4">Votre panier est vide</h1>
-                    <p class="text-xl text-gray-600 mb-8">Découvrez nos camps de jour et ajoutez des articles à votre panier.</p>
+            <?php elseif (class_exists('WooCommerce')): ?>
+                <!-- Empty Cart -->
+                <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                    <div class="mb-8">
+                        <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6">
+                            </path>
+                        </svg>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-4">Votre panier est vide</h1>
+                        <p class="text-xl text-gray-600 mb-8">Découvrez nos camps de jour et ajoutez des articles à votre
+                            panier.</p>
+                    </div>
+
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
+                        class="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-8 py-4 rounded-lg font-bold transition-colors inline-flex items-center gap-2">
+                        Voir nos camps de jour
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-arrow-right w-5 h-5">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </a>
                 </div>
-                
-                <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>" 
-                   class="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-8 py-4 rounded-lg font-bold transition-colors inline-flex items-center gap-2">
-                    Voir nos camps de jour
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                </a>
-            </div>
 
-        <?php else : ?>
-            <!-- WooCommerce Not Active -->
-            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
-                <h1 class="text-3xl font-bold text-red-600 mb-4">Service non disponible</h1>
-                <p class="text-xl text-gray-600">Le système de panier n'est pas disponible pour le moment.</p>
-            </div>
-        <?php endif; ?>
+            <?php else: ?>
+                <!-- WooCommerce Not Active -->
+                <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                    <h1 class="text-3xl font-bold text-red-600 mb-4">Service non disponible</h1>
+                    <p class="text-xl text-gray-600">Le système de panier n'est pas disponible pour le moment.</p>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
 
-<?php get_footer(); ?>
+    <?php get_footer(); ?>
