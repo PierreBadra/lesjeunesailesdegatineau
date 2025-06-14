@@ -157,7 +157,7 @@ get_header();
                                                             </svg>
                                                         </button>
                                                         <span
-                                                            class="px-2 sm:px-4 py-1.5 sm:py-2 font-medium text-sm sm:text-base min-w-[2rem] text-center">2</span>
+                                                            class="px-2 sm:px-4 py-1.5 sm:py-2 font-medium text-sm sm:text-base min-w-[2rem] text-center"><?= $cart_item['quantity']; ?></span>
                                                         <button class="p-1.5 sm:p-2 hover:bg-gray-100 transition-colors">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
