@@ -127,7 +127,7 @@
               <span id="cart-dot-indicator" class="cart-count-indicator">
                 <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
                   <span
-                    class="absolute -top-1 -right-1 flex items-center justify-center w-2 h-2 bg-red-500 text-white text-xs rounded-full font-medium">
+                    class="absolute -top-2 -right-2 flex items-center justify-center w-2 h-2 bg-red-500 text-white text-xs rounded-full font-medium">
                     <?php echo WC()->cart->get_cart_contents_count(); ?>
                   </span>
                 <?php endif; ?>
@@ -215,7 +215,7 @@
             <span class="cart-count-indicator">
               <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
                 <span
-                  class="absolute -top-1 -right-1 flex items-center justify-center w-2 h-2 bg-red-500 text-white text-xs rounded-full font-medium">
+                  class="absolute -top-2 -right-2 flex items-center justify-center w-2 h-2 bg-red-500 text-white text-xs rounded-full font-medium">
                   <?php echo WC()->cart->get_cart_contents_count(); ?>
                 </span>
               <?php endif; ?>
