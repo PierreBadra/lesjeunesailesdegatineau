@@ -6,7 +6,7 @@ Template Name: Panier
 get_header();
 ?>
 
-<section class="w-full px-6 py-12 pt-40">
+<section class="w-full px-6 py-12 pt-40 mb-40">
     <div class="container max-w-7xl mx-auto">
         <div class="mb-8 container max-w-7xl mx-auto">
             <a href="/camps-de-jour"
