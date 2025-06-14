@@ -61,7 +61,8 @@ get_header();
 
                                             <!-- Product Details -->
                                             <div class="flex-grow">
-                                                <h3 class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest mb-1 truncate">
+                                                <h3
+                                                    class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest mb-1 truncate">
                                                     <?php
                                                     if ($product_permalink) {
                                                         echo '<a href="' . esc_url($product_permalink) . '">' . $_product->get_name() . '</a>';
@@ -70,9 +71,9 @@ get_header();
                                                     }
                                                     ?>
                                                 </h3>
-                                                <div class="text-sm text-gray-600 mb-2" __v0_r="0,4571,4599"><span>Taille:
-                                                        M</span><span class="mx-2" __v0_r="0,4741,4747">•</span><span>Couleur:
-                                                        Bleu</span></div>
+                                                <div class="text-sm text-gray-600 mb-2" __v0_r="0,4571,4599">Du
+                                                    <span><?= $date_de_debut ?></span> au <span class="mx-2"
+                                                        __v0_r="0,4741,4747">•</span><span><?= $date_de_fin ?></span></div>
                                                 <div class="text-sm text-gray-600 mb-2">
                                                     <?php
                                                     // Display ACF fields if they exist
