@@ -12,10 +12,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="<?= get_template_directory_uri() ?>/assets/images/logo.webp" type="image/x-icon">
   <title><?php wp_title('|', true, 'right'); ?> Les Jeunes Ailés de Gatineau</title>
-  <?php wp_head(); ?>
+  <?php
+  // wp_head(); 
+  ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body>
   <style>
     .gradient-animate {
       background-size: 200% 200%;
@@ -125,7 +127,7 @@
               <span id="cart-dot-indicator" class="cart-count-indicator">
                 <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
                   <span
-                    class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">
+                    class="absolute -top-1 -right-1 flex items-center justify-center w-1 h-1 bg-red-500 text-white text-xs rounded-full font-medium">
                     <?php echo WC()->cart->get_cart_contents_count(); ?>
                   </span>
                 <?php endif; ?>
@@ -213,7 +215,7 @@
             <span class="cart-count-indicator">
               <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
                 <span
-                  class="absolute -top-1 -right-1 flex items-center justify-center w-2 h-2 bg-red-500 text-white text-xs rounded-full font-medium">
+                  class="absolute -top-1 -right-1 flex items-center justify-center w-1 h-1 bg-red-500 text-white text-xs rounded-full font-medium">
                   <?php echo WC()->cart->get_cart_contents_count(); ?>
                 </span>
               <?php endif; ?>
