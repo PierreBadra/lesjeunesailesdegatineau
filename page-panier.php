@@ -313,5 +313,6 @@ get_header();
             <?php endif; ?>
         </div>
     </div>
+</section>
 
-    <?php get_footer(); ?>
+<?php get_footer(); ?>
