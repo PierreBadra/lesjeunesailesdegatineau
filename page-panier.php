@@ -332,6 +332,7 @@ get_header();
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
         // Show loading overlay
         function showLoading() {
             document.getElementById('cart-loading').classList.remove('hidden');
@@ -434,7 +435,6 @@ get_header();
                         if (cartItem) {
                             // Update quantity display
                             const quantityDisplay = cartItem.querySelector('.quantity-display');
-                            const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
                             console.log('🔢 Quantity display element:', quantityDisplay);
                             console.log('🔢 New quantity from server:', responseData.new_quantity, 'Type:', typeof responseData.new_quantity);
 
@@ -515,10 +515,6 @@ get_header();
 
         // Also update the removeItem function similarly:
         function removeItem(cartKey) {
-            if (!confirm('Êtes-vous sûr de vouloir supprimer cet article?')) {
-                return;
-            }
-
             console.log('🗑️ Removing item with cart key:', cartKey);
             showLoading();
 
@@ -551,7 +547,43 @@ get_header();
 
                         // Check if cart is empty
                         if (responseData.cart_count === 0) {
-                            location.reload();
+                            const container = document.querySelector('.container.max-w-7xl.mx-auto');
+                            container.innerHTML = `<div
+                                class="container max-w-7xl mx-auto rounded-lg min-h-[500px] xl:h-96 flex items-center justify-center border bg-card shadow-sm bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white">
+                                <div class="p-8 text-center">
+                                    <div class="mb-8 flex justify-center">
+                                        <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="h-12 w-12 lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                                            <circle cx="8" cy="21" r="1"></circle>
+                                            <circle cx="19" cy="21" r="1"></circle>
+                                            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-2xl mb-4 uppercase font-[Oswald] tracking-widest">Votre panier est vide
+                                    </h2>
+                                    <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl">Découvrez nos camps de
+                                        jour et ajoutez des articles à votre
+                                        panier.</p>
+                                    <div class="">
+                                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
+                                            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 uppercase transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
+                                            Voir nos camps de jour
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg" class="inline-block">
+                                                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>`;
+                            headerCartCounts.forEach(count => {
+                                if (count)
+                                    count.remove();
+                            });
                         }
                     } else {
                         console.error('❌ Remove item error:', data);
