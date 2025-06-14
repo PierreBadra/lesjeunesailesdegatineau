@@ -271,7 +271,7 @@ function custom_cart_fragments($fragments)
     // Create the cart count HTML
     $cart_count_html = '';
     if ($cart_count > 0) {
-        $cart_count_html = '<span class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">' . $cart_count . '</span>';
+        $cart_count_html = '<span class="absolute -top-2 -right-2 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">' . $cart_count . '</span>';
     }
 
     $fragments['.cart-count-indicator'] = '<span class="cart-count-indicator">' . $cart_count_html . '</span>';
