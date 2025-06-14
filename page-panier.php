@@ -205,7 +205,8 @@ get_header();
                                 <?php if (WC()->cart->get_taxes_total() > 0): ?>
                                     <div class="flex justify-between">
                                         <span class="text-gray-600 font-[Inter]">Taxes (TPS/TVQ)</span>
-                                        <span class="font-medium font-[Inter]"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
+                                        <span
+                                            class="font-medium font-[Inter]"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
                                     </div>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -234,29 +235,40 @@ get_header();
             </div>
 
         <?php elseif (class_exists('WooCommerce')): ?>
-            <!-- Empty Cart -->
-            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
-                <div class="mb-8">
-                    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6">
-                        </path>
-                    </svg>
-                    <h1 class="text-3xl font-bold text-gray-800 mb-4">Votre panier est vide</h1>
-                    <p class="text-xl text-gray-600 mb-8">Découvrez nos camps de jour et ajoutez des articles à votre
+            <!-- Empty cart -->
+            <div
+                class="container max-w-7xl mx-auto rounded-lg min-h-[500px] xl:h-96 flex items-center justify-center border bg-card shadow-sm bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white">
+                <div class="p-8 text-center">
+                    <div class="mb-8 flex justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="h-12 w-12">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                            <path d="M4 22h16"></path>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl mb-4 uppercase font-[Oswald] tracking-widest">Votre panier est vide
+                    </h2>
+                    <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl">Découvrez nos camps de
+                        jour et ajoutez des articles à votre
                         panier.</p>
+                    <div class="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>">
+                        <a href="/nous-joindre"
+                            class="w-full sm:w-auto sm:min-w-[320px] md:min-w-[400px] bg-white text-gray-900 rounded-xl hover:bg-gray-100 uppercase transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2">
+                            Voir nos camps de jour
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg" class="inline-block">
+                                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-
-                <a href="<?php echo esc_url(get_permalink(get_page_by_path('camps-de-jour'))); ?>"
-                    class="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-8 py-4 rounded-lg font-bold transition-colors inline-flex items-center gap-2">
-                    Voir nos camps de jour
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-arrow-right w-5 h-5">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                </a>
             </div>
 
         <?php else: ?>
