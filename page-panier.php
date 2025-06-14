@@ -48,16 +48,12 @@ get_header();
                                             <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
                                                 <!-- Product Image -->
                                                 <div class="w-20 h-20 flex-shrink-0">
-                                                    <img src="<?= get_field('image_davant_page', $_product->ID); ?>"
-                                                        alt="Image du produit" class="w-20 h-20 object-cover rounded-lg">
                                                     <?php
-                                                    // $thumbnail = $_product->get_image('thumbnail', array('class' => 'w-20 h-20 object-cover rounded-lg'));
-                                                    // if ($product_permalink) {
-                                                    //     echo '<a href="' . esc_url($product_permalink) . '">' . $thumbnail . '</a>';
-                                                    // } else {
-                                                    //     echo $thumbnail;
-                                                    // }
+                                                    $acf_image_url = get_field('image_davant_page', $_product->get_id());
                                                     ?>
+                                                    <img src="<?= esc_url($acf_image_url); ?>"
+                                                        alt="<?= esc_attr($_product->get_name()); ?>"
+                                                        class="w-20 h-20 object-cover rounded-lg">
                                                 </div>
 
                                                 <!-- Product Details -->
