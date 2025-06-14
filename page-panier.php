@@ -94,7 +94,9 @@ get_header();
                                                         <span><?= $date_de_debut ?></span> au <span><?= $date_de_fin ?></span>
                                                     </p>
                                                 </div>
-
+                                                <div class="hidden sm:block text-sm lg:text-base font-bold text-blue-950">
+                                                    <?php echo WC()->cart->get_product_price($_product); ?>
+                                                </div>
                                                 <div class="text-xs sm:text-sm text-gray-600 mb-2">
                                                     <?php
                                                     $dates = get_field('dates', $product_id);
@@ -143,10 +145,6 @@ get_header();
                                             <!-- Quantity Controls -->
                                             <div
                                                 class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center w-full sm:w-auto gap-3 sm:gap-4">
-
-                                                <div class="hidden sm:block text-sm lg:text-base font-bold text-blue-950">
-                                                    <?php echo WC()->cart->get_product_price($_product); ?>
-                                                </div>
 
                                                 <div class="flex items-center gap-3">
                                                     <div class="flex items-center border border-gray-300 rounded-lg">
