@@ -67,6 +67,39 @@ $product = wc_get_product();
 				woocommerce_template_single_add_to_cart();
 			}
 			?>
+
+			<?php
+			global $product;
+			if ($product && $product->is_purchasable() && $product->is_in_stock()):
+				?>
+				<form class="cart"
+					action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+					method="post" enctype='multipart/form-data'>
+
+					<?php
+					// Add variation fields if it's a variable product
+					if ($product->is_type('variable')) {
+						woocommerce_variable_add_to_cart();
+					} else {
+						// For simple products, just add the hidden product ID
+						?>
+						<input type="hidden" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" />
+						<?php
+					}
+					?>
+
+					<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>"
+						class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate">
+						AJOUTER AU PANIER
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+							class="inline-block">
+							<path
+								d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M17 13H7"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</form>
+			<?php endif; ?>
 		</div>
 
 		<!-- Image -->
