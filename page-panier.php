@@ -48,9 +48,10 @@ get_header();
                                     if ($_product && $_product->exists() && $cart_item['quantity'] > 0) {
                                         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
                                         ?>
-                                        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
+                                        <div
+                                            class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-gray-200 rounded-lg">
                                             <!-- Product Image -->
-                                            <div class="w-20 h-20 flex-shrink-0">
+                                            <div class="w-full sm:w-20 sm:h-20 h-32 flex-shrink-0">
                                                 <?php
                                                 $acf_image_url = get_field('image_davant_page', $_product->get_id());
                                                 ?>
@@ -60,9 +61,9 @@ get_header();
                                             </div>
 
                                             <!-- Product Details -->
-                                            <div class="flex-grow">
+                                            <div class="flex-grow w-full sm:w-auto space-y-2 sm:space-y-1">
                                                 <h3
-                                                    class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest mb-1 truncate">
+                                                    class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest text-sm sm:text-base mb-1">
                                                     <?php
                                                     if ($product_permalink) {
                                                         echo '<a href="' . esc_url($product_permalink) . '">' . $_product->get_name() . '</a>';
@@ -71,11 +72,13 @@ get_header();
                                                     }
                                                     ?>
                                                 </h3>
-                                                <div class="text-sm font-[Inter] text-gray-600 mb-2 flex items-center gap-2"
-                                                    __v0_r="0,4571,4599"><svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
+                                                <div
+                                                    class="text-xs sm:text-sm font-[Inter] text-gray-600 mb-2 flex items-center gap-2">
+                                                    <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="w-4 h-4 lucide lucide-calendar-days-icon lucide-calendar-days">
+                                                        class="w-3 h-3 sm:w-4 sm:h-4 lucide lucide-calendar-days-icon lucide-calendar-days flex-shrink-0">
                                                         <path d="M8 2v4"></path>
                                                         <path d="M16 2v4"></path>
                                                         <rect width="18" height="18" x="3" y="4" rx="2"></rect>
@@ -91,7 +94,8 @@ get_header();
                                                         <span><?= $date_de_debut ?></span> au <span><?= $date_de_fin ?></span>
                                                     </p>
                                                 </div>
-                                                <div class="text-sm text-gray-600 mb-2">
+
+                                                <div class="text-xs sm:text-sm text-gray-600 mb-2">
                                                     <?php
                                                     $dates = get_field('dates', $product_id);
 
@@ -126,55 +130,75 @@ get_header();
                                                     }
 
                                                     if (!empty($details)) {
-                                                        echo implode(' <span class="mx-2">•</span> ', $details);
+                                                        echo implode(' <span class="mx-2 hidden sm:inline">•</span> ', $details);
                                                     }
                                                     ?>
                                                 </div>
 
-                                                <div class="text-lg font-bold text-blue-950">
+                                                <div class="text-base sm:hidden font-bold text-blue-950">
                                                     <?php echo WC()->cart->get_product_price($_product); ?>
                                                 </div>
                                             </div>
 
                                             <!-- Quantity Controls -->
-                                            <div class="flex items-center gap-3">
-                                                <div class="flex items-center border border-gray-300 rounded-lg"
-                                                    __v0_r="0,5141,5194"><button class="p-2 hover:bg-gray-100 transition-colors"
-                                                        __v0_r="0,5349,5390"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="lucide lucide-minus w-4 h-4" __v0_r="0,5460,5469">
-                                                            <path d="M5 12h14"></path>
-                                                        </svg></button><span class="px-4 py-2 font-medium"
-                                                        __v0_r="0,5547,5570">2</span><button
-                                                        class="p-2 hover:bg-gray-100 transition-colors" __v0_r="0,5747,5788"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            <div
+                                                class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center w-full sm:w-auto gap-3 sm:gap-4">
+
+                                                <div class="hidden sm:block text-sm lg:text-base font-bold text-blue-950">
+                                                    <?php echo WC()->cart->get_product_price($_product); ?>
+                                                </div>
+
+                                                <div class="flex items-center gap-3">
+                                                    <div class="flex items-center border border-gray-300 rounded-lg">
+                                                        <button class="p-1.5 sm:p-2 hover:bg-gray-100 transition-colors">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-minus w-3 h-3 sm:w-4 sm:h-4">
+                                                                <path d="M5 12h14"></path>
+                                                            </svg>
+                                                        </button>
+                                                        <span
+                                                            class="px-2 sm:px-4 py-1.5 sm:py-2 font-medium text-sm sm:text-base min-w-[2rem] text-center">2</span>
+                                                        <button class="p-1.5 sm:p-2 hover:bg-gray-100 transition-colors">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-plus w-3 h-3 sm:w-4 sm:h-4">
+                                                                <path d="M5 12h14"></path>
+                                                                <path d="M12 5v14"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                    <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
+                                                        class="p-1.5 sm:p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                             stroke-linecap="round" stroke-linejoin="round"
-                                                            class="lucide lucide-plus w-4 h-4" __v0_r="0,5857,5866">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg></button></div>
+                                                            class="lucide lucide-trash2 w-4 h-4 sm:w-5 sm:h-5">
+                                                            <path d="M3 6h18"></path>
+                                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                                                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                                                        </svg>
+                                                    </a>
+                                                </div>
 
-                                                <a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
-                                                    class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        class="lucide lucide-trash2 w-5 h-5">
-                                                        <path d="M3 6h18"></path>
-                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                                                        <line x1="10" x2="10" y1="11" y2="17"></line>
-                                                        <line x1="14" x2="14" y1="11" y2="17"></line>
-                                                    </svg>
-                                                </a>
+                                                <!-- Item Total -->
+                                                <div class="hidden sm:block text-right">
+                                                    <div class="font-bold text-blue-950 text-sm lg:text-base">
+                                                        <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <!-- Item Total -->
-                                            <div class="text-right">
-                                                <div class="font-bold text-blue-950">
+                                            <!-- Item Total Mobile -->
+                                            <div class="sm:hidden w-full text-right border-t border-gray-100 pt-3">
+                                                <div class="font-bold text-blue-950 text-base">
+                                                    Total:
                                                     <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
                                                 </div>
                                             </div>
