@@ -6,6 +6,8 @@ $days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'
 $horaire = get_field('horaire');
 $product = wc_get_product();
 $category_list = wc_get_product_category_list($product->get_id());
+$categories = explode(',', $category_list);
+$first_category = trim($categories[0]);
 ?>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -41,7 +43,7 @@ $category_list = wc_get_product_category_list($product->get_id());
 									transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
 									focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
 									hover:bg-secondary/80 text-xs font-[Inter]">
-					<?= $category_list[0]; ?>
+					<?= $first_category; ?>
 				</div>
 			</div>
 
