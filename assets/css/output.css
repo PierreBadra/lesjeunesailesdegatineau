@@ -906,6 +906,9 @@
   .object-cover {
     object-fit: cover;
   }
+  .object-fill {
+    object-fit: fill;
+  }
   .p-2 {
     padding: calc(var(--spacing) * 2);
   }

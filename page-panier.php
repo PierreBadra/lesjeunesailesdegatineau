@@ -53,7 +53,7 @@ get_header();
                                                     ?>
                                                     <img src="<?= esc_url($acf_image_url); ?>"
                                                         alt="<?= esc_attr($_product->get_name()); ?>"
-                                                        class="w-full h-full object-cover rounded-lg">
+                                                        class="w-full h-full object-fill rounded-lg">
                                                 </div>
 
                                                 <!-- Product Details -->
