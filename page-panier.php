@@ -603,7 +603,7 @@ get_header();
                     if (currentQuantity > 1) {
                         updateQuantity(cartKey, currentQuantity - 1);
                     } else {
-                        console.log('⚠️ Cannot decrease quantity below 1');
+                        removeItem(cartKey);
                     }
                 } else {
                     console.error('❌ Could not find quantity display element');
