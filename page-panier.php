@@ -261,10 +261,10 @@ get_header();
                                 </div>
                             </div>
 
-                            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
+                            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class=" transition-colors duration-200 gradient-animate  w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
           first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
           text-center flex items-center justify-center gap-2">
-                                Procéder au paiement
+                                PROCÉDER AU PAIEMENT
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" class="inline-block">
                                     <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
