@@ -26,7 +26,7 @@ get_header();
                     <div>
                         <div class="flex items-center justify-between mb-6">
                             <h1
-                                class="font-semibold flex mb-6 items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+                                class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
                                 Votre
                                 panier</h1>
                             <span class="text-gray-600">
@@ -61,7 +61,7 @@ get_header();
 
                                             <!-- Product Details -->
                                             <div class="flex-grow">
-                                                <h3 class="font-bold text-gray-900 mb-1 truncate">
+                                                <h3 class="font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest mb-1 truncate">
                                                     <?php
                                                     if ($product_permalink) {
                                                         echo '<a href="' . esc_url($product_permalink) . '" class="hover:text-blue-600 truncate">' . $_product->get_name() . '</a>';
