@@ -151,7 +151,7 @@
             </p>
 
             <!-- Button -->
-            <a href="/camp-de-jour" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
+            <a href="/camps-de-jour" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
           first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
           text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate">
                 VOIR NOTRE CAMP DE JOUR

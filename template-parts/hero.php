@@ -29,7 +29,8 @@ $has_images = !empty($image_urls);
     <div
         class="flex relative flex-col items-start justify-center w-full container max-w-7xl mx-auto min-h-[85vh] sm:min-h-[90vh] text-start z-10">
         <!-- Rest of your content remains the same -->
-        <h1 class="bg-gradient-to-b from-yellow-300 via-amber-400 to-orange-500 text-transparent bg-clip-text text-5xl/15 sm:text-6xl/20 md:text-7xl/25 font-medium tracking-widest font-[Oswald]">
+        <h1
+            class="bg-gradient-to-b from-yellow-300 via-amber-400 to-orange-500 text-transparent bg-clip-text text-5xl/15 sm:text-6xl/20 md:text-7xl/25 font-medium tracking-widest font-[Oswald]">
             LES JEUNES AILÉS <br>DE GATINEAU
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.webp"
                 alt="Les Jeunes Ailés de Gatineau Logo" class="hidden md:inline w-30 h-30">
@@ -41,14 +42,14 @@ $has_images = !empty($image_urls);
             Là où renaît le talent
         </p>
 
-        <h2 class="text-white text-xl sm:text-2xl md:text-3xl font-[Oswald] tracking-wider sm:tracking-widest font-medium">
-            INSCRIPTIONS POUR L'ÉTÉ 2025
+        <h2
+            class="text-white text-xl sm:text-2xl md:text-3xl font-[Oswald] tracking-wider sm:tracking-widest font-medium uppercase">
+            Camps de jour été 2025
         </h2>
 
         <!-- Announcement -->
         <p class="text-xl font-light opacity-80 mb-8 sm:mb-10 lg:mb-14 max-w-2xl leading-relaxed">
-            Toute l'équipe de Les Jeunes Ailés de Gatineau est fière de vous annoncer que les inscriptions pour nos
-            programmes d'été 2025 sont maintenant ouvertes !
+            Du 30 juin au 18 juillet<br>Collège Héritage : 325 Bd de la Cité-des-Jeunes
         </p>
 
         <!-- Call to Action Button -->
