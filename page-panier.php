@@ -337,16 +337,16 @@ get_header();
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Show loading overlay
-        function showLoading() {
-            document.getElementById('cart-loading').classList.remove('hidden');
-            document.getElementById('cart-loading').classList.add('flex');
-        }
+        // function showLoading() {
+        //     document.getElementById('cart-loading').classList.remove('hidden');
+        //     document.getElementById('cart-loading').classList.add('flex');
+        // }
 
-        // Hide loading overlay
-        function hideLoading() {
-            document.getElementById('cart-loading').classList.add('hidden');
-            document.getElementById('cart-loading').classList.remove('flex');
-        }
+        // // Hide loading overlay
+        // function hideLoading() {
+        //     document.getElementById('cart-loading').classList.add('hidden');
+        //     document.getElementById('cart-loading').classList.remove('flex');
+        // }
 
         // Update cart totals
         function updateCartTotals(data) {
@@ -383,7 +383,7 @@ get_header();
         function updateQuantity(cartKey, quantity) {
             console.log('🔄 Starting quantity update for cart key:', cartKey, 'to quantity:', quantity);
 
-            showLoading();
+            
 
             const formData = new FormData();
             formData.append('action', 'update_cart_quantity');
@@ -415,13 +415,13 @@ get_header();
                     } catch (e) {
                         console.error('❌ Failed to parse JSON:', e);
                         console.error('❌ Response was:', responseText);
-                        hideLoading();
+                        
                         alert('Erreur: Réponse du serveur invalide');
                         return;
                     }
 
                     console.log('📥 Parsed response data:', data);
-                    hideLoading();
+                    
 
                     if (data.success) {
                         console.log('✅ Server returned success, processing update...');
@@ -511,7 +511,7 @@ get_header();
                     }
                 })
                 .catch(error => {
-                    hideLoading();
+                    
                     console.error('❌ Fetch error:', error);
                     alert('Erreur lors de la mise à jour du panier');
                 });
@@ -520,7 +520,7 @@ get_header();
         // Also update the removeItem function similarly:
         function removeItem(cartKey) {
             console.log('🗑️ Removing item with cart key:', cartKey);
-            showLoading();
+            
 
             const formData = new FormData();
             formData.append('action', 'remove_cart_item');
@@ -534,7 +534,7 @@ get_header();
                 .then(response => response.json())
                 .then(data => {
                     console.log('📥 Remove item response:', data);
-                    hideLoading();
+                    
 
                     if (data.success) {
                         // FIXED: Access the actual data from the nested structure
@@ -597,7 +597,7 @@ get_header();
                     }
                 })
                 .catch(error => {
-                    hideLoading();
+                    
                     console.error('❌ Remove item fetch error:', error);
                     alert('Erreur lors de la suppression');
                 });
