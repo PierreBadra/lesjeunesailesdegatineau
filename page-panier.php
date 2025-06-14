@@ -43,7 +43,8 @@ get_header();
                                 foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                     $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                                     $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
-
+                                    $date_de_debut = parse_french_string_date_to_english(get_field('date_de_debut', $_product->get_id()));
+                                    $date_de_fin = parse_french_string_date_to_english(get_field('date_de_fin', $_product->get_id()));
                                     if ($_product && $_product->exists() && $cart_item['quantity'] > 0) {
                                         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
                                         ?>
