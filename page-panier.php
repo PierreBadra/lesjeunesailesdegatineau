@@ -434,7 +434,7 @@ get_header();
                         if (cartItem) {
                             // Update quantity display
                             const quantityDisplay = cartItem.querySelector('.quantity-display');
-                            const headerCartCounts = document.getElementsByClassName('.cart-count-indicator');
+                            const headerCartCounts = document.getElementsByClassName('cart-count-indicator');
                             console.log('🔢 Quantity display element:', quantityDisplay);
                             console.log('🔢 New quantity from server:', responseData.new_quantity, 'Type:', typeof responseData.new_quantity);
 
