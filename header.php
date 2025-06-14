@@ -116,12 +116,16 @@
             <?php endif; ?>
           <?php endforeach; ?>
           <li class="flex items-center gap-3">
-            <a href="/panier" class="relative hover:opacity-70 transition-opacity duration-200">
+            <a href="<?php echo esc_url(wc_get_cart_url()); ?>"
+              class="relative hover:opacity-70 transition-opacity duration-200 cart-link">
               <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
                 alt="Lien Panier">
-              <span id="cart-dot-indicator">
+              <span id="cart-dot-indicator" class="cart-count-indicator">
                 <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
-                  <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                  <span
+                    class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">
+                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+                  </span>
                 <?php endif; ?>
               </span>
             </a>
@@ -200,12 +204,18 @@
 
         <!-- Mobile Social Links -->
         <li class="flex items-center gap-6 pt-4 border-t border-white">
-          <a href="/panier" class="relative hover:opacity-70 transition-opacity duration-200">
+          <a href="<?php echo esc_url(wc_get_cart_url()); ?>"
+            class="relative hover:opacity-70 transition-opacity duration-200 cart-link">
             <img class="w-4 h-4" src="<?= get_template_directory_uri(); ?>/assets/images/cart-icon.svg"
               alt="Lien Panier">
-            <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
-              <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
-            <?php endif; ?>
+            <span class="cart-count-indicator">
+              <?php if (function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
+                <span
+                  class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">
+                  <?php echo WC()->cart->get_cart_contents_count(); ?>
+                </span>
+              <?php endif; ?>
+            </span>
           </a>
           <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
             <img class="w-5 h-5" src="<?= get_template_directory_uri(); ?>/assets/images/facebook-icon.svg"
@@ -220,7 +230,47 @@
       </ul>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Update cart count via AJAX
+      function updateCartCount() {
+        if (typeof wc_cart_fragments_params === 'undefined') {
+          return;
+        }
 
+        jQuery.ajax({
+          url: wc_cart_fragments_params.ajax_url,
+          type: 'POST',
+          data: {
+            action: 'woocommerce_get_refreshed_fragments'
+          },
+          success: function (data) {
+            if (data && data.fragments) {
+              // Update cart count indicators
+              const cartIndicators = document.querySelectorAll('.cart-count-indicator');
+              const cartCount = data.cart_hash ? Object.keys(JSON.parse(data.cart_hash)).length : 0;
+
+              cartIndicators.forEach(function (indicator) {
+                if (cartCount > 0) {
+                  indicator.innerHTML = '<span class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 bg-red-500 text-white text-xs rounded-full ring-2 ring-white font-medium">' + cartCount + '</span>';
+                } else {
+                  indicator.innerHTML = '';
+                }
+              });
+            }
+          }
+        });
+      }
+
+      // Listen for cart updates
+      jQuery(document.body).on('added_to_cart removed_from_cart updated_cart_totals', function () {
+        updateCartCount();
+      });
+
+      // Update on page load
+      updateCartCount();
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const header = document.querySelector('header');
