@@ -23,9 +23,15 @@
                 <ul
                     class="flex font-[Inter] flex-col gap-6 md:gap-4 tracking-widest text-xl md:text-sm text-white font-light">
                     <?php
+                    $panier_page = get_page_by_path('panier');
+                    $panier_id = $panier_page ? $panier_page->ID : 0;
+                    $commande_page = get_page_by_path('commande');
+                    $commande_id = $commande_page ? $commande_page->ID : 0;
+                    // Get all 'programmes' posts, excluding the "panier" page if needed
                     $pages = get_pages([
                         'sort_column' => 'menu_order',
                         'sort_order' => 'asc',
+                        'exclude' => [$panier_id, $commande_id]
                     ]);
                     $index = 0;
                     foreach ($pages as $page): ?>
