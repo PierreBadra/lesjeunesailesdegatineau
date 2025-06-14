@@ -439,7 +439,7 @@ get_header();
                                     const headerCartCounts = Array.from(document.getElementsByClassName('cart-count-indicator'));
                                     headerCartCounts.forEach(count => {
                                         const headerCartCount = count.querySelector('.absolute.-top-2.-right-2.flex.items-center.justify-center.w-4.h-4.bg-red-500.text-white.text-xs.rounded-full.font-medium');
-                                        headerCartCount.textContent = responseData.new_quantity;
+                                        headerCartCount.textContent = responseData.cart_count;
                                     });
                                     console.log('✅ Updated quantity display to:', responseData.new_quantity);
                                 } else {
