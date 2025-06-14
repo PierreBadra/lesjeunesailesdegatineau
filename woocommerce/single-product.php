@@ -354,16 +354,33 @@ $product = wc_get_product();
 				place
 				dans ce programme d'excellence. Places limitées !</p>
 			<div class="flex flex-col md:flex-row gap-4 justify-center">
-				<a href="<?= get_field('lien_dinscription') ?>"
-					class="bg-white text-gray-900 py-4 sm:py-5 sm:px-8 rounded-md hover:bg-white-100 transition-colors duration-200 font-[Inter] tracking-widest text-center flex items-center justify-center gap-2 uppercase">
-					S'inscrire
-					maintenant
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-						class="inline-block">
-						<path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
-							stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
-				</a>
+				<form class="cart"
+					action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+					method="post" enctype='multipart/form-data'>
+
+					<?php
+					// Add variation fields if it's a variable product
+					if ($product->is_type('variable')) {
+						woocommerce_variable_add_to_cart();
+					} else {
+						// For simple products, just add the hidden product ID
+						?>
+						<input type="hidden" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" />
+						<?php
+					}
+					?>
+
+					<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>"
+						class="bg-white text-gray-900 py-4 sm:py-5 sm:px-8 rounded-md hover:bg-white-100 transition-colors duration-200 font-[Inter] tracking-widest text-center flex items-center justify-center gap-2 uppercase">
+						AJOUTER AU PANIER
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+							class="inline-block">
+							<path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</form>
+
 				<a href="/nous-joindre"
 					class="border border-white text-white py-4 sm:py-5 sm:px-8 rounded-md hover:bg-white hover:bg-white-100 transition-colors duration-200 font-[Inter] tracking-widest hover:text-gray-900 text-center flex items-center justify-center gap-2 uppercase">
 					Plus d'informations

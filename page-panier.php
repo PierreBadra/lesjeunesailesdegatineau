@@ -324,14 +324,6 @@ get_header();
             <?php endif; ?>
         </div>
     </div>
-
-    <!-- Loading overlay -->
-    <div id="cart-loading" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-        <div class="bg-white rounded-lg p-6 flex items-center gap-3">
-            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-950"></div>
-            <span class="text-gray-700">Mise à jour du panier...</span>
-        </div>
-    </div>
 </section>
 
 <script>
@@ -383,7 +375,7 @@ get_header();
         function updateQuantity(cartKey, quantity) {
             console.log('🔄 Starting quantity update for cart key:', cartKey, 'to quantity:', quantity);
 
-            
+
 
             const formData = new FormData();
             formData.append('action', 'update_cart_quantity');
@@ -415,13 +407,13 @@ get_header();
                     } catch (e) {
                         console.error('❌ Failed to parse JSON:', e);
                         console.error('❌ Response was:', responseText);
-                        
+
                         alert('Erreur: Réponse du serveur invalide');
                         return;
                     }
 
                     console.log('📥 Parsed response data:', data);
-                    
+
 
                     if (data.success) {
                         console.log('✅ Server returned success, processing update...');
@@ -511,7 +503,7 @@ get_header();
                     }
                 })
                 .catch(error => {
-                    
+
                     console.error('❌ Fetch error:', error);
                     alert('Erreur lors de la mise à jour du panier');
                 });
@@ -520,7 +512,7 @@ get_header();
         // Also update the removeItem function similarly:
         function removeItem(cartKey) {
             console.log('🗑️ Removing item with cart key:', cartKey);
-            
+
 
             const formData = new FormData();
             formData.append('action', 'remove_cart_item');
@@ -534,7 +526,7 @@ get_header();
                 .then(response => response.json())
                 .then(data => {
                     console.log('📥 Remove item response:', data);
-                    
+
 
                     if (data.success) {
                         // FIXED: Access the actual data from the nested structure
@@ -597,7 +589,7 @@ get_header();
                     }
                 })
                 .catch(error => {
-                    
+
                     console.error('❌ Remove item fetch error:', error);
                     alert('Erreur lors de la suppression');
                 });
