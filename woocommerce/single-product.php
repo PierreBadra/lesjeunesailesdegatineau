@@ -53,21 +53,6 @@ $product = wc_get_product();
 				<?= $product->get_description(); ?>
 			</p>
 
-			<a href="<?= get_field('lien_dinscription') ?>" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
-		  first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
-		  text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate">
-				INSCRIVEZ-VOUS MAINTENANT
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-					class="inline-block">
-					<path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-						stroke-linejoin="round" />
-				</svg>
-			</a>
-			<?php if (function_exists('woocommerce_template_single_add_to_cart')) {
-				woocommerce_template_single_add_to_cart();
-			}
-			?>
-
 			<?php
 			global $product;
 			if ($product && $product->is_purchasable() && $product->is_in_stock()):
@@ -89,7 +74,7 @@ $product = wc_get_product();
 					?>
 
 					<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="w-full bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white
-		  rounded-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
+		  rounded-xl py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
 		  text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate">
 						AJOUTER AU PANIER
 						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"

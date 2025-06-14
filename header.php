@@ -232,7 +232,7 @@
       </ul>
     </div>
   </div>
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
       // Update cart count via AJAX
       function updateCartCount() {
@@ -272,7 +272,7 @@
       // Update on page load
       updateCartCount();
     });
-  </script>
+  </script> -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const header = document.querySelector('header');
