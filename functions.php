@@ -282,7 +282,7 @@ function customize_checkout_fields($fields)
 }
 add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
-add_action('wp_enqueue_scripts', 'remove_woocommerce_layout_conditionally', 99);
+add_action('wp_enqueue_scripts', 'remove_woocommerce_layout_conditionally', 100);
 function remove_woocommerce_layout_conditionally()
 {
     // Remove only on shop pages
