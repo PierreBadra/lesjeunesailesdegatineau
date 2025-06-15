@@ -32,7 +32,6 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 <form name="checkout" method="post" class="checkout woocommerce-checkout"
 	action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 	aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
-	lsfkjsdjlk
 	<?php if ($checkout->get_checkout_fields()): ?>
 
 		<?php do_action('woocommerce_checkout_before_customer_details'); ?>
@@ -74,22 +73,10 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 				class="hover:text-blue-600" __v0_r="0,5547,5568">Panier</a><span>/</span><span class="text-gray-900"
 				__v0_r="0,5666,5681">Commander</span></nav>
 	</div>
-	<form class="grid lg:grid-cols-3 gap-8" __v0_r="0,5780,5807">
+	<form class="grid lg:grid-cols-3 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout" method="post"
+	action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
+	aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
 		<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
-			<div class="bg-white rounded-xl shadow-lg p-6" __v0_r="0,5953,5988">
-				<div class="text-center" __v0_r="0,6019,6032">
-					<div class="bg-gray-100 rounded-lg p-4 mb-4" __v0_r="0,6065,6098">
-						<p class="text-gray-600 text-sm" __v0_r="0,6131,6154">Paiement express disponible</p>
-						<div class="flex justify-center gap-4 mt-3" __v0_r="0,6220,6252">
-							<div class="bg-black text-white px-4 py-2 rounded text-sm" __v0_r="0,6289,6336">Apple Pay
-							</div>
-							<div class="bg-blue-600 text-white px-4 py-2 rounded text-sm" __v0_r="0,6388,6438">Google
-								Pay</div>
-						</div>
-					</div>
-					<p class="text-gray-500 text-sm" __v0_r="0,6533,6556">— OU —</p>
-				</div>
-			</div>
 			<div class="bg-white rounded-xl shadow-lg p-6" __v0_r="0,6691,6726">
 				<div class="flex items-center gap-3 mb-6" __v0_r="0,6757,6787"><svg xmlns="http://www.w3.org/2000/svg"
 						width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -112,12 +99,12 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 					<div class="grid md:grid-cols-2 gap-4 mb-4" __v0_r="0,7256,7288">
 						<div><label for="billing_first_name" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,7380,7426">Prénom <span class="text-red-500"
-									__v0_r="0,7473,7487">*</span></label><input id="billing_first_name" required=""
+									__v0_r="0,7473,7487">*</span></label><input id="billing_first_name" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,7853,7982" type="text" value="" name="billing_first_name"></div>
 						<div><label for="billing_last_name" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,8121,8167">Nom <span class="text-red-500"
-									__v0_r="0,8211,8225">*</span></label><input id="billing_last_name" required=""
+									__v0_r="0,8211,8225">*</span></label><input id="billing_last_name" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,8588,8717" type="text" value="" name="billing_last_name"></div>
 					</div>
@@ -129,7 +116,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 								__v0_r="0,9376,9505" type="tel" value="" name="billing_phone"></div>
 						<div><label for="billing_email" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,9640,9686">Adresse e-mail <span class="text-red-500"
-									__v0_r="0,9741,9755">*</span></label><input id="billing_email" required=""
+									__v0_r="0,9741,9755">*</span></label><input id="billing_email" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,10107,10236" type="email" value="" name="billing_email"></div>
 					</div>
@@ -147,7 +134,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 					<div class="mb-4" __v0_r="0,11056,11062"><label for="billing_address_1"
 							class="block text-sm font-medium text-gray-700 mb-2" __v0_r="0,11127,11173">Numéro et nom de
 							rue <span class="text-red-500" __v0_r="0,11232,11246">*</span></label><input
-							id="billing_address_1" placeholder="Numéro de voie et nom de la rue" required=""
+							id="billing_address_1" placeholder="Numéro de voie et nom de la rue" 
 							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 							__v0_r="0,11657,11786" type="text" value="" name="billing_address_1"></div>
 					<div class="mb-4" __v0_r="0,11863,11869"><label for="billing_address_2"
@@ -160,13 +147,13 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 					<div class="grid md:grid-cols-3 gap-4" __v0_r="0,12678,12705">
 						<div><label for="billing_city" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,12791,12837">Ville <span class="text-red-500"
-									__v0_r="0,12883,12897">*</span></label><input id="billing_city" required=""
+									__v0_r="0,12883,12897">*</span></label><input id="billing_city" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,13245,13374" type="text" value="" name="billing_city"></div>
 						<div><label for="billing_state" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,13509,13555">Province <span class="text-red-500"
 									__v0_r="0,13604,13618">*</span></label><select id="billing_state"
-								name="billing_state" required=""
+								name="billing_state" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,13936,14065">
 								<option value="">Sélectionner une option…</option>
@@ -186,7 +173,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							</select></div>
 						<div><label for="billing_postcode" class="block text-sm font-medium text-gray-700 mb-2"
 								__v0_r="0,15141,15187">Code postal <span class="text-red-500"
-									__v0_r="0,15239,15253">*</span></label><input id="billing_postcode" required=""
+									__v0_r="0,15239,15253">*</span></label><input id="billing_postcode" 
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								__v0_r="0,15613,15742" type="text" value="" name="billing_postcode"></div>
 					</div>
@@ -208,27 +195,27 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							<div><label for="card_number" class="block text-sm font-medium text-gray-700 mb-2"
 									__v0_r="0,16907,16953">Numéro de carte <span class="text-red-500"
 										__v0_r="0,17011,17025">*</span></label><input id="card_number"
-									placeholder="1234 5678 9012 3456" required=""
+									placeholder="1234 5678 9012 3456" 
 									class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 									__v0_r="0,17340,17469" type="text" name="card_number"></div>
 							<div class="grid grid-cols-2 gap-4" __v0_r="0,17558,17582">
 								<div><label for="card_expiry" class="block text-sm font-medium text-gray-700 mb-2"
 										__v0_r="0,17675,17721">Date d'expiration <span class="text-red-500"
 											__v0_r="0,17783,17797">*</span></label><input id="card_expiry"
-										placeholder="MM/AA" required=""
+										placeholder="MM/AA" 
 										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 										__v0_r="0,18114,18243" type="text" name="card_expiry"></div>
 								<div><label for="card_cvc" class="block text-sm font-medium text-gray-700 mb-2"
 										__v0_r="0,18388,18434">Code CVC <span class="text-red-500"
 											__v0_r="0,18487,18501">*</span></label><input id="card_cvc"
-										placeholder="123" required=""
+										placeholder="123" 
 										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 										__v0_r="0,18810,18939" type="text" name="card_cvc"></div>
 							</div>
 							<div><label for="card_name" class="block text-sm font-medium text-gray-700 mb-2"
 									__v0_r="0,19109,19155">Nom sur la carte <span class="text-red-500"
 										__v0_r="0,19214,19228">*</span></label><input id="card_name"
-									placeholder="Nom tel qu'il apparaît sur la carte" required=""
+									placeholder="Nom tel qu'il apparaît sur la carte" 
 									class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 									__v0_r="0,19555,19684" type="text" name="card_name"></div>
 						</div>
@@ -263,7 +250,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						__v0_r="0,21892,22021"></textarea></div>
 			</div>
 			<div class="bg-blue-50 border border-blue-200 rounded-xl p-6" __v0_r="0,22147,22197">
-				<div class="flex items-start gap-3 mb-4" __v0_r="0,22228,22257"><input id="accept_terms" required=""
+				<div class="flex items-start gap-3 mb-4" __v0_r="0,22228,22257"><input id="accept_terms" 
 						class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
 						__v0_r="0,22542,22614" type="checkbox" name="accept_terms"><label for="accept_terms"
 						class="text-sm text-gray-700" __v0_r="0,22690,22713">J'accepte les <a
