@@ -83,22 +83,6 @@ function enqueue_woocommerce_assets()
 }
 add_action('wp_enqueue_scripts', 'enqueue_woocommerce_assets');
 
-// Remove WooCommerce default styles if you want full control
-// Uncomment the line below if you want to style everything yourself
-// add_filter('woocommerce_enqueue_styles', '__return_empty_array');
-
-// Ensure cart works without login
-// function ensure_cart_works_without_login()
-// {
-//     if (!is_admin()) {
-//         // Start session for guest users
-//         if (!session_id()) {
-//             session_start();
-//         }
-//     }
-// }
-// add_action('init', 'ensure_cart_works_without_login');
-
 // Customize WooCommerce templates in your theme
 // This tells WooCommerce to look for template overrides in your theme
 function custom_woocommerce_template_path()
@@ -232,18 +216,6 @@ function improve_cart_functionality()
     }
 }
 add_action('wp_enqueue_scripts', 'improve_cart_functionality');
-
-// Fix cart session issues
-// function fix_cart_session()
-// {
-//     if (class_exists('WooCommerce') && !is_admin()) {
-//         // Ensure WooCommerce session is started
-//         if (!WC()->session->has_session()) {
-//             WC()->session->set_customer_session_cookie(true);
-//         }
-//     }
-// }
-// add_action('wp_loaded', 'fix_cart_session');
 
 // Add cart count to header (helper function)
 function get_cart_count()
