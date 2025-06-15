@@ -62,7 +62,10 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 				<?php do_action('woocommerce_checkout_shipping'); ?>
 				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
 			</div>
-			<div class="lg:row-span-3 lg:row-start-2">
+			<div class="lg:row-span-3 lg:row-start-2 space-y-8">
+				<h2
+					class="text-xl font-[Oswald] tracking-widest uppercase font-medium mb-4 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">
+					Informations de paiement</h2>
 				<!-- Order Review and Payment -->
 				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
 				<?php do_action('woocommerce_checkout_before_order_review'); ?>
