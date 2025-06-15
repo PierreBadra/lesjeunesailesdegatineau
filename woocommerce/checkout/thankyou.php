@@ -56,7 +56,13 @@ if ($order):
                         <div>
                             <h1 class="text-3xl sm:text-4xl/10 md:text-5xl/15 font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent mb-4 uppercase font-[Oswald] tracking-widest"
                                 __v0_r="0,1691,1730">Merci pour votre commande !</h1>
-                            <p class="text-lg sm:text-xl text-gray-600 mb-4 font-[Inter]" __v0_r="0,1789,1817">Votre paiement a
+                            <p class="flex items-center gap-2 text-lg sm:text-xl text-gray-600 mb-4 font-[Inter]"
+                                __v0_r="0,1789,1817"><svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="text-green-500 lucide lucide-check-icon lucide-check">
+                                    <path d="M20 6 9 17l-5-5"></path>
+                                </svg>Votre paiement a
                                 été traité avec succès.</p>
                             <p class="text-gray-600 mb-4" __v0_r="0,1888,1903">Un courriel de confirmation a été envoyé à <span
                                     class="text-sm flex items-center gap-3 text-blue-950 underline" __v0_r="0,1997,2024">
