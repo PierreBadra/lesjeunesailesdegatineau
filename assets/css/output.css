@@ -759,6 +759,9 @@
   .overflow-hidden {
     overflow: hidden;
   }
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
   .\!rounded-lg {
     border-radius: var(--radius-lg) !important;
   }

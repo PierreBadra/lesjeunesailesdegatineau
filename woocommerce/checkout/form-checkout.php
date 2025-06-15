@@ -29,7 +29,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 ?>
 
-<section class="w-full p-6 pt-40" __v0_r="0,5212,5241">
+<section class="w-full p-6 pt-40 overflow-x-hidden">
 	<div class="container mx-auto max-w-7xl">
 		<div class="mb-8">
 			<a href="/panier"
@@ -42,17 +42,17 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 				</svg>Retour au panier
 			</a>
 		</div>
-		<form class="grid lg:grid-cols-2 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout"
-			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
+		<form class="grid lg:grid-cols-2 gap-8 checkout woocommerce-checkout" name="checkout" method="post"
+			action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
-			<div class="lg:col-span-1 space-y-8" __v0_r="0,5862,5887">
+			<div class="lg:col-span-1 space-y-8">
 				<!-- Personal Info, Billing, Shipping -->
 				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
 				<?php do_action('woocommerce_checkout_shipping'); ?>
 				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
 			</div>
-			<div class="lg:col-span-1" __v0_r="0,23615,23630">
+			<div class="lg:col-span-1">
 				<!-- Order Review and Payment -->
 				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
 				<?php do_action('woocommerce_checkout_before_order_review'); ?>
