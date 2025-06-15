@@ -29,12 +29,17 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 ?>
 
-<div class="container mx-auto px-4 py-8" __v0_r="0,5212,5241">
-	<div class="mb-8" __v0_r="0,5293,5299">
-		<nav class="flex items-center gap-2 text-sm text-gray-600" __v0_r="0,5326,5373"><a href="/"
-				class="hover:text-blue-600" __v0_r="0,5412,5433">Accueil</a><span>/</span><a href="/panier"
-				class="hover:text-blue-600" __v0_r="0,5547,5568">Panier</a><span>/</span><span class="text-gray-900"
-				__v0_r="0,5666,5681">Commander</span></nav>
+<section class="container mx-auto max-w-7xl px-4 py-8" __v0_r="0,5212,5241">
+	<div class="">
+		<a href="/panier"
+			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
+				xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+				class="lucide lucide-arrow-left w-4 h-4">
+				<path d="m12 19-7-7 7-7"></path>
+				<path d="M19 12H5"></path>
+			</svg>Retour au panier
+		</a>
 	</div>
 	<form class="grid lg:grid-cols-3 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout"
 		method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
@@ -55,6 +60,6 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 		</div>
 	</form>
-</div>
+</section>
 
 <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
