@@ -60,7 +60,7 @@ if ($order):
                                 __v0_r="0,1789,1817"><svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
-                                    class="text-green-500 lucide lucide-check-icon lucide-check">
+                                    class="!text-green-500 lucide lucide-check-icon lucide-check">
                                     <path d="M20 6 9 17l-5-5"></path>
                                 </svg>Votre paiement a
                                 été traité avec succès.</p>

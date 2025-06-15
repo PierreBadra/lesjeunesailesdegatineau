@@ -1268,6 +1268,9 @@
   .\!text-gray-600 {
     color: var(--color-gray-600) !important;
   }
+  .\!text-green-500 {
+    color: var(--color-green-500) !important;
+  }
   .text-amber-300 {
     color: var(--color-amber-300);
   }
