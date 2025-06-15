@@ -49,17 +49,17 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 		do_action('woocommerce_before_checkout_form', $checkout);
 		?>
 
-		<form class="grid lg:grid-cols-2 gap-8 checkout woocommerce-checkout" name="checkout" method="post"
-			action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
+		<form class="grid lg:grid-cols-2 lg:grid-rows-4 gap-8 checkout woocommerce-checkout" name="checkout"
+			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
-			<div class="lg:col-span-1 space-y-8">
+			<div class="lg:row-span-3 lg:row-start-2 space-y-8">
 				<!-- Personal Info, Billing, Shipping -->
 				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
 				<?php do_action('woocommerce_checkout_shipping'); ?>
 				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
 			</div>
-			<div class="lg:col-span-1">
+			<div class="lg:row-span-3 lg:row-start-2">
 				<!-- Order Review and Payment -->
 				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
 				<?php do_action('woocommerce_checkout_before_order_review'); ?>
