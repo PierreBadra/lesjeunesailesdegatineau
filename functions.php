@@ -422,8 +422,8 @@ function cart_custom_styles() {
 add_filter('woocommerce_checkout_fields', function($fields) {
     foreach ($fields as &$fieldset) {
         foreach ($fieldset as &$field) {
-            $field['input_class'][] = 'border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
-            $field['label_class'][] = 'block font-semibold mb-2';
+            $field['input_class'][] = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors';
+            $field['label_class'][] = 'block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed';
         }
     }
     return $fields;
