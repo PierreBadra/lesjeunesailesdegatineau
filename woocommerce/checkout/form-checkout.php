@@ -45,7 +45,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 		<form class="grid lg:grid-cols-2 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout"
 			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
-			<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
+			<div class="lg:col-span-1 space-y-8" __v0_r="0,5862,5887">
 				<!-- Personal Info, Billing, Shipping -->
 				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
