@@ -62,7 +62,7 @@ if ($order):
                     </div>
                 </div>
                 <div class="grid lg:grid-cols-2 gap-8" __v0_r="0,2118,2145">
-                    <div class="bg-white rounded-xl shadow-lg p-8" __v0_r="0,2208,2243">
+                    <div class="" __v0_r="0,2208,2243">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6" __v0_r="0,2273,2312">Détails de la commande</h2>
                         <div class="space-y-6" __v0_r="0,2371,2382">
                             <div class="flex items-center gap-4" __v0_r="0,2452,2477">
@@ -127,7 +127,7 @@ if ($order):
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-lg p-8" __v0_r="0,4493,4528">
+                    <div class="" __v0_r="0,4493,4528">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6" __v0_r="0,4558,4597">Résumé de commande</h2>
                         <div class="space-y-4 mb-6">
                             <?php if ($order): ?>
@@ -209,7 +209,7 @@ if ($order):
                         </div>
                     </div>
                 </div>
-                <div class="mt-8 bg-white rounded-xl shadow-lg p-8" __v0_r="0,7861,7901">
+                <div class="mt-8 " __v0_r="0,7861,7901">
                     <h3 class="text-xl font-bold text-gray-900 mb-6" __v0_r="0,7929,7967">Prochaines étapes</h3>
                     <div class="space-y-4" __v0_r="0,8018,8029">
                         <div class="flex items-center gap-4" __v0_r="0,8060,8085">
