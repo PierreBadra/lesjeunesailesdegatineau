@@ -437,6 +437,11 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         foreach ($fieldset as &$field) {
             $field['input_class'][] = '!w-full !px-4 !py-3 border border-gray-300 !rounded-lg !focus:outline-none !focus:ring-2 !focus:ring-blue-950 !focus:border-transparent !transition-colors';
             $field['label_class'][] = '!block !text-sm !font-medium !font-[Inter] !tracking-widest !uppercase !mb-2 !text-gray-600 !leading-relaxed';
+
+            // If this is the province/state field, add extra classes for Select2
+            if ($key === 'billing_state' || $key === 'shipping_state') {
+                $field['input_class'][] = 'max-w-full'; // Tailwind
+            }
         }
     }
     return $fields;
