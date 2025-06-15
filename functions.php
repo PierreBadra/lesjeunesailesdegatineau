@@ -288,7 +288,8 @@ function remove_woocommerce_layout_conditionally()
     // Remove only on shop pages
     if (is_woocommerce() || is_cart() || is_checkout()) {
         wp_dequeue_style('woocommerce-layout');
-        wp_deregister_style('woocommerce-layout');
+        wp_dequeue_style('woocommerce-smallscreen');
+        wp_dequeue_style('woocommerce-general');
     }
 }
 
@@ -298,7 +299,8 @@ function remove_woocommerce_layout_conditionally()
 add_action('wp_ajax_update_cart_quantity', 'handle_update_cart_quantity');
 add_action('wp_ajax_nopriv_update_cart_quantity', 'handle_update_cart_quantity');
 
-function handle_update_cart_quantity() {
+function handle_update_cart_quantity()
+{
     // Verify nonce
     if (!wp_verify_nonce($_POST['nonce'], 'update_cart_quantity')) {
         wp_die('Security check failed');
@@ -325,7 +327,7 @@ function handle_update_cart_quantity() {
             // Get cart item to calculate item total
             $cart_item = WC()->cart->get_cart_item($cart_key);
             $item_total = '';
-            
+
             if ($cart_item && $quantity > 0) {
                 $_product = $cart_item['data'];
                 $item_total = WC()->cart->get_product_subtotal($_product, $quantity);
@@ -352,7 +354,8 @@ function handle_update_cart_quantity() {
 add_action('wp_ajax_remove_cart_item', 'handle_remove_cart_item');
 add_action('wp_ajax_nopriv_remove_cart_item', 'handle_remove_cart_item');
 
-function handle_remove_cart_item() {
+function handle_remove_cart_item()
+{
     // Verify nonce
     if (!wp_verify_nonce($_POST['nonce'], 'remove_cart_item')) {
         wp_die('Security check failed');
@@ -392,34 +395,42 @@ function handle_remove_cart_item() {
 
 // Optional: Add some styling for loading states
 add_action('wp_head', 'cart_custom_styles');
-function cart_custom_styles() {
+function cart_custom_styles()
+{
     if (is_page_template('page-panier.php')) { // Adjust template name as needed
         ?>
         <style>
-        .cart-item.updating {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        .quantity-display {
-            min-width: 2rem;
-            text-align: center;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .cart-item.updating .quantity-display {
-            animation: pulse 1s infinite;
-        }
+            .cart-item.updating {
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
+            .quantity-display {
+                min-width: 2rem;
+                text-align: center;
+            }
+
+            @keyframes pulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .cart-item.updating .quantity-display {
+                animation: pulse 1s infinite;
+            }
         </style>
         <?php
     }
 }
 
-add_filter('woocommerce_checkout_fields', function($fields) {
+add_filter('woocommerce_checkout_fields', function ($fields) {
     foreach ($fields as &$fieldset) {
         foreach ($fieldset as &$field) {
             $field['input_class'][] = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors';
