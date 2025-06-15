@@ -489,14 +489,13 @@ function hide_checkout_section_headings()
 
 add_action('woocommerce_before_checkout_form', function () {
     if (is_checkout()) {
+        // Get all WooCommerce notices from the session
         $notices = WC()->session->get('wc_notices', []);
-        if (!empty($notices['success'])) {
-            // Filter out "added to cart" messages
-            $notices['success'] = array_filter($notices['success'], function ($notice) {
-                return stripos($notice, 'a été ajouté à votre panier') === false // French
-                    && stripos($notice, 'has been added to your cart') === false; // English
-            });
+        // Remove all 'success' notices
+        if (isset($notices['success'])) {
+            unset($notices['success']);
             WC()->session->set('wc_notices', $notices);
         }
     }
 }, 1);
+
