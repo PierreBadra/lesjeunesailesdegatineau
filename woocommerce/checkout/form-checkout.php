@@ -53,6 +53,9 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
 			<div class="lg:row-span-3 lg:row-start-2 space-y-8">
+				<h1
+					class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+					Détails de facturation </h1>
 				<!-- Personal Info, Billing, Shipping -->
 				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
