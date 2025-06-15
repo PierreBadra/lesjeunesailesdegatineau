@@ -29,37 +29,39 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 ?>
 
-<section class="container mx-auto max-w-7xl px-4 py-8" __v0_r="0,5212,5241">
-	<div class="">
-		<a href="/panier"
-			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
-				xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-				class="lucide lucide-arrow-left w-4 h-4">
-				<path d="m12 19-7-7 7-7"></path>
-				<path d="M19 12H5"></path>
-			</svg>Retour au panier
-		</a>
-	</div>
-	<form class="grid lg:grid-cols-3 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout"
-		method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
-		aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
-		<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
-			<!-- Personal Info, Billing, Shipping -->
-			<?php do_action('woocommerce_checkout_before_customer_details'); ?>
-			<?php do_action('woocommerce_checkout_billing'); ?>
-			<?php do_action('woocommerce_checkout_shipping'); ?>
-			<?php do_action('woocommerce_checkout_after_customer_details'); ?>
+<section class="w-full p-6 pt-40" __v0_r="0,5212,5241">
+	<div class="container mx-auto max-w-7xl">
+		<div class="">
+			<a href="/panier"
+				class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
+					xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="lucide lucide-arrow-left w-4 h-4">
+					<path d="m12 19-7-7 7-7"></path>
+					<path d="M19 12H5"></path>
+				</svg>Retour au panier
+			</a>
 		</div>
-		<div class="lg:col-span-1" __v0_r="0,23615,23630">
-			<!-- Order Review and Payment -->
-			<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
-			<?php do_action('woocommerce_checkout_before_order_review'); ?>
-			<?php do_action('woocommerce_checkout_order_review'); ?>
-			<?php do_action('woocommerce_checkout_after_order_review'); ?>
+		<form class="grid lg:grid-cols-3 gap-8 checkout woocommerce-checkout" __v0_r="0,5780,5807" name="checkout"
+			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
+			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
+			<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
+				<!-- Personal Info, Billing, Shipping -->
+				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
+				<?php do_action('woocommerce_checkout_billing'); ?>
+				<?php do_action('woocommerce_checkout_shipping'); ?>
+				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
+			</div>
+			<div class="lg:col-span-1" __v0_r="0,23615,23630">
+				<!-- Order Review and Payment -->
+				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
+				<?php do_action('woocommerce_checkout_before_order_review'); ?>
+				<?php do_action('woocommerce_checkout_order_review'); ?>
+				<?php do_action('woocommerce_checkout_after_order_review'); ?>
 
-		</div>
-	</form>
+			</div>
+		</form>
+	</div>
 </section>
 
 <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
