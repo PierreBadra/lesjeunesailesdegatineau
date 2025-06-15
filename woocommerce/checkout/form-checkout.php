@@ -31,7 +31,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 <section class="w-full p-6 pt-40" __v0_r="0,5212,5241">
 	<div class="container mx-auto max-w-7xl">
-		<div class="">
+		<div class="mb-8">
 			<a href="/panier"
 				class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
 					xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -47,6 +47,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
 			<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
 				<!-- Personal Info, Billing, Shipping -->
+				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
 				<?php do_action('woocommerce_checkout_shipping'); ?>
 				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
