@@ -209,43 +209,6 @@ if ($order):
                         </div>
                     </div>
                 </div>
-                <div class="mt-8 " __v0_r="0,7861,7901">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6" __v0_r="0,7929,7967">Prochaines étapes</h3>
-                    <div class="space-y-4" __v0_r="0,8018,8029">
-                        <div class="flex items-center gap-4" __v0_r="0,8060,8085">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center"
-                                __v0_r="0,8118,8186"><span class="text-sm font-bold text-green-600"
-                                    __v0_r="0,8222,8256">1</span></div>
-                            <div>
-                                <h4 class="font-medium text-gray-900" __v0_r="0,8343,8370">Confirmation reçue</h4>
-                                <p class="text-gray-600 text-sm" __v0_r="0,8426,8449">Votre commande a été confirmée et
-                                    enregistrée dans notre système</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4" __v0_r="0,8633,8658">
-                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center" __v0_r="0,8691,8758">
-                                <span class="text-sm font-bold text-blue-600" __v0_r="0,8794,8827">2</span>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900" __v0_r="0,8914,8941">Traitement de l'inscription</h4>
-                                <p class="text-gray-600 text-sm" __v0_r="0,9006,9029">Notre équipe traitera votre
-                                    inscription
-                                    dans les 1-2 prochains jours ouvrables</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4" __v0_r="0,9227,9252">
-                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center"
-                                __v0_r="0,9285,9354"><span class="text-sm font-bold text-purple-600"
-                                    __v0_r="0,9390,9425">3</span></div>
-                            <div>
-                                <h4 class="font-medium text-gray-900" __v0_r="0,9512,9539">Informations détaillées</h4>
-                                <p class="text-gray-600 text-sm" __v0_r="0,9600,9623">Vous recevrez un courriel avec toutes
-                                    les
-                                    informations sur votre programme</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="mt-12 text-center" __v0_r="0,9882,9901">
                     <div class="flex flex-col sm:flex-row gap-4 justify-center" __v0_r="0,9930,9978"><a href="/"
                             class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white px-8 py-4 rounded-lg font-bold transition-colors"
