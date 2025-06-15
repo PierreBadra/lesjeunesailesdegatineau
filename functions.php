@@ -467,10 +467,7 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     return $fields;
 });
 
-// // Remove the section headings
-// add_filter('woocommerce_checkout_billing_title', function() { return ''; }, 20);
-// add_filter('woocommerce_checkout_shipping_title', function() { return ''; }, 20);
-// add_filter('woocommerce_checkout_additional_information_title', function() { return ''; }, 20);
+
 add_action('wp_head', 'hide_checkout_section_headings');
 function hide_checkout_section_headings()
 {
@@ -489,3 +486,17 @@ function hide_checkout_section_headings()
         <?php
     }
 }
+
+add_action('woocommerce_before_checkout_form', function () {
+    if (is_checkout()) {
+        $notices = WC()->session->get('wc_notices', []);
+        if (!empty($notices['success'])) {
+            // Filter out "added to cart" messages
+            $notices['success'] = array_filter($notices['success'], function ($notice) {
+                return stripos($notice, 'a été ajouté à votre panier') === false // French
+                    && stripos($notice, 'has been added to your cart') === false; // English
+            });
+            WC()->session->set('wc_notices', $notices);
+        }
+    }
+}, 1);
