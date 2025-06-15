@@ -36,7 +36,7 @@
     }
   </style>
   <header
-    class="px-6 py-3 fixed w-full z-50 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 transition-all duration-300">
+    class="px-6 py-3 fixed w-full z-[9999] bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 transition-all duration-300">
     <div class="flex justify-between items-center container max-w-7xl mx-auto">
       <a href="/" class="flex items-center gap-2 z-50 relative">
         <img class="w-24 h-24" src="<?= get_template_directory_uri(); ?>/assets/images/logo.webp" alt="Logo Image">
