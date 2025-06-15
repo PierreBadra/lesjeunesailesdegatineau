@@ -103,10 +103,6 @@ get_header();
                                                         $dates = get_field('dates', $product_id);
                                                         $details = array();
 
-                                                        if ($age_range) {
-                                                            $details[] = 'Âge: ' . esc_html($age_range);
-                                                        }
-
                                                         if ($dates && is_array($dates)) {
                                                             $date_debut = $dates['date_debut'] ?? '';
                                                             $date_fin = $dates['date_fin'] ?? '';
