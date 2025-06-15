@@ -467,7 +467,25 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     return $fields;
 });
 
-// Remove the section headings
-add_filter('woocommerce_checkout_billing_title', function() { return ''; }, 20);
-add_filter('woocommerce_checkout_shipping_title', function() { return ''; }, 20);
-add_filter('woocommerce_checkout_additional_information_title', function() { return ''; }, 20);
+// // Remove the section headings
+// add_filter('woocommerce_checkout_billing_title', function() { return ''; }, 20);
+// add_filter('woocommerce_checkout_shipping_title', function() { return ''; }, 20);
+// add_filter('woocommerce_checkout_additional_information_title', function() { return ''; }, 20);
+add_action('wp_head', 'hide_checkout_section_headings');
+function hide_checkout_section_headings()
+{
+    if (is_checkout()) {
+        ?>
+        <style>
+            .woocommerce-checkout h3#billing_title,
+            .woocommerce-checkout h3#shipping_title,
+            .woocommerce-checkout h3#additional_information_title,
+            .woocommerce-billing-fields h3,
+            .woocommerce-shipping-fields h3,
+            .woocommerce-additional-fields h3 {
+                display: none !important;
+            }
+        </style>
+        <?php
+    }
+}
