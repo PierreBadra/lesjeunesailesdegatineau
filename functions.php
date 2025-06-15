@@ -286,7 +286,7 @@ add_action('wp_enqueue_scripts', 'remove_woocommerce_layout_conditionally', 99);
 function remove_woocommerce_layout_conditionally()
 {
     // Remove only on shop pages
-    if (is_woocommerce() || is_cart()) {
+    if (is_woocommerce() || is_cart() || is_checkout()) {
         wp_dequeue_style('woocommerce-layout');
         wp_deregister_style('woocommerce-layout');
     }
