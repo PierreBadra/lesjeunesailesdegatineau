@@ -433,8 +433,31 @@ function cart_custom_styles()
 }
 
 add_filter('woocommerce_checkout_fields', function ($fields) {
+    // Remove province/state
     unset($fields['billing']['billing_state']);
     unset($fields['shipping']['shipping_state']);
+
+    // Remove city
+    unset($fields['billing']['billing_city']);
+    unset($fields['shipping']['shipping_city']);
+
+    // Remove postal code
+    unset($fields['billing']['billing_postcode']);
+    unset($fields['shipping']['shipping_postcode']);
+
+    // Remove country
+    unset($fields['billing']['billing_country']);
+    unset($fields['shipping']['shipping_country']);
+
+    // Remove street name and number
+    unset($fields['billing']['billing_address_1']);
+    unset($fields['shipping']['shipping_address_1']);
+
+    // (Optional) Remove address line 2 (apartment, suite, etc.)
+    unset($fields['billing']['billing_address_2']);
+    unset($fields['shipping']['shipping_address_2']);
+
+    // Add your custom classes
     foreach ($fields as &$fieldset) {
         foreach ($fieldset as &$field) {
             $field['input_class'][] = 'w-full !px-4 !py-3 border border-gray-300 !rounded-lg !focus:outline-none !focus:ring-2 !focus:ring-blue-950 !focus:border-transparent !transition-colors';
