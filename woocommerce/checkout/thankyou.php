@@ -44,9 +44,9 @@ if ($order):
         <section class="w-full px-6 py-12 pt-40">
             <div class="container mx-auto max-w-7xl" __v0_r="0,1312,1342">
                 <div class="flex items-center gap-4 mb-12" __v0_r="0,1446,1465">
-                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
-                        __v0_r="0,1494,1577"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-6" __v0_r="0,1494,1577"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-circle-check-big w-12 h-12 text-green-600" __v0_r="0,1616,1642">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                             <path d="m9 11 3 3L22 4"></path>
