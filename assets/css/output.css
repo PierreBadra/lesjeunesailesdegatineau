@@ -2106,6 +2106,11 @@
       grid-template-rows: repeat(4, minmax(0, 1fr));
     }
   }
+  .lg\:grid-rows-\[auto_1fr\] {
+    @media (width >= 64rem) {
+      grid-template-rows: auto 1fr;
+    }
+  }
   .lg\:pt-28 {
     @media (width >= 64rem) {
       padding-top: calc(var(--spacing) * 28);

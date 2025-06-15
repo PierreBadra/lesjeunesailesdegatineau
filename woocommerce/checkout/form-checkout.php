@@ -49,7 +49,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 		do_action('woocommerce_before_checkout_form', $checkout);
 		?>
 
-		<form class="grid lg:grid-cols-2 lg:grid-rows-4 gap-8 checkout woocommerce-checkout" name="checkout"
+		<form class="grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-8 checkout woocommerce-checkout" name="checkout"
 			method="post" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data"
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
 			<div class="lg:row-span-3 lg:row-start-2 space-y-8">
