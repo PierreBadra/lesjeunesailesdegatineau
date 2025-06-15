@@ -285,11 +285,13 @@ add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 add_action('wp_enqueue_scripts', 'remove_woocommerce_layout_conditionally', 100);
 function remove_woocommerce_layout_conditionally()
 {
-    // Remove only on shop pages
     if (is_woocommerce() || is_cart() || is_checkout()) {
         wp_dequeue_style('woocommerce-layout');
         wp_dequeue_style('woocommerce-smallscreen');
         wp_dequeue_style('woocommerce-general');
+        wp_dequeue_style('woocommerce');
+        wp_dequeue_style('wc-blocks-style');
+        wp_dequeue_style('wc-blocks-vendors-style');
     }
 }
 
