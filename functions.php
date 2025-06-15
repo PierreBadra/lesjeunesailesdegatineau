@@ -470,3 +470,4 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 // Remove the section headings
 add_filter('woocommerce_checkout_billing_title', '__return_empty_string');
 add_filter('woocommerce_checkout_shipping_title', '__return_empty_string');
+add_filter('woocommerce_checkout_additional_information_title', '__return_empty_string');
