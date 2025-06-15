@@ -47,7 +47,6 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 			aria-label="<?php echo esc_attr__('Checkout', 'woocommerce'); ?>">
 			<div class="lg:col-span-2 space-y-8" __v0_r="0,5862,5887">
 				<!-- Personal Info, Billing, Shipping -->
-				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<?php do_action('woocommerce_checkout_billing'); ?>
 				<?php do_action('woocommerce_checkout_shipping'); ?>
 				<?php do_action('woocommerce_checkout_after_customer_details'); ?>
