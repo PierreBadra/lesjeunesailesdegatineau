@@ -75,5 +75,10 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 		</form>
 	</div>
 </section>
+<script>
+	window.addEventListener('DOMContentLoaded', () => {
+		document.querySelectorAll('.woocommerce-message').forEach(el => el.remove());
+	});
+</script>
 
 <?php do_action('woocommerce_after_checkout_form', $checkout); ?>

@@ -487,15 +487,3 @@ function hide_checkout_section_headings()
     }
 }
 
-add_action('woocommerce_before_checkout_form', function () {
-    if (is_checkout()) {
-        // Get all WooCommerce notices from the session
-        $notices = WC()->session->get('wc_notices', []);
-        // Remove all 'success' notices
-        if (isset($notices['success'])) {
-            unset($notices['success']);
-            WC()->session->set('wc_notices', $notices);
-        }
-    }
-}, 1);
-
