@@ -234,16 +234,16 @@ function improve_cart_functionality()
 add_action('wp_enqueue_scripts', 'improve_cart_functionality');
 
 // Fix cart session issues
-function fix_cart_session()
-{
-    if (class_exists('WooCommerce') && !is_admin()) {
-        // Ensure WooCommerce session is started
-        if (!WC()->session->has_session()) {
-            WC()->session->set_customer_session_cookie(true);
-        }
-    }
-}
-add_action('wp_loaded', 'fix_cart_session');
+// function fix_cart_session()
+// {
+//     if (class_exists('WooCommerce') && !is_admin()) {
+//         // Ensure WooCommerce session is started
+//         if (!WC()->session->has_session()) {
+//             WC()->session->set_customer_session_cookie(true);
+//         }
+//     }
+// }
+// add_action('wp_loaded', 'fix_cart_session');
 
 // Add cart count to header (helper function)
 function get_cart_count()
