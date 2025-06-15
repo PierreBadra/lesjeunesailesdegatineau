@@ -88,16 +88,16 @@ add_action('wp_enqueue_scripts', 'enqueue_woocommerce_assets');
 // add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
 // Ensure cart works without login
-function ensure_cart_works_without_login()
-{
-    if (!is_admin()) {
-        // Start session for guest users
-        if (!session_id()) {
-            session_start();
-        }
-    }
-}
-add_action('init', 'ensure_cart_works_without_login');
+// function ensure_cart_works_without_login()
+// {
+//     if (!is_admin()) {
+//         // Start session for guest users
+//         if (!session_id()) {
+//             session_start();
+//         }
+//     }
+// }
+// add_action('init', 'ensure_cart_works_without_login');
 
 // Customize WooCommerce templates in your theme
 // This tells WooCommerce to look for template overrides in your theme
