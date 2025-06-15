@@ -289,7 +289,7 @@ function remove_woocommerce_layout_conditionally()
         wp_dequeue_style('woocommerce-layout');
         wp_dequeue_style('woocommerce-smallscreen');
         wp_dequeue_style('woocommerce-general');
-        wp_dequeue_style('woocommerce');
+        // wp_dequeue_style('woocommerce');
         wp_dequeue_style('wc-blocks-style');
         wp_dequeue_style('wc-blocks-vendors-style');
     }
