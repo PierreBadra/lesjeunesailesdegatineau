@@ -27,11 +27,13 @@
                     $panier_id = $panier_page ? $panier_page->ID : 0;
                     $commande_page = get_page_by_path('commande');
                     $commande_id = $commande_page ? $commande_page->ID : 0;
+                    $validation_de_la_commande_page = get_page_by_path('commander');
+                    $validation_de_la_commande_id = $validation_de_la_commande_page ? $validation_de_la_commande_page->ID : 0;
                     // Get all 'programmes' posts, excluding the "panier" page if needed
                     $pages = get_pages([
                         'sort_column' => 'menu_order',
                         'sort_order' => 'asc',
-                        'exclude' => [$panier_id, $commande_id]
+                        'exclude' => [$panier_id, $commande_id, $validation_de_la_commande_id]
                     ]);
                     $index = 0;
                     foreach ($pages as $page): ?>
