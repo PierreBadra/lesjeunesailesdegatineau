@@ -12,14 +12,18 @@ $first_category = trim($categories[0]);
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 
 <section class="w-full p-6 pt-40">
-	<div class="mb-8 container max-w-7xl mx-auto"><a href="/camps-de-jour"
-			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors"><svg
-				xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+	<div class="mb-8 container max-w-7xl mx-auto">
+		<a href="<?= isset($_SESSION['previous_page']) ? htmlspecialchars($_SESSION['previous_page']) : '/'; ?>"
+			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
 				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 				class="lucide lucide-arrow-left w-4 h-4">
 				<path d="m12 19-7-7 7-7"></path>
 				<path d="M19 12H5"></path>
-			</svg>Retour aux camps de jour</a></div>
+			</svg>
+			Retour aux <?= strtolower($first_category); ?>
+		</a>
+	</div>
 	<div class="flex flex-col xl:flex-row items-center gap-8 mb-12 container max-w-7xl mx-auto">
 		<!-- Text Content -->
 		<div class="w-full xl:w-1/2 text-start">
