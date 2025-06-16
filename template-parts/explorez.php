@@ -133,20 +133,20 @@
                     transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
                     focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
                     hover:bg-secondary/80 text-xs font-[Inter]">
-                    Camp de Jour
+                    Camps de Jour
                 </div>
             </div>
 
             <!-- Heading -->
             <h2
                 class="text-3xl font-medium tracking-widest font-[Oswald]  bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent mb-4">
-                DÉCOUVREZ NOTRE CAMP DE
+                DÉCOUVREZ NOS CAMPS DE
                 JOUR
             </h2>
 
             <!-- Description -->
             <p class="font-[Inter] text-gray-600 mb-8 text-muted-foreground text-xl max-w-3xl mx-auto">
-                Le Club propose un Camp de Jour dynamique pour les jeunes, offrant des activités sportives et ludiques
+                Le Club propose des camps de jour dynamique pour les jeunes, offrant des activités sportives et ludiques
                 adaptées à tous les niveaux dès l’âge de 5 ans.
             </p>
 
@@ -154,7 +154,7 @@
             <a href="/camps-de-jour" class="w-full sm:w-auto bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white rounded-xl
           first:rounded-t-lg last:rounded-b-lg py-4 sm:py-5 sm:px-8 tracking-wider sm:tracking-widest text-md
           text-center flex items-center justify-center gap-2 transition-colors duration-200 gradient-animate">
-                VOIR NOTRE CAMP DE JOUR
+                VOIR NOS CAMPS DE JOUR
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="inline-block">
                     <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
