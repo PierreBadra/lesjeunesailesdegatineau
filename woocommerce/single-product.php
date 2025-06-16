@@ -5,9 +5,10 @@
 $days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 $horaire = get_field('horaire');
 $product = wc_get_product();
-$category_list = wc_get_product_category_list($product->get_id());
-$categories = explode(',', $category_list);
-$first_category = trim($categories[0]);
+$terms = get_the_terms($product->get_id(), 'product_cat');
+if ($terms && !is_wp_error($terms)) {
+	$first_category_name = $terms[0]->name;
+}
 ?>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 
@@ -21,7 +22,7 @@ $first_category = trim($categories[0]);
 				<path d="m12 19-7-7 7-7"></path>
 				<path d="M19 12H5"></path>
 			</svg>
-			Retour aux <?= strtolower($first_category); ?>
+			Retour aux <?= strtolower($first_category_name); ?>
 		</a>
 	</div>
 	<div class="flex flex-col xl:flex-row items-center gap-8 mb-12 container max-w-7xl mx-auto">
@@ -46,7 +47,7 @@ $first_category = trim($categories[0]);
 									transition-colors focus:outline-none focus:ring-2 focus:ring-ring 
 									focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground 
 									hover:bg-secondary/80 text-xs font-[Inter]">
-					<?= $first_category; ?>
+					<?= $first_category_name; ?>
 				</div>
 			</div>
 
