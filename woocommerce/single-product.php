@@ -8,13 +8,14 @@ $product = wc_get_product();
 $terms = get_the_terms($product->get_id(), 'product_cat');
 if ($terms && !is_wp_error($terms)) {
 	$first_category_name = $terms[0]->name;
+	$category_url = strtolower(str_replace(" ", "-", $first_category_name));
 }
 ?>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 
 <section class="w-full p-6 pt-40">
 	<div class="mb-8 container max-w-7xl mx-auto">
-		<a href="<?= isset($_SESSION['previous_page']) ? htmlspecialchars($_SESSION['previous_page']) : '/'; ?>"
+		<a href="<?= $category_url; ?>"
 			class="inline-flex items-center gap-2 text-blue-950 hover:text-blue-900 transition-colors">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
 				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
