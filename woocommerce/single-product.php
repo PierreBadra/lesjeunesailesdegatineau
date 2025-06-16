@@ -10,7 +10,6 @@ $categories = explode(',', $category_list);
 $first_category = trim($categories[0]);
 ?>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
 
 <section class="w-full p-6 pt-40">
 	<div class="mb-8 container max-w-7xl mx-auto"><a href="/camps-de-jour"
