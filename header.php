@@ -14,9 +14,6 @@
   <title><?php wp_title('|', true, 'right'); ?> Les Jeunes Ailés de Gatineau</title>
   <?php
   wp_head();
-  if (isset($_SERVER['HTTP_REFERER'])) {
-    $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'];
-  }
   ?>
 </head>
 
