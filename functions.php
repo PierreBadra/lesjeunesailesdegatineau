@@ -487,3 +487,16 @@ function hide_checkout_section_headings()
     }
 }
 
+// TODO
+// Remove this later and use the dynamic product category page to list the category specific products in one page.
+// Cleans up the theme and unecessary bloat from additional pages
+add_action('template_redirect', function () {
+    if (is_product_category()) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header(404);
+        nocache_headers();
+        include(get_query_template('404'));
+        exit;
+    }
+});
