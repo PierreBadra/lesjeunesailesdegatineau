@@ -269,10 +269,6 @@ if ($terms && !is_wp_error($terms)) {
 										<div class="space-y-4">
 											<?php foreach ($seances as $idx => $seance): ?>
 												<div class="mb-2">
-													<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-center py-1 mb-1"
-														data-v0-t="badge">
-														Séance <?= $idx + 1 ?>
-													</div>
 													<div class="flex items-center gap-2 mb-1">
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 															viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -286,6 +282,10 @@ if ($terms && !is_wp_error($terms)) {
 															-
 															<?= esc_html($seance['heure_de_fin'] ?? '') ?>
 														</span>
+													</div>
+													<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-center py-1 mb-1"
+														data-v0-t="badge">
+														Séance <?= $idx + 1 ?>
 													</div>
 													<div class="flex items-start gap-2">
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
