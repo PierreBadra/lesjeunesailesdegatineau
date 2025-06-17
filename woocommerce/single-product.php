@@ -248,56 +248,67 @@ if ($terms && !is_wp_error($terms)) {
 				<?php if (!is_array_fully_empty($horaire)): ?>
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 						<?php foreach ($days as $day): ?>
-							<?php if (
-								$horaire[$day]['nom_de_la_seance'] != null &&
-								$horaire[$day]['heure_de_debut'] != null &&
-								$horaire[$day]['heure_de_fin'] != null &&
-								$horaire[$day]['addresse'] != null
-							): ?>
-								<div
-									class="rounded-lg border text-card-foreground shadow-sm bg-blue-50 border-blue-200 min-h-[200px]">
-									<div class="p-4">
-										<h2
-											class="font-bold text-lg mb-3 font-[Oswald] tracking-widest uppercase bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">
-											<?= $day ?>
-										</h2>
-										<div class="space-y-3">
-											<div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="lucide lucide-clock h-4 w-4 text-blue-950">
-													<circle cx="12" cy="12" r="10"></circle>
-													<polyline points="12 6 12 12 16 14"></polyline>
-												</svg><span
-													class="text-sm text-blue-950 font-medium"><?= $horaire[$day]['heure_de_debut'] ?>
-													-
-													<?= $horaire[$day]['heure_de_fin'] ?></span></div>
-											<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-center py-1"
-												data-v0-t="badge"><?= $horaire[$day]['nom_de_la_seance'] ?></div>
-											<div class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="lucide lucide-map-pin h-4 w-4 text-gray-600 mt-0.5 flex-shrink-0">
-													<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-													<circle cx="12" cy="10" r="3"></circle>
-												</svg><span
-													class="text-xs text-gray-700 leading-relaxed"><?= $horaire[$day]['addresse'] ?></span>
-											</div>
+							<?php
+							$day_data = $horaire[$day] ?? [];
+							$seances = [];
+							if (!empty($day_data['seance_1']) && is_seance_filled($day_data['seance_1'])) {
+								$seances[] = $day_data['seance_1'];
+							}
+							if (!empty($day_data['seance_2']) && is_seance_filled($day_data['seance_2'])) {
+								$seances[] = $day_data['seance_2'];
+							}
+							?>
+							<div
+								class="rounded-lg border text-card-foreground shadow-sm bg-blue-50 border-blue-200 min-h-[200px]">
+								<div class="p-4">
+									<h2
+										class="font-bold text-lg mb-3 font-[Oswald] tracking-widest uppercase bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">
+										<?= ucfirst($day) ?>
+									</h2>
+									<?php if (!empty($seances)): ?>
+										<div class="space-y-4">
+											<?php foreach ($seances as $idx => $seance): ?>
+												<div class="mb-2">
+													<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-center py-1 mb-1"
+														data-v0-t="badge">
+														Séance <?= $idx + 1 ?>
+													</div>
+													<div class="flex items-center gap-2 mb-1">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+															viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+															stroke-linecap="round" stroke-linejoin="round"
+															class="lucide lucide-clock h-4 w-4 text-blue-950">
+															<circle cx="12" cy="12" r="10"></circle>
+															<polyline points="12 6 12 12 16 14"></polyline>
+														</svg>
+														<span class="text-sm text-blue-950 font-medium">
+															<?= esc_html($seance['heure_de_debut'] ?? '') ?>
+															-
+															<?= esc_html($seance['heure_de_fin'] ?? '') ?>
+														</span>
+													</div>
+													<div class="flex items-start gap-2">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+															viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+															stroke-linecap="round" stroke-linejoin="round"
+															class="lucide lucide-map-pin h-4 w-4 text-gray-600 mt-0.5 flex-shrink-0">
+															<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+															<circle cx="12" cy="10" r="3"></circle>
+														</svg>
+														<span class="text-xs text-gray-700 leading-relaxed">
+															<?= esc_html($seance['addresse'] ?? '') ?>
+														</span>
+													</div>
+												</div>
+											<?php endforeach; ?>
 										</div>
-									</div>
+									<?php else: ?>
+										<div class="flex items-center justify-center h-full">
+											<span class="text-gray-500 text-sm italic">Pas d'entraînement</span>
+										</div>
+									<?php endif; ?>
 								</div>
-							<?php else: ?>
-								<div
-									class="rounded-lg border text-card-foreground shadow-sm bg-blue-50 border-blue-200 min-h-[200px]">
-									<div class="p-4">
-										<h2 class="font-bold text-lg mb-3 font-[Oswald] tracking-widest uppercase text-blue-950">
-											<?= $day ?>
-										</h2>
-										<div class="flex items-center justify-center h-full"><span
-												class="text-gray-500 text-sm italic">Pas d'entraînement</span></div>
-									</div>
-								</div>
-							<?php endif; ?>
+							</div>
 						<?php endforeach; ?>
 					</div>
 				<?php else: ?>
@@ -384,10 +395,13 @@ if ($terms && !is_wp_error($terms)) {
 					<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>"
 						class="bg-white text-gray-900 py-4 sm:py-5 sm:px-8 rounded-md hover:bg-white-100 transition-colors duration-200 font-[Inter] tracking-widest text-center flex items-center justify-center gap-2 uppercase">
 						AJOUTER AU PANIER
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-							class="inline-block">
-							<path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2"
-								stroke-linecap="round" stroke-linejoin="round" />
+						<svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round" class="inline-block">
+							<circle cx="8" cy="21" r="1"></circle>
+							<circle cx="19" cy="21" r="1"></circle>
+							<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+							</path>
 						</svg>
 					</button>
 				</form>

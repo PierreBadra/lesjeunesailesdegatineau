@@ -110,6 +110,11 @@ function is_array_fully_empty($array)
     return true;
 }
 
+function is_seance_filled($seance)
+{
+    return !empty($seance['heure_de_debut']) || !empty($seance['heure_de_fin']) || !empty($seance['addresse']);
+}
+
 function parse_french_string_date_to_english(string $date_string): string|null
 {
     $fmt = new IntlDateFormatter(
