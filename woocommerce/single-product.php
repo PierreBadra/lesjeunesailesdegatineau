@@ -269,23 +269,23 @@ if ($terms && !is_wp_error($terms)) {
 										<div class="space-y-4">
 											<?php foreach ($seances as $idx => $seance): ?>
 												<div class="mb-2">
-													<div class="flex items-center gap-2 mb-1">
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-															viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-															stroke-linecap="round" stroke-linejoin="round"
-															class="lucide lucide-clock h-4 w-4 text-blue-950">
-															<circle cx="12" cy="12" r="10"></circle>
-															<polyline points="12 6 12 12 16 14"></polyline>
-														</svg>
-														<span class="text-sm text-blue-950 font-medium">
-															<?= esc_html($seance['heure_de_debut'] ?? '') ?>
-															-
-															<?= esc_html($seance['heure_de_fin'] ?? '') ?>
-														</span>
-													</div>
-													<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-center py-1 mb-1"
+													<div class="inline-flex items-center rounded-md border px-2.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white w-full justify-stretch py-1 mb-1"
 														data-v0-t="badge">
 														Séance <?= $idx + 1 ?>
+														<div class="flex items-center gap-2">
+															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+																viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+																stroke-linecap="round" stroke-linejoin="round"
+																class="lucide lucide-clock h-4 w-4 text-blue-950">
+																<circle cx="12" cy="12" r="10"></circle>
+																<polyline points="12 6 12 12 16 14"></polyline>
+															</svg>
+															<span class="text-sm text-blue-950 font-medium">
+																<?= esc_html($seance['heure_de_debut'] ?? '') ?>
+																-
+																<?= esc_html($seance['heure_de_fin'] ?? '') ?>
+															</span>
+														</div>
 													</div>
 													<div class="flex items-start gap-2">
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
