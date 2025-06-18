@@ -99,7 +99,7 @@
                 <div class="mt-6">
                     <h5 class="mb-3 uppercase text-xl md:text-base font-[Oswald] tracking-widest">Suivez-nous</h5>
                     <div class="flex gap-3">
-                        <a href="#" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
+                        <a href="https://www.facebook.com/share/16dYztq8JV/?mibextid=wwXIfr" target="_blank" class="hover:opacity-70 transition-opacity duration-200">
                             <img class="w-5 h-5 md:w-4 md:h-4"
                                 src="<?= get_template_directory_uri(); ?>/assets/images/facebook-icon.svg"
                                 alt="Lien Facebook">
