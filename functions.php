@@ -511,143 +511,143 @@ add_action('template_redirect', function () {
 
 // ------------------------------ TESTING ------------------------------
 // 1. Display child info fields for each kid (max quantity) and program mapping
-add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
-    if (!is_checkout())
-        return;
+// add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
+//     if (!is_checkout())
+//         return;
 
-    // Find the cart item with the highest quantity
-    $cart = WC()->cart->get_cart();
-    $max_qty = 0;
-    foreach ($cart as $cart_item) {
-        if ($cart_item['quantity'] > $max_qty) {
-            $max_qty = $cart_item['quantity'];
-        }
-    }
-    if ($max_qty < 1)
-        $max_qty = 1;
+//     // Find the cart item with the highest quantity
+//     $cart = WC()->cart->get_cart();
+//     $max_qty = 0;
+//     foreach ($cart as $cart_item) {
+//         if ($cart_item['quantity'] > $max_qty) {
+//             $max_qty = $cart_item['quantity'];
+//         }
+//     }
+//     if ($max_qty < 1)
+//         $max_qty = 1;
 
-    // Build program/camp options
-    $programs = [];
-    foreach ($cart as $cart_item_key => $cart_item) {
-        $product = $cart_item['data'];
-        $programs[] = [
-            'key' => $cart_item_key,
-            'name' => $product->get_name(),
-            'qty' => $cart_item['quantity'],
-        ];
-    }
-    ?>
-    <div class="mb-8" id="child-info-section">
-        <h2
-            class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
-            Informations sur les enfants</h2>
-        <div id="children-list" class="space-y-4">
-            <?php for ($i = 1; $i <= $max_qty; $i++): ?>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-4 child-block">
-                    <h3>Enfant <?= $i?></h3>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-                        <input type="text" name="childs[<?= $i; ?>][first_name]"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                        <input type="text" name="childs[<?= $i; ?>][last_name]"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
-                        <input type="date" name="childs[<?= $i; ?>][dob]"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Programmes/Camps</label>
-                        <select name="childs[<?= $i; ?>][programs][]"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" multiple required>
-                            <?php foreach ($programs as $prog): ?>
-                                <option value="<?= esc_attr($prog['key']); ?>">
-                                    <?= esc_html($prog['name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="text-xs text-gray-500">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélectionner
-                            plusieurs.</small>
-                    </div>
-                </div>
-            <?php endfor; ?>
-        </div>
-    </div>
-    <?php
-});
+//     // Build program/camp options
+//     $programs = [];
+//     foreach ($cart as $cart_item_key => $cart_item) {
+//         $product = $cart_item['data'];
+//         $programs[] = [
+//             'key' => $cart_item_key,
+//             'name' => $product->get_name(),
+//             'qty' => $cart_item['quantity'],
+//         ];
+//     }
+//     ?>
+//     <div class="mb-8" id="child-info-section">
+//         <h2
+//             class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+//             Informations sur les enfants</h2>
+//         <div id="children-list" class="space-y-4">
+//             <?php for ($i = 1; $i <= $max_qty; $i++): ?>
+//                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-4 child-block">
+//                     <h3>Enfant <?= $i?></h3>
+//                     <div>
+//                         <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+//                         <input type="text" name="childs[<?= $i; ?>][first_name]"
+//                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+//                     </div>
+//                     <div>
+//                         <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+//                         <input type="text" name="childs[<?= $i; ?>][last_name]"
+//                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+//                     </div>
+//                     <div>
+//                         <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
+//                         <input type="date" name="childs[<?= $i; ?>][dob]"
+//                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+//                     </div>
+//                     <div>
+//                         <label class="block text-sm font-medium text-gray-700 mb-1">Programmes/Camps</label>
+//                         <select name="childs[<?= $i; ?>][programs][]"
+//                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" multiple required>
+//                             <?php foreach ($programs as $prog): ?>
+//                                 <option value="<?= esc_attr($prog['key']); ?>">
+//                                     <?= esc_html($prog['name']); ?>
+//                                 </option>
+//                             <?php endforeach; ?>
+//                         </select>
+//                         <small class="text-xs text-gray-500">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélectionner
+//                             plusieurs.</small>
+//                     </div>
+//                 </div>
+//             <?php endfor; ?>
+//         </div>
+//     </div>
+//     <?php
+// });
 
 // 2. Validate fields
-add_action('woocommerce_checkout_process', function () {
-    $childs = isset($_POST['childs']) ? $_POST['childs'] : [];
-    $cart = WC()->cart->get_cart();
-    $program_keys = array_keys($cart);
+// add_action('woocommerce_checkout_process', function () {
+//     $childs = isset($_POST['childs']) ? $_POST['childs'] : [];
+//     $cart = WC()->cart->get_cart();
+//     $program_keys = array_keys($cart);
 
-    if (empty($childs)) {
-        wc_add_notice('Veuillez remplir les informations pour chaque enfant.', 'error');
-    } else {
-        foreach ($childs as $idx => $child) {
-            if (empty($child['first_name']) || empty($child['last_name']) || empty($child['dob'])) {
-                wc_add_notice("Veuillez remplir toutes les informations pour l'enfant #$idx.", 'error');
-            }
-            if (empty($child['programs']) || !is_array($child['programs'])) {
-                wc_add_notice("Veuillez sélectionner au moins un programme/camp pour l'enfant #$idx.", 'error');
-            } else {
-                // Validate selected programs exist in cart
-                foreach ($child['programs'] as $selected_key) {
-                    if (!in_array($selected_key, $program_keys)) {
-                        wc_add_notice("Programme/camp sélectionné invalide pour l'enfant #$idx.", 'error');
-                    }
-                }
-            }
-        }
-    }
-});
+//     if (empty($childs)) {
+//         wc_add_notice('Veuillez remplir les informations pour chaque enfant.', 'error');
+//     } else {
+//         foreach ($childs as $idx => $child) {
+//             if (empty($child['first_name']) || empty($child['last_name']) || empty($child['dob'])) {
+//                 wc_add_notice("Veuillez remplir toutes les informations pour l'enfant #$idx.", 'error');
+//             }
+//             if (empty($child['programs']) || !is_array($child['programs'])) {
+//                 wc_add_notice("Veuillez sélectionner au moins un programme/camp pour l'enfant #$idx.", 'error');
+//             } else {
+//                 // Validate selected programs exist in cart
+//                 foreach ($child['programs'] as $selected_key) {
+//                     if (!in_array($selected_key, $program_keys)) {
+//                         wc_add_notice("Programme/camp sélectionné invalide pour l'enfant #$idx.", 'error');
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// });
 
 
 // 3. Save mapping to order meta (per order, not per item)
-add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
-    if (isset($_POST['childs'])) {
-        update_post_meta($order_id, '_childs_programs', wp_json_encode($_POST['childs']));
-    }
-});
+// add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
+//     if (isset($_POST['childs'])) {
+//         update_post_meta($order_id, '_childs_programs', wp_json_encode($_POST['childs']));
+//     }
+// });
 
 // 4. Display in admin order details
-add_action('woocommerce_admin_order_data_after_order_details', function ($order) {
-    $childs_json = get_post_meta($order->get_id(), '_childs_programs', true);
-    if ($childs_json) {
-        $childs = json_decode($childs_json, true);
-        $cart = $order->get_items();
-        // Build product name lookup
-        $product_names = [];
-        foreach ($cart as $item_id => $item) {
-            $product_names[$item_id] = $item->get_name();
-        }
-        echo '<div class="mt-4"><h4><strong>Enfants et Programmes/Camps:</strong></h4><ul class="list-disc ml-5">';
-        foreach ($childs as $idx => $child) {
-            echo '<li>';
-            echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')<br>';
-            echo '<span class="text-xs text-gray-600">Programmes/Camps: ';
-            $names = [];
-            foreach ($child['programs'] as $prog_key) {
-                // Try to get product name from order items
-                foreach ($order->get_items() as $item) {
-                    if ($item->get_meta('_cart_item_key') == $prog_key || $item->get_product_id() == $prog_key) {
-                        $names[] = $item->get_name();
-                    }
-                }
-            }
-            if (empty($names)) {
-                // fallback: show keys
-                $names = $child['programs'];
-            }
-            echo esc_html(implode(', ', $names));
-            echo '</span>';
-            echo '</li>';
-        }
-        echo '</ul></div>';
-    }
-});
+// add_action('woocommerce_admin_order_data_after_order_details', function ($order) {
+//     $childs_json = get_post_meta($order->get_id(), '_childs_programs', true);
+//     if ($childs_json) {
+//         $childs = json_decode($childs_json, true);
+//         $cart = $order->get_items();
+//         // Build product name lookup
+//         $product_names = [];
+//         foreach ($cart as $item_id => $item) {
+//             $product_names[$item_id] = $item->get_name();
+//         }
+//         echo '<div class="mt-4"><h4><strong>Enfants et Programmes/Camps:</strong></h4><ul class="list-disc ml-5">';
+//         foreach ($childs as $idx => $child) {
+//             echo '<li>';
+//             echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')<br>';
+//             echo '<span class="text-xs text-gray-600">Programmes/Camps: ';
+//             $names = [];
+//             foreach ($child['programs'] as $prog_key) {
+//                 // Try to get product name from order items
+//                 foreach ($order->get_items() as $item) {
+//                     if ($item->get_meta('_cart_item_key') == $prog_key || $item->get_product_id() == $prog_key) {
+//                         $names[] = $item->get_name();
+//                     }
+//                 }
+//             }
+//             if (empty($names)) {
+//                 // fallback: show keys
+//                 $names = $child['programs'];
+//             }
+//             echo esc_html(implode(', ', $names));
+//             echo '</span>';
+//             echo '</li>';
+//         }
+//         echo '</ul></div>';
+//     }
+// });
