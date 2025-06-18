@@ -505,3 +505,96 @@ add_action('template_redirect', function () {
         exit;
     }
 });
+
+
+
+
+// ------------------------------ TESTING ------------------------------
+// Display child info fields for each cart item and quantity on checkout
+add_action('woocommerce_after_order_notes', function ($checkout) {
+    if (!is_checkout())
+        return;
+
+    echo '<div class="mb-8">';
+    echo '<h3 class="text-lg font-bold mb-4">Informations sur les enfants</h3>';
+
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+        $product = $cart_item['data'];
+        $quantity = $cart_item['quantity'];
+        $product_name = $product->get_name();
+
+        echo "<div class='mb-6 p-4 border border-gray-200 rounded-lg'>";
+        echo "<div class='font-semibold mb-2'>{$product_name}</div>";
+
+        for ($i = 1; $i <= $quantity; $i++) {
+            echo "<div class='mb-4 grid grid-cols-1 md:grid-cols-3 gap-4'>";
+            echo "<div>
+                    <label class='block text-sm font-medium text-gray-700 mb-1'>Prénom (Enfant {$i})</label>
+                    <input type='text' name='child_info[{$cart_item_key}][{$i}][first_name]' class='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' required>
+                  </div>";
+            echo "<div>
+                    <label class='block text-sm font-medium text-gray-700 mb-1'>Nom (Enfant {$i})</label>
+                    <input type='text' name='child_info[{$cart_item_key}][{$i}][last_name]' class='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' required>
+                  </div>";
+            echo "<div>
+                    <label class='block text-sm font-medium text-gray-700 mb-1'>Date de naissance (Enfant {$i})</label>
+                    <input type='date' name='child_info[{$cart_item_key}][{$i}][dob]' class='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' required>
+                  </div>";
+            echo "</div>";
+        }
+        echo "</div>";
+    }
+    echo '</div>';
+});
+
+// Validate child info fields
+add_action('woocommerce_checkout_process', function () {
+    if (isset($_POST['child_info'])) {
+        foreach ($_POST['child_info'] as $cart_item_key => $children) {
+            foreach ($children as $i => $child) {
+                if (empty($child['first_name']) || empty($child['last_name']) || empty($child['dob'])) {
+                    wc_add_notice('Veuillez remplir toutes les informations pour chaque enfant.', 'error');
+                }
+            }
+        }
+    } else {
+        wc_add_notice('Veuillez remplir les informations des enfants.', 'error');
+    }
+});
+
+// Save child info to order item meta
+add_action('woocommerce_checkout_create_order_line_item', function($item, $cart_item_key, $values, $order) {
+    if (isset($_POST['child_info'][$cart_item_key])) {
+        $children = $_POST['child_info'][$cart_item_key];
+        $item->add_meta_data('Informations Enfants', wp_json_encode($children));
+    }
+}, 10, 4);
+
+// Display child info in admin order details
+add_action('woocommerce_after_order_itemmeta', function($item_id, $item, $product){
+    $child_info_json = $item->get_meta('Informations Enfants');
+    if ($child_info_json) {
+        $children = json_decode($child_info_json, true);
+        echo '<div class="mt-2"><strong>Enfants inscrits:</strong><ul class="list-disc ml-5">';
+        foreach ($children as $i => $child) {
+            echo '<li>';
+            echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')';
+            echo '</li>';
+        }
+        echo '</ul></div>';
+    }
+}, 10, 3);
+
+add_action('woocommerce_order_item_meta_end', function($item_id, $item, $order, $plain_text){
+    $child_info_json = $item->get_meta('Informations Enfants');
+    if ($child_info_json) {
+        $children = json_decode($child_info_json, true);
+        echo '<div style="margin-top:10px;"><strong>Enfants inscrits:</strong><ul>';
+        foreach ($children as $i => $child) {
+            echo '<li>';
+            echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')';
+            echo '</li>';
+        }
+        echo '</ul></div>';
+    }
+}, 10, 4);
