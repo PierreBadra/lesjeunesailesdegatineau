@@ -510,7 +510,7 @@ add_action('template_redirect', function () {
 
 
 // ------------------------------ TESTING ------------------------------
-
+// 1. Display child info fields for each kid (max quantity) and program mapping
 add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
     if (!is_checkout())
         return;
@@ -538,33 +538,35 @@ add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
     }
     ?>
     <div class="mb-8" id="child-info-section">
-        <h3 class="text-lg font-bold mb-4">Informations sur les enfants</h3>
+        <h2
+            class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+            Informations sur les enfants</h2>
         <div id="children-list" class="space-y-4">
             <?php for ($i = 1; $i <= $max_qty; $i++): ?>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-4 child-block">
+                    <h3>Enfant <?= $i?></h3>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom (Enfant <?php echo $i; ?>)</label>
-                        <input type="text" name="childs[<?php echo $i; ?>][first_name]"
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+                        <input type="text" name="childs[<?= $i; ?>][first_name]"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nom (Enfant <?php echo $i; ?>)</label>
-                        <input type="text" name="childs[<?php echo $i; ?>][last_name]"
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                        <input type="text" name="childs[<?= $i; ?>][last_name]"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance (Enfant
-                            <?php echo $i; ?>)</label>
-                        <input type="date" name="childs[<?php echo $i; ?>][dob]"
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
+                        <input type="date" name="childs[<?= $i; ?>][dob]"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Programmes/Camps</label>
-                        <select name="childs[<?php echo $i; ?>][programs][]"
+                        <select name="childs[<?= $i; ?>][programs][]"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg" multiple required>
                             <?php foreach ($programs as $prog): ?>
-                                <option value="<?php echo esc_attr($prog['key']); ?>">
-                                    <?php echo esc_html($prog['name']); ?>
+                                <option value="<?= esc_attr($prog['key']); ?>">
+                                    <?= esc_html($prog['name']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
