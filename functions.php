@@ -511,7 +511,7 @@ add_action('template_redirect', function () {
 
 // ------------------------------ TESTING ------------------------------
 // Display child info fields for each cart item and quantity on checkout
-add_action('woocommerce_after_order_notes', function ($checkout) {
+add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
     if (!is_checkout())
         return;
 
