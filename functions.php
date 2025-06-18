@@ -510,192 +510,144 @@ add_action('template_redirect', function () {
 
 
 // ------------------------------ TESTING ------------------------------
-// --- 1. Display child info repeater and mapping on checkout ---
-add_action('woocommerce_after_order_notes', function ($checkout) {
+// 1. Display child info fields for each kid (max quantity) and program mapping
+add_action('woocommerce_checkout_after_customer_details', function ($checkout) {
     if (!is_checkout())
         return;
 
+    // Find the cart item with the highest quantity
+    $cart = WC()->cart->get_cart();
+    $max_qty = 0;
+    foreach ($cart as $cart_item) {
+        if ($cart_item['quantity'] > $max_qty) {
+            $max_qty = $cart_item['quantity'];
+        }
+    }
+    if ($max_qty < 1)
+        $max_qty = 1;
+
+    // Build program/camp options
+    $programs = [];
+    foreach ($cart as $cart_item_key => $cart_item) {
+        $product = $cart_item['data'];
+        $programs[] = [
+            'key' => $cart_item_key,
+            'name' => $product->get_name(),
+            'qty' => $cart_item['quantity'],
+        ];
+    }
     ?>
     <div class="mb-8" id="child-info-section">
-        <h3 class="text-lg font-bold mb-4">Informations sur les enfants</h3>
+        <h2
+            class="font-semibold flex items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
+            Informations sur les enfants</h2>
         <div id="children-list" class="space-y-4">
-            <!-- Children fields will be inserted here by JS -->
-        </div>
-        <button type="button" id="add-child-btn"
-            class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Ajouter un enfant</button>
-        <input type="hidden" id="children-data" name="children_data" value="">
-        <hr class="my-6">
-        <div id="program-mapping-section">
-            <h4 class="text-md font-semibold mb-2">Associer les enfants aux programmes/camps</h4>
-            <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item):
-                $product = $cart_item['data'];
-                $product_name = $product->get_name();
-                $quantity = $cart_item['quantity'];
-                ?>
-                <div class="mb-4 p-4 border border-gray-200 rounded">
-                    <div class="font-semibold mb-2"><?php echo esc_html($product_name); ?> (<?php echo $quantity; ?>)</div>
-                    <div class="child-checkboxes" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
-                        <!-- Checkboxes will be inserted here by JS -->
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        <input type="hidden" id="child-program-map" name="child_program_map" value="">
-    </div>
-    <script>
-        // --- JS for dynamic children and mapping ---
-        (function () {
-            let children = [];
-            let childId = 1;
-
-            function renderChildren() {
-                const list = document.getElementById('children-list');
-                list.innerHTML = '';
-                children.forEach((child, idx) => {
-                    const childDiv = document.createElement('div');
-                    childDiv.className = 'grid grid-cols-1 md:grid-cols-4 gap-4 items-end';
-                    childDiv.innerHTML = `
+            <?php for ($i = 1; $i <= $max_qty; $i++): ?>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-4 child-block">
+                    <h3>Enfant <?= $i?></h3>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-                        <input type="text" class="child-first-name w-full px-4 py-2 border border-gray-300 rounded-lg" value="${child.first_name || ''}" data-idx="${idx}" required>
+                        <input type="text" name="childs[<?= $i; ?>][first_name]"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                        <input type="text" class="child-last-name w-full px-4 py-2 border border-gray-300 rounded-lg" value="${child.last_name || ''}" data-idx="${idx}" required>
+                        <input type="text" name="childs[<?= $i; ?>][last_name]"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
-                        <input type="date" class="child-dob w-full px-4 py-2 border border-gray-300 rounded-lg" value="${child.dob || ''}" data-idx="${idx}" required>
+                        <input type="date" name="childs[<?= $i; ?>][dob]"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div>
-                        <button type="button" class="remove-child-btn px-2 py-1 bg-red-500 text-white rounded" data-idx="${idx}">Supprimer</button>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Programmes/Camps</label>
+                        <select name="childs[<?= $i; ?>][programs][]"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg" multiple required>
+                            <?php foreach ($programs as $prog): ?>
+                                <option value="<?= esc_attr($prog['key']); ?>">
+                                    <?= esc_html($prog['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <small class="text-xs text-gray-500">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélectionner
+                            plusieurs.</small>
                     </div>
-                `;
-                    list.appendChild(childDiv);
-                });
-                document.getElementById('children-data').value = JSON.stringify(children);
-                renderChildCheckboxes();
-            }
-
-            function renderChildCheckboxes() {
-                document.querySelectorAll('.child-checkboxes').forEach(function (container) {
-                    const cartKey = container.getAttribute('data-cart-key');
-                    container.innerHTML = '';
-                    children.forEach((child, idx) => {
-                        const id = `child-map-${cartKey}-${idx}`;
-                        const label = document.createElement('label');
-                        label.className = 'inline-flex items-center mr-4';
-                        label.innerHTML = `
-                        <input type="checkbox" class="child-map-checkbox" data-cart-key="${cartKey}" data-child-idx="${idx}" id="${id}">
-                        <span class="ml-2">${child.first_name || ''} ${child.last_name || ''} ${child.dob ? '(' + child.dob + ')' : ''}</span>
-                    `;
-                        container.appendChild(label);
-                    });
-                });
-                updateChildProgramMap();
-            }
-
-            function updateChildProgramMap() {
-                // Build mapping: {cart_key: [child_idx, ...], ...}
-                let map = {};
-                document.querySelectorAll('.child-checkboxes').forEach(function (container) {
-                    const cartKey = container.getAttribute('data-cart-key');
-                    map[cartKey] = [];
-                    container.querySelectorAll('.child-map-checkbox').forEach(function (checkbox) {
-                        if (checkbox.checked) {
-                            map[cartKey].push(parseInt(checkbox.getAttribute('data-child-idx')));
-                        }
-                    });
-                });
-                document.getElementById('child-program-map').value = JSON.stringify(map);
-            }
-
-            document.getElementById('add-child-btn').addEventListener('click', function () {
-                children.push({ first_name: '', last_name: '', dob: '', id: childId++ });
-                renderChildren();
-            });
-
-            document.getElementById('children-list').addEventListener('input', function (e) {
-                const idx = e.target.getAttribute('data-idx');
-                if (e.target.classList.contains('child-first-name')) children[idx].first_name = e.target.value;
-                if (e.target.classList.contains('child-last-name')) children[idx].last_name = e.target.value;
-                if (e.target.classList.contains('child-dob')) children[idx].dob = e.target.value;
-                document.getElementById('children-data').value = JSON.stringify(children);
-                renderChildCheckboxes();
-            });
-
-            document.getElementById('children-list').addEventListener('click', function (e) {
-                if (e.target.classList.contains('remove-child-btn')) {
-                    const idx = e.target.getAttribute('data-idx');
-                    children.splice(idx, 1);
-                    renderChildren();
-                }
-            });
-
-            document.getElementById('program-mapping-section').addEventListener('change', function (e) {
-                if (e.target.classList.contains('child-map-checkbox')) {
-                    updateChildProgramMap();
-                }
-            });
-
-            // Add one child by default
-            children.push({ first_name: '', last_name: '', dob: '', id: childId++ });
-            renderChildren();
-        })();
-    </script>
+                </div>
+            <?php endfor; ?>
+        </div>
+    </div>
     <?php
 });
 
-// --- 2. Validate fields ---
+// 2. Validate fields
 add_action('woocommerce_checkout_process', function () {
-    $children = isset($_POST['children_data']) ? json_decode(stripslashes($_POST['children_data']), true) : [];
-    $map = isset($_POST['child_program_map']) ? json_decode(stripslashes($_POST['child_program_map']), true) : [];
+    $childs = isset($_POST['childs']) ? $_POST['childs'] : [];
+    $cart = WC()->cart->get_cart();
+    $program_keys = array_keys($cart);
 
-    if (empty($children)) {
-        wc_add_notice('Veuillez ajouter au moins un enfant.', 'error');
+    if (empty($childs)) {
+        wc_add_notice('Veuillez remplir les informations pour chaque enfant.', 'error');
     } else {
-        foreach ($children as $child) {
+        foreach ($childs as $idx => $child) {
             if (empty($child['first_name']) || empty($child['last_name']) || empty($child['dob'])) {
-                wc_add_notice('Veuillez remplir toutes les informations pour chaque enfant.', 'error');
-                break;
+                wc_add_notice("Veuillez remplir toutes les informations pour l'enfant #$idx.", 'error');
             }
-        }
-    }
-
-    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-        if (empty($map[$cart_item_key]) || !is_array($map[$cart_item_key]) || count($map[$cart_item_key]) == 0) {
-            $product = $cart_item['data'];
-            wc_add_notice('Veuillez sélectionner au moins un enfant pour ' . esc_html($product->get_name()) . '.', 'error');
+            if (empty($child['programs']) || !is_array($child['programs'])) {
+                wc_add_notice("Veuillez sélectionner au moins un programme/camp pour l'enfant #$idx.", 'error');
+            } else {
+                // Validate selected programs exist in cart
+                foreach ($child['programs'] as $selected_key) {
+                    if (!in_array($selected_key, $program_keys)) {
+                        wc_add_notice("Programme/camp sélectionné invalide pour l'enfant #$idx.", 'error');
+                    }
+                }
+            }
         }
     }
 });
 
-// --- 3. Save to order item meta ---
-add_action('woocommerce_checkout_create_order_line_item', function ($item, $cart_item_key, $values, $order) {
-    $children = isset($_POST['children_data']) ? json_decode(stripslashes($_POST['children_data']), true) : [];
-    $map = isset($_POST['child_program_map']) ? json_decode(stripslashes($_POST['child_program_map']), true) : [];
-    if (!empty($map[$cart_item_key]) && !empty($children)) {
-        $selected = [];
-        foreach ($map[$cart_item_key] as $child_idx) {
-            if (isset($children[$child_idx])) {
-                $selected[] = $children[$child_idx];
-            }
-        }
-        $item->add_meta_data('Enfants inscrits', wp_json_encode($selected));
-    }
-}, 10, 4);
 
-// --- 4. Display in admin order details ---
-add_action('woocommerce_after_order_itemmeta', function ($item_id, $item, $product) {
-    $child_info_json = $item->get_meta('Enfants inscrits');
-    if ($child_info_json) {
-        $children = json_decode($child_info_json, true);
-        echo '<div class="mt-2"><strong>Enfants inscrits:</strong><ul class="list-disc ml-5">';
-        foreach ($children as $child) {
+// 3. Save mapping to order meta (per order, not per item)
+add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
+    if (isset($_POST['childs'])) {
+        update_post_meta($order_id, '_childs_programs', wp_json_encode($_POST['childs']));
+    }
+});
+
+// 4. Display in admin order details
+add_action('woocommerce_admin_order_data_after_order_details', function ($order) {
+    $childs_json = get_post_meta($order->get_id(), '_childs_programs', true);
+    if ($childs_json) {
+        $childs = json_decode($childs_json, true);
+        $cart = $order->get_items();
+        // Build product name lookup
+        $product_names = [];
+        foreach ($cart as $item_id => $item) {
+            $product_names[$item_id] = $item->get_name();
+        }
+        echo '<div class="mt-4"><h4><strong>Enfants et Programmes/Camps:</strong></h4><ul class="list-disc ml-5">';
+        foreach ($childs as $idx => $child) {
             echo '<li>';
-            echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')';
+            echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')<br>';
+            echo '<span class="text-xs text-gray-600">Programmes/Camps: ';
+            $names = [];
+            foreach ($child['programs'] as $prog_key) {
+                // Try to get product name from order items
+                foreach ($order->get_items() as $item) {
+                    if ($item->get_meta('_cart_item_key') == $prog_key || $item->get_product_id() == $prog_key) {
+                        $names[] = $item->get_name();
+                    }
+                }
+            }
+            if (empty($names)) {
+                // fallback: show keys
+                $names = $child['programs'];
+            }
+            echo esc_html(implode(', ', $names));
+            echo '</span>';
             echo '</li>';
         }
         echo '</ul></div>';
     }
-}, 10, 3);
+});
