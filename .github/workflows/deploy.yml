@@ -50,7 +50,7 @@ jobs:
 
       - name: Deploy to Raspberry Pi (Development)
         if: ${{ github.event.inputs.environment == 'development' }}
-        uses: appleboy/sftp-action@v0.0.9
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SFTP_SERVER_DEV }}
           username: ${{ secrets.SFTP_USERNAME_DEV }}
@@ -58,3 +58,4 @@ jobs:
           port: 22
           source: "./*"
           target: "/var/www/html/wp-content/themes/lesjeunesailesdegatineau/"
+
