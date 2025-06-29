@@ -1,10 +1,22 @@
-name: Deploy WordPress Theme to Hostinger
+# .github/workflows/deploy.yml
+
+name: Deploy WordPress Theme
 
 on:
   push:
     branches:
-      - main # or your default branch
+      - main
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - development
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,22 +29,34 @@ jobs:
           echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > .env
           echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> .env
           echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> .env
-        working-directory: ./ # or ./ if your theme is at the repo root
-        # If your theme is in a subfolder, use: working-directory: ./path/to/theme
+        working-directory: ./
 
       - name: Install Composer dependencies
         run: composer install
         working-directory: ./
 
-      - name: Deploy to Hostinger via FTP
+      - name: Deploy to Hostinger (Production)
+        if: ${{ github.event.inputs.environment == 'production' || github.event_name == 'push' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          port: ${{ 21 }}
+          port: 21
           local-dir: ./
           server-dir: domains/lesjeunesailesdegatineau.ca/public_html/wp-content/themes/lesjeunesailesdegatineau/
           dangerous-clean-slate: false
 
+      - name: Deploy to Raspberry Pi (Development)
+        if: ${{ github.event.inputs.environment == 'development' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.SFTP_SERVER_DEV }}
+          username: ${{ secrets.SFTP_USERNAME_DEV }}
+          password: ${{ secrets.SFTP_PASSWORD_DEV }}
+          protocol: sftp
+          port: 22
+          local-dir: ./
+          server-dir: /var/www/html/wp-content/themes/lesjeunesailesdegatineau/
+          dangerous-clean-slate: false
