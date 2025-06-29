@@ -50,7 +50,7 @@ jobs:
 
       - name: Deploy to Raspberry Pi (Development)
         if: ${{ github.event.inputs.environment == 'development' }}
-        uses: appleboy/sftp-action@v0.1.7
+        uses: appleboy/sftp-action@v0.0.9
         with:
           host: ${{ secrets.SFTP_SERVER_DEV }}
           username: ${{ secrets.SFTP_USERNAME_DEV }}
