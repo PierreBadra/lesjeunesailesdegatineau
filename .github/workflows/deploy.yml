@@ -50,13 +50,11 @@ jobs:
 
       - name: Deploy to Raspberry Pi (Development)
         if: ${{ github.event.inputs.environment == 'development' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: appleboy/sftp-action@v0.1.7
         with:
-          server: ${{ secrets.SFTP_SERVER_DEV }}
+          host: ${{ secrets.SFTP_SERVER_DEV }}
           username: ${{ secrets.SFTP_USERNAME_DEV }}
           password: ${{ secrets.SFTP_PASSWORD_DEV }}
-          protocol: sftp
           port: 22
-          local-dir: ./
-          server-dir: /var/www/html/wp-content/themes/lesjeunesailesdegatineau/
-          dangerous-clean-slate: false
+          source: "./*"
+          target: "/var/www/html/wp-content/themes/lesjeunesailesdegatineau/"
