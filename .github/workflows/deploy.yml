@@ -57,5 +57,5 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD_DEV }}
           port: 22
           source: "./*"
-          target: "/var/www/html/wp-content/themes/lesjeunesailesdegatineau/"
+          target: "/var/lib/docker/volumes/jsos8kks4k4kw0o0c044gwgs_wordpress-files/_data/wp-content/themes/lesjeunesailesdegatineau"
 
