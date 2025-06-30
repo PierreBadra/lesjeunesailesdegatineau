@@ -55,7 +55,7 @@ jobs:
           host: ${{ secrets.SFTP_SERVER_DEV }}
           username: ${{ secrets.SFTP_USERNAME_DEV }}
           password: ${{ secrets.SFTP_PASSWORD_DEV }}
-          port: 22
+          port: 2222
           source: "./*"
           target: "/var/lib/docker/volumes/jsos8kks4k4kw0o0c044gwgs_wordpress-files/_data/wp-content/themes/lesjeunesailesdegatineau"
 
