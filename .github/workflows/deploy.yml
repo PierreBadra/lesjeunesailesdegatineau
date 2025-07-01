@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > .env
           echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> .env
-          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> .env
+          echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" >> .env
         working-directory: ./
 
       - name: Install Composer dependencies
