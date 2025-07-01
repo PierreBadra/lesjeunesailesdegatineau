@@ -46,7 +46,7 @@
         </div>
         <?php
         $collections = get_posts([
-            'post_type' => 'product',
+            'post_type' => 'produit',
             'post_status' => 'publish',
             'order' => 'ASC',
             'tax_query' => [
