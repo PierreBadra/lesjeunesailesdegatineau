@@ -79,6 +79,13 @@ function enqueue_woocommerce_assets()
         if (is_front_page() || is_shop() || is_product_category() || is_product_tag() || is_product()) {
             wp_enqueue_script('wc-cart-fragments');
         }
+
+        if (is_checkout()) {
+            // Enqueue only the essential WooCommerce checkout scripts
+            wp_enqueue_script('wc-checkout');
+            wp_enqueue_script('wc-country-select');
+            wp_enqueue_script('wc-address-i18n');
+        }
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_woocommerce_assets');
@@ -518,7 +525,6 @@ add_action('template_redirect', function () {
 //     $childs = isset($_POST['childs']) ? $_POST['childs'] : [];
 //     $cart = WC()->cart->get_cart();
 //     $program_keys = array_keys($cart);
-
 //     if (empty($childs)) {
 //         wc_add_notice('Veuillez remplir les informations pour chaque enfant.', 'error');
 //     } else {
