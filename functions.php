@@ -297,7 +297,7 @@ add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 add_action('wp_enqueue_scripts', 'remove_woocommerce_layout_conditionally', 100);
 function remove_woocommerce_layout_conditionally()
 {
-    if (is_woocommerce() || is_cart() || is_checkout()) {
+    if (is_woocommerce() || is_cart()) {
         wp_dequeue_style('woocommerce-layout');
         wp_dequeue_style('woocommerce-smallscreen');
         wp_dequeue_style('woocommerce-general');
