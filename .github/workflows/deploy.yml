@@ -36,7 +36,7 @@ jobs:
         working-directory: ./
 
       - name: Deploy to Hostinger (Production)
-        if: ${{ github.event.inputs.environment == 'production' || github.event_name == 'push' }}
+        if: ${{ github.event.inputs.environment == 'production' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -49,7 +49,7 @@ jobs:
           dangerous-clean-slate: false
 
       - name: Deploy to Raspberry Pi (Development)
-        if: ${{ github.event.inputs.environment == 'development' }}
+        if: ${{ github.event.inputs.environment == 'development' || github.event_name == 'push' }}
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SFTP_SERVER_DEV }}
