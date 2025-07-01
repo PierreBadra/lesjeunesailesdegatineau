@@ -11,7 +11,7 @@ on:
       environment:
         description: 'Select deployment environment'
         required: true
-        default: 'production'
+        default: 'development'
         type: choice
         options:
           - production
