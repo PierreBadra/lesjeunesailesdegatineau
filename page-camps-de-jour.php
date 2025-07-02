@@ -57,7 +57,6 @@
                 ],
             ],
         ]); 
-        echo '<pre>'; print_r($collections); echo '</pre>';
         ?>
         <h2
             class="font-semibold flex mb-6 items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
@@ -66,6 +65,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                 <?php foreach ($collections as $collection):
                     $product = wc_get_product($collection->ID);
+                    print_r($product);
                     $date_de_debut = parse_french_string_date_to_english(get_field('date_de_debut', $collection->ID));
                     $date_de_fin = parse_french_string_date_to_english(get_field('date_de_fin', $collection->ID));
                     $time_difference = calculate_time_difference_between_dates($date_de_debut, $date_de_fin)['text'];
