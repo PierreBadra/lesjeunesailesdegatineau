@@ -56,7 +56,9 @@
                     'terms' => 'camps-de-jour', // replace with your category slug
                 ],
             ],
-        ]); ?>
+        ]); 
+        echo '<pre>'; print_r($collections); echo '</pre>';
+        ?>
         <h2
             class="font-semibold flex mb-6 items-center gap-2 text-2xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest">
             Nos Camps de Jour</h2>
