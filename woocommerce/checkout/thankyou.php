@@ -187,6 +187,12 @@ if ($order):
                                         Veuillez effectuer votre paiement en utilisant les informations bancaires suivantes :
                                     </p>
 
+                                    <?php
+                                        // Get BACS gateway settings
+                                        $bacs_gateway = WC()->payment_gateways()->payment_gateways()['bacs'];
+                                        $account_details = $bacs_gateway->account_details; 
+                                    ?>
+
                                     <div class="space-y-4">
                                             <?php foreach ($account_details as $account): ?>
                                                 <div class="rounded-lg">
@@ -308,6 +314,121 @@ if ($order):
                                 </div>
                             </div>
                         </div>
+
+                        <?php
+                        // Check if payment method is BACS (Bank Transfer)
+                        if ($order->get_payment_method() === 'bacs'): ?>
+                            <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-6">
+                                <h3 class="text-xl font-semibold text-amber-800 mb-4 font-[Oswald] tracking-widest uppercase">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="inline-block mr-2 text-amber-600">
+                                        <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                                        <line x1="2" x2="22" y1="10" y2="10"></line>
+                                    </svg>
+                                    Informations de virement bancaire
+                                </h3>
+
+                                <div class="bg-white rounded-lg p-4 border border-amber-200">
+                                    <p class="text-amber-800 font-medium mb-4">
+                                        Veuillez effectuer votre paiement en utilisant les informations bancaires suivantes :
+                                    </p>
+
+                                    <?php
+                                    // Get BACS gateway settings
+                                    $bacs_gateway = WC()->payment_gateways()->payment_gateways()['bacs'];
+                                    $account_details = $bacs_gateway->account_details;
+
+                                    if (!empty($account_details)): ?>
+                                        <div class="space-y-4">
+                                            <?php foreach ($account_details as $account): ?>
+                                                <div class="bg-gray-50 rounded-lg p-4 border">
+                                                    <?php if (!empty($account['bank_name'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">Banque:</span>
+                                                            <span class="ml-2 font-[Inter]"><?= esc_html($account['bank_name']); ?></span>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($account['account_name'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">Nom du compte:</span>
+                                                            <span class="ml-2 font-[Inter]"><?= esc_html($account['account_name']); ?></span>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($account['account_number'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">Numéro de compte:</span>
+                                                            <span class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">
+                                                                <?= esc_html($account['account_number']); ?>
+                                                            </span>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($account['sort_code'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">Code de tri:</span>
+                                                            <span class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">
+                                                                <?= esc_html($account['sort_code']); ?>
+                                                            </span>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($account['iban'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">IBAN:</span>
+                                                            <span class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">
+                                                                <?= esc_html($account['iban']); ?>
+                                                            </span>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($account['bic'])): ?>
+                                                        <div class="mb-2">
+                                                            <span class="font-semibold text-gray-700">BIC:</span>
+                                                            <span class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">
+                                                                <?= esc_html($account['bic']); ?>
+                                                            </span>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <!-- Fallback: Manual bank details if BACS settings are not configured -->
+                                        <div class="bg-gray-50 rounded-lg p-4 border">
+                                            <div class="mb-2">
+                                                <span class="font-semibold text-gray-700">Banque:</span>
+                                                <span class="ml-2 font-[Inter]">Votre Banque</span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span class="font-semibold text-gray-700">Nom du compte:</span>
+                                                <span class="ml-2 font-[Inter]">Nom de votre entreprise</span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span class="font-semibold text-gray-700">Numéro de compte:</span>
+                                                <span
+                                                    class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">123456789</span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span class="font-semibold text-gray-700">Code de tri:</span>
+                                                <span class="ml-2 font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">12-34-56</span>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                        <p class="text-sm text-blue-800">
+                                            <strong>Important:</strong> Veuillez inclure le numéro de commande
+                                            <strong>#<?= $order->get_order_number(); ?></strong>
+                                            dans la référence de votre virement pour que nous puissions traiter votre commande
+                                            rapidement.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
