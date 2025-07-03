@@ -421,7 +421,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 					<!-- Progress Indicator -->
 					<div class="mt-6 p-4 bg-blue-50 rounded-lg">
-						<div class="flex items-center gap-2 text-blue-800 mb-2">
+						<div class="flex items-center gap-2 text-blue-800">
 							<div class="w-2 h-2 bg-blue-600 rounded-full"></div>
 							<span class="font-medium text-sm">Étape <span id="current-step-display">1</span> sur
 								3</span>
