@@ -348,14 +348,14 @@ function nextStep() {
       "opacity-100",
       "pointer-events-auto"
     );
+
+    nextStepDiv.scrollIntoView({ behavior: "smooth", block: "start" });
   });
   currentStep++;
 
   if (currentStep === 2) {
     generateAllChildrenForms();
   }
-
-  nextStepDiv.scrollIntoView({ behavior: "smooth", block: "start" });
 
   updateStepIndicators();
 }
