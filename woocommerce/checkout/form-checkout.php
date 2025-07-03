@@ -565,7 +565,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 		// Add click event listener to container
 		newContainer.addEventListener('click', function (e) {
-			if (e.target !== newCheckbox || !newCheckbox.disabled) {
+			if (e.target !== newCheckbox && !newCheckbox.disabled) {
 				e.preventDefault();
 				e.stopPropagation();
 				newCheckbox.click();
