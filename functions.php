@@ -106,12 +106,16 @@ function enqueue_woocommerce_assets()
                     $start_date = get_field('date_de_debut', $product_id) ?: '';
                     $end_date = get_field('date_de_fin', $product_id) ?: '';
 
+                    // Create program ID from product slug or custom field
+                    $program_id = get_post_field('post_name', $product_id); // Product slug
+                    // Alternative: $program_id = get_field('program_id', $product_id);
+
                     $order_items[] = array(
                         'id' => (string) $product_id,
                         'name' => $product->get_name(),
                         'price' => (float) $product->get_price(),
                         'quantity' => (int) $cart_item['quantity'],
-                        'programId' => $product_id,
+                        'programId' => $program_id,
                         'programName' => $product->get_name(),
                         'startDate' => $start_date,
                         'endDate' => $end_date,
