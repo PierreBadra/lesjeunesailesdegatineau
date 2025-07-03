@@ -383,6 +383,8 @@ function prevStep() {
       "opacity-100",
       "pointer-events-auto"
     );
+
+    prevStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
   currentStep--;
