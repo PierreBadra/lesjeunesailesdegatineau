@@ -5,38 +5,39 @@ let children = [];
 let programAvailability = {}; // Track available spots for each program
 
 // Order items (sample data)
-const orderItems = [
-  {
-    id: "1",
-    name: "Semaine 1 - Programme de perfectionnement avancé",
-    price: 180,
-    quantity: 1,
-    programId: "semaine1-perfectionnement-avance",
-    programName: "Semaine 1 - Programme de perfectionnement avancé",
-    startDate: "30 juin 2025",
-    endDate: "4 juillet 2025",
-  },
-  {
-    id: "2",
-    name: "Semaine 2 - Programme de perfectionnement avancé",
-    price: 220,
-    quantity: 1,
-    programId: "semaine2-perfectionnement-avance",
-    programName: "Semaine 2 - Programme de perfectionnement avancé",
-    startDate: "7 juillet 2025",
-    endDate: "11 juillet 2025",
-  },
-  {
-    id: "3",
-    name: "Semaine 3 - Programme de perfectionnement avancé",
-    price: 220,
-    quantity: 2,
-    programId: "semaine3-perfectionnement-avance",
-    programName: "Semaine 3 - Programme de perfectionnement avancé",
-    startDate: "14 juillet 2025",
-    endDate: "18 juillet 2025",
-  },
-];
+const orderItems = checkoutData.orderItems;
+// [
+//   {
+//     id: "1",
+//     name: "Semaine 1 - Programme de perfectionnement avancé",
+//     price: 180,
+//     quantity: 1,
+//     programId: "semaine1-perfectionnement-avance",
+//     programName: "Semaine 1 - Programme de perfectionnement avancé",
+//     startDate: "30 juin 2025",
+//     endDate: "4 juillet 2025",
+//   },
+//   {
+//     id: "2",
+//     name: "Semaine 2 - Programme de perfectionnement avancé",
+//     price: 220,
+//     quantity: 1,
+//     programId: "semaine2-perfectionnement-avance",
+//     programName: "Semaine 2 - Programme de perfectionnement avancé",
+//     startDate: "7 juillet 2025",
+//     endDate: "11 juillet 2025",
+//   },
+//   {
+//     id: "3",
+//     name: "Semaine 3 - Programme de perfectionnement avancé",
+//     price: 220,
+//     quantity: 2,
+//     programId: "semaine3-perfectionnement-avance",
+//     programName: "Semaine 3 - Programme de perfectionnement avancé",
+//     startDate: "14 juillet 2025",
+//     endDate: "18 juillet 2025",
+//   },
+// ];
 
 // Initialize program availability tracking
 function initializeProgramAvailability() {

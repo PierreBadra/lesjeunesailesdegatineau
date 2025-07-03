@@ -94,6 +94,42 @@ function enqueue_woocommerce_assets()
                 '1.0.0', // Version
                 true // Load in footer
             );
+
+            // Prepare cart items data in your desired format
+            $order_items = array();
+            if (class_exists('WooCommerce') && WC()->cart) {
+                foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+                    $product = $cart_item['data'];
+                    $product_id = $cart_item['product_id'];
+
+                    // Get ACF custom fields (replace 'start_date' and 'end_date' with your actual ACF field names)
+                    $start_date = get_field('date_de_debut', $product_id) ?: '';
+                    $end_date = get_field('date_de_fin', $product_id) ?: '';
+
+                    $order_items[] = array(
+                        'id' => (string) $product_id,
+                        'name' => $product->get_name(),
+                        'price' => (float) $product->get_price(),
+                        'quantity' => (int) $cart_item['quantity'],
+                        'programId' => $product_id,
+                        'programName' => $product->get_name(),
+                        'startDate' => $start_date,
+                        'endDate' => $end_date,
+                        'cartKey' => $cart_item_key, // Keep this for cart operations
+                    );
+                }
+            }
+
+            // Pass data to JavaScript
+            wp_localize_script('checkout-js', 'checkoutData', array(
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('custom_theme_nonce'),
+                'cartUpdateNonce' => wp_create_nonce('update_cart_quantity'),
+                'removeCartNonce' => wp_create_nonce('remove_cart_item'),
+                'orderItems' => $order_items,
+                'cartTotal' => class_exists('WooCommerce') && WC()->cart ? WC()->cart->get_cart_subtotal() : '',
+                'cartCount' => class_exists('WooCommerce') && WC()->cart ? WC()->cart->get_cart_contents_count() : 0
+            ));
         }
     }
 }
