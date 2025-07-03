@@ -349,7 +349,7 @@ function nextStep() {
       "pointer-events-auto"
     );
 
-    nextStepDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    nextStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
   });
   currentStep++;
 
