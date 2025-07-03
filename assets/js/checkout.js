@@ -349,7 +349,7 @@ function nextStep() {
       "pointer-events-auto"
     );
 
-    nextStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
   currentStep++;
 
@@ -384,7 +384,7 @@ function prevStep() {
       "pointer-events-auto"
     );
 
-    prevStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   currentStep--;
