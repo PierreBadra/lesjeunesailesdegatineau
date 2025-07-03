@@ -446,6 +446,8 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 <script>
 	document.querySelectorAll('.woocommerce-message').forEach(el => el.remove());
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
 
 
 <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
