@@ -172,7 +172,8 @@ function updateProgramDisplay(childId, programId) {
     container.classList.remove(
       "hover:bg-gray-50",
       "hover:border-gray-400",
-      "cursor-pointer"
+      "cursor-pointer",
+      "border-red-500"
     );
     checkbox.disabled = true;
 

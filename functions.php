@@ -85,20 +85,12 @@ function enqueue_woocommerce_assets()
             wp_enqueue_script('wc-checkout');
             wp_enqueue_script('wc-country-select');
             wp_enqueue_script('wc-address-i18n');
-            // If you need the jQuery Payment library, add it here
-            wp_enqueue_script(
-                'jquery-payment',
-                'https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js',
-                array('jquery'),
-                '3.0.0',
-                true
-            );
 
             // Enqueue your custom JavaScript file
             wp_enqueue_script(
                 'checkout-js',
                 get_template_directory_uri() . '/assets/js/checkout.js', // Adjust path as needed
-                array('jquery', 'jquery-payment'), // Dependencies - jQuery is already included in WordPress
+                array('jquery'), // Dependencies - jQuery is already included in WordPress
                 '1.0.0', // Version
                 true // Load in footer
             );

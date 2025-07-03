@@ -426,17 +426,6 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							<span class="font-medium text-sm">Étape <span id="current-step-display">1</span> sur
 								3</span>
 						</div>
-						<p class="text-xs text-blue-700" id="step-description">
-							Entrez vos informations de contact
-						</p>
-					</div>
-
-					<!-- Security Notice -->
-					<div class="mt-4 text-center">
-						<p class="text-xs text-gray-500">
-							<i data-lucide="lock" class="w-3 h-3 inline mr-1"></i>
-							Paiement sécurisé • Données protégées • SSL 256-bit
-						</p>
 					</div>
 				</div>
 			</div>
