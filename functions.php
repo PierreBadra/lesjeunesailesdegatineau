@@ -85,6 +85,23 @@ function enqueue_woocommerce_assets()
             wp_enqueue_script('wc-checkout');
             wp_enqueue_script('wc-country-select');
             wp_enqueue_script('wc-address-i18n');
+            // If you need the jQuery Payment library, add it here
+            wp_enqueue_script(
+                'jquery-payment',
+                'https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js',
+                array('jquery'),
+                '3.0.0',
+                true
+            );
+
+            // Enqueue your custom JavaScript file
+            wp_enqueue_script(
+                'checkout-js',
+                get_template_directory_uri() . '/assets/js/checkout.js', // Adjust path as needed
+                array('jquery', 'jquery-payment'), // Dependencies - jQuery is already included in WordPress
+                '1.0.0', // Version
+                true // Load in footer
+            );
         }
     }
 }
@@ -514,79 +531,18 @@ add_action('template_redirect', function () {
 });
 
 
+// // Custom scripts enqueuing
+// function enqueue_custom_theme_scripts()
+// {
 
 
-// ------------------------------ TESTING ------------------------------
-// 1. Display child info fields for each kid (max quantity) and program mapping
 
-
-// 2. Validate fields
-// add_action('woocommerce_checkout_process', function () {
-//     $childs = isset($_POST['childs']) ? $_POST['childs'] : [];
-//     $cart = WC()->cart->get_cart();
-//     $program_keys = array_keys($cart);
-//     if (empty($childs)) {
-//         wc_add_notice('Veuillez remplir les informations pour chaque enfant.', 'error');
-//     } else {
-//         foreach ($childs as $idx => $child) {
-//             if (empty($child['first_name']) || empty($child['last_name']) || empty($child['dob'])) {
-//                 wc_add_notice("Veuillez remplir toutes les informations pour l'enfant #$idx.", 'error');
-//             }
-//             if (empty($child['programs']) || !is_array($child['programs'])) {
-//                 wc_add_notice("Veuillez sélectionner au moins un programme/camp pour l'enfant #$idx.", 'error');
-//             } else {
-//                 // Validate selected programs exist in cart
-//                 foreach ($child['programs'] as $selected_key) {
-//                     if (!in_array($selected_key, $program_keys)) {
-//                         wc_add_notice("Programme/camp sélectionné invalide pour l'enfant #$idx.", 'error');
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// });
-
-
-// 3. Save mapping to order meta (per order, not per item)
-// add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
-//     if (isset($_POST['childs'])) {
-//         update_post_meta($order_id, '_childs_programs', wp_json_encode($_POST['childs']));
-//     }
-// });
-
-// 4. Display in admin order details
-// add_action('woocommerce_admin_order_data_after_order_details', function ($order) {
-//     $childs_json = get_post_meta($order->get_id(), '_childs_programs', true);
-//     if ($childs_json) {
-//         $childs = json_decode($childs_json, true);
-//         $cart = $order->get_items();
-//         // Build product name lookup
-//         $product_names = [];
-//         foreach ($cart as $item_id => $item) {
-//             $product_names[$item_id] = $item->get_name();
-//         }
-//         echo '<div class="mt-4"><h4><strong>Enfants et Programmes/Camps:</strong></h4><ul class="list-disc ml-5">';
-//         foreach ($childs as $idx => $child) {
-//             echo '<li>';
-//             echo esc_html($child['first_name']) . ' ' . esc_html($child['last_name']) . ' (Né(e): ' . esc_html($child['dob']) . ')<br>';
-//             echo '<span class="text-xs text-gray-600">Programmes/Camps: ';
-//             $names = [];
-//             foreach ($child['programs'] as $prog_key) {
-//                 // Try to get product name from order items
-//                 foreach ($order->get_items() as $item) {
-//                     if ($item->get_meta('_cart_item_key') == $prog_key || $item->get_product_id() == $prog_key) {
-//                         $names[] = $item->get_name();
-//                     }
-//                 }
-//             }
-//             if (empty($names)) {
-//                 // fallback: show keys
-//                 $names = $child['programs'];
-//             }
-//             echo esc_html(implode(', ', $names));
-//             echo '</span>';
-//             echo '</li>';
-//         }
-//         echo '</ul></div>';
-//     }
-// });
+//     // Pass PHP data to JavaScript if needed
+//     wp_localize_script('checkout-js', 'themeData', array(
+//         'ajaxUrl' => admin_url('admin-ajax.php'),
+//         'nonce' => wp_create_nonce('custom_theme_nonce'),
+//         'cartUpdateNonce' => wp_create_nonce('update_cart_quantity'),
+//         'removeCartNonce' => wp_create_nonce('remove_cart_item')
+//     ));
+// }
+// add_action('wp_enqueue_scripts', 'enqueue_custom_theme_scripts');
