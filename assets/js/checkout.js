@@ -355,7 +355,7 @@ function nextStep() {
     generateAllChildrenForms();
   }
 
-  nextStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+  nextStepDiv.scrollIntoView({ behavior: "smooth", block: "start" });
 
   updateStepIndicators();
 }
