@@ -349,12 +349,13 @@ function nextStep() {
       "pointer-events-auto"
     );
   });
-
   currentStep++;
 
   if (currentStep === 2) {
     generateAllChildrenForms();
   }
+
+  nextStepDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 
   updateStepIndicators();
 }
