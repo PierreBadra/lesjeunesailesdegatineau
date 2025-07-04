@@ -548,19 +548,19 @@ function validateChildrenInfo() {
     if (!validateField(`child-${i}-dateOfBirth`)) isValid = false;
 
     // Validate that at least one program is selected for each child
-    const child = children.find((c) => c.id === i);
-    if (!child || !child.programs || child.programs.length === 0) {
-      const childForm = document.getElementById(`child-form-${i}`);
-      if (childForm) {
-        const errorDiv = document.createElement("div");
-        errorDiv.className =
-          "child-error-message text-red-500 text-sm mt-2 p-2 bg-red-50 rounded";
-        errorDiv.textContent =
-          "Veuillez sélectionner au moins un programme pour cet enfant.";
-        childForm.appendChild(errorDiv);
-        isValid = false;
-      }
-    }
+    // const child = children.find((c) => c.id === i);
+    // if (!child || !child.programs || child.programs.length === 0) {
+    //   const childForm = document.getElementById(`child-form-${i}`);
+    //   if (childForm) {
+    //     const errorDiv = document.createElement("div");
+    //     errorDiv.className =
+    //       "child-error-message text-red-500 text-sm mt-2 p-2 bg-red-50 rounded";
+    //     errorDiv.textContent =
+    //       "Veuillez sélectionner au moins un programme pour cet enfant.";
+    //     childForm.appendChild(errorDiv);
+    //     isValid = false;
+    //   }
+    // }
   }
 
   return isValid;
