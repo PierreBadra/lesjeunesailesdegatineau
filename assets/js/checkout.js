@@ -546,21 +546,6 @@ function validateChildrenInfo() {
     if (!validateField(`child-${i}-firstName`)) isValid = false;
     if (!validateField(`child-${i}-lastName`)) isValid = false;
     if (!validateField(`child-${i}-dateOfBirth`)) isValid = false;
-
-    // Validate that at least one program is selected for each child
-    // const child = children.find((c) => c.id === i);
-    // if (!child || !child.programs || child.programs.length === 0) {
-    //   const childForm = document.getElementById(`child-form-${i}`);
-    //   if (childForm) {
-    //     const errorDiv = document.createElement("div");
-    //     errorDiv.className =
-    //       "child-error-message text-red-500 text-sm mt-2 p-2 bg-red-50 rounded";
-    //     errorDiv.textContent =
-    //       "Veuillez sélectionner au moins un programme pour cet enfant.";
-    //     childForm.appendChild(errorDiv);
-    //     isValid = false;
-    //   }
-    // }
   }
 
   return isValid;
@@ -1042,20 +1027,71 @@ function initializeApp() {
 }
 
 // Helper function to calculate age from date of birth
-function calculateAge(dateOfBirth) {
-  const today = new Date();
+function calculateAgeAtDate(dateOfBirth, targetDate) {
+  const checkDate = new Date(targetDate);
   const birthDate = new Date(dateOfBirth);
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const monthDiff = today.getMonth() - birthDate.getMonth();
+  let age = checkDate.getFullYear() - birthDate.getFullYear();
+  const monthDiff = checkDate.getMonth() - birthDate.getMonth();
 
   if (
     monthDiff < 0 ||
-    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    (monthDiff === 0 && checkDate.getDate() < birthDate.getDate())
   ) {
     age--;
   }
 
   return age;
+}
+
+// Helper function to get date range for a child's selected programs
+function getDateRangeForChild(childId) {
+  const child = children.find((c) => c.id === childId);
+  if (!child || !child.programs || child.programs.length === 0) {
+    return null;
+  }
+
+  let earliestStart = null;
+  let latestEnd = null;
+  let programNames = [];
+
+  // Get date ranges from all selected programs for this child
+  child.programs.forEach((programId) => {
+    const orderItem = orderItems.find((item) => item.programId === programId);
+    if (orderItem) {
+      // Adjust these property names based on your actual data structure
+      const programStartDate =
+        orderItem.start_date || orderItem.startDate || orderItem.program_start;
+      const programEndDate =
+        orderItem.end_date || orderItem.endDate || orderItem.program_end;
+
+      if (programStartDate) {
+        const startDate = new Date(programStartDate);
+        if (!earliestStart || startDate < earliestStart) {
+          earliestStart = startDate;
+        }
+      }
+
+      if (programEndDate) {
+        const endDate = new Date(programEndDate);
+        if (!latestEnd || endDate > latestEnd) {
+          latestEnd = endDate;
+        }
+      }
+
+      programNames.push(orderItem.programName);
+    }
+  });
+
+  // If no valid date ranges found, return null
+  if (!earliestStart && !latestEnd) {
+    return null;
+  }
+
+  return {
+    startDate: earliestStart,
+    endDate: latestEnd,
+    programs: programNames,
+  };
 }
 
 // Helper function to get age range for a child's selected programs
@@ -1179,7 +1215,8 @@ function validateField(fieldId) {
       const childIdMatch = fieldId.match(/child-(\d+)-dateOfBirth/);
       if (childIdMatch) {
         const childId = parseInt(childIdMatch[1]);
-        const childAge = calculateAge(value);
+        const dateRange = getDateRangeForChild(childId);
+        const childAge = calculateAgeAtDate(value, dateRange.startDate);
 
         // Get age range for this child's selected programs
         const ageRange = getAgeRangeForChild(childId);
