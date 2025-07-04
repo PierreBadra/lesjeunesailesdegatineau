@@ -223,6 +223,7 @@ function updateOrderSummary() {
     .map(
       (item) => `
 		<div class="flex justify-between items-start">
+            <img src="${item.productImage}" alt="${item.name}" class="w-full h-full object-cover rounded-lg">
 			<div class="flex-grow">
 				<h4 class="font-medium text-gray-900 text-sm">${item.name}</h4>
 				<span class="text-sm font-medium text-gray-600">× ${item.quantity}</span>
