@@ -171,7 +171,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							</div>
 
 							<div class="flex justify-between mt-8">
-								<a href="/programmes/perfectionnement-avance"
+								<a href="/panier"
 									class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -180,7 +180,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 										<path d="m12 19-7-7 7-7"></path>
 										<path d="M19 12H5"></path>
 									</svg>
-									Retour au programme
+									Retour au panier
 								</a>
 
 								<button type="button" id="step1-next" data-action="next"
