@@ -1216,6 +1216,7 @@ function validateField(fieldId) {
       if (childIdMatch) {
         const childId = parseInt(childIdMatch[1]);
         const dateRange = getDateRangeForChild(childId);
+        console.log(dateRange);
         const childAge = calculateAgeAtDate(value, dateRange.startDate);
 
         // Get age range for this child's selected programs
