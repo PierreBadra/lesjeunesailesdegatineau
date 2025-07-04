@@ -106,6 +106,7 @@ function enqueue_woocommerce_assets()
                     $start_date = get_field('date_de_debut', $product_id) ?: '';
                     $end_date = get_field('date_de_fin', $product_id) ?: '';
                     $product_image = get_field('image_davant_page', $product_id);
+                    $age_range = get_field('tranche_dage', $product_id);
 
                     // Create program ID from product slug or custom field
                     $program_id = get_post_field('post_name', $product_id); // Product slug
@@ -116,6 +117,7 @@ function enqueue_woocommerce_assets()
                         'name' => $product->get_name(),
                         'price' => (float) $product->get_price(),
                         'productImage' => (string) $product_image,
+                        'age_range' => $age_range,
                         'quantity' => (int) $cart_item['quantity'],
                         'programId' => $program_id,
                         'programName' => $product->get_name(),
