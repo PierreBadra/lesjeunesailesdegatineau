@@ -103,8 +103,8 @@ function enqueue_woocommerce_assets()
                     $product_id = $cart_item['product_id'];
 
                     // Get ACF custom fields (replace 'start_date' and 'end_date' with your actual ACF field names)
-                    $start_date = get_field('date_de_debut', $product_id) ?: '';
-                    $end_date = get_field('date_de_fin', $product_id) ?: '';
+                    $start_date =  parse_french_string_date_to_english(get_field('date_de_debut', $product_id) ?: '');
+                    $end_date = parse_french_string_date_to_english(get_field('date_de_fin', $product_id) ?: '');
                     $product_image = get_field('image_davant_page', $product_id);
                     $age_range_raw = get_field('tranche_dage', $product_id);
                     
