@@ -1216,7 +1216,7 @@ function validateField(fieldId) {
       if (childIdMatch) {
         const childId = parseInt(childIdMatch[1]);
         const dateRange = getDateRangeForChild(childId);
-
+        console.log(dateRange);
         // Add safety check here
         if (!dateRange || !dateRange.startDate) {
           return true; // or handle this case as needed
