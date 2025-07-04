@@ -92,8 +92,17 @@ function updateProgramAvailability(childId, programId, isChecked) {
 
   // Clear any existing allocation error messages when changes are made
   $(".allocation-error-message").remove();
-}
 
+  // Re-validate the child's date of birth if it exists
+  // This provides immediate feedback when programs are changed
+  const dobField = document.getElementById(`child-${childId}-dateOfBirth`);
+  if (dobField && dobField.value) {
+    // Small delay to ensure UI is updated first
+    setTimeout(() => {
+      validateField(`child-${childId}-dateOfBirth`);
+    }, 100);
+  }
+}
 // Update all program availability displays
 function updateAllProgramDisplays() {
   const maxChildren = getMaxChildren();
@@ -223,7 +232,9 @@ function updateOrderSummary() {
     .map(
       (item) => `
 		<div class="flex justify-between items-start">
-            <img src="${item.productImage}" alt="${item.name}" class="w-full h-full object-cover rounded-lg">
+            <img src="${item.productImage}" alt="${
+        item.name
+      }" class="w-full h-full object-cover rounded-lg">
 			<div class="flex-grow">
 				<h4 class="font-medium text-gray-900 text-sm">${item.name}</h4>
 				<span class="text-sm font-medium text-gray-600">× ${item.quantity}</span>
@@ -538,13 +549,14 @@ function validateChildrenInfo() {
 
     // Validate that at least one program is selected for each child
     const child = children.find((c) => c.id === i);
-    if (!child) {
+    if (!child || !child.programs || child.programs.length === 0) {
       const childForm = document.getElementById(`child-form-${i}`);
       if (childForm) {
         const errorDiv = document.createElement("div");
         errorDiv.className =
           "child-error-message text-red-500 text-sm mt-2 p-2 bg-red-50 rounded";
-        // errorDiv.textContent = 'Veuillez sélectionner au moins un programme pour cet enfant.';
+        errorDiv.textContent =
+          "Veuillez sélectionner au moins un programme pour cet enfant.";
         childForm.appendChild(errorDiv);
         isValid = false;
       }
@@ -1029,7 +1041,69 @@ function initializeApp() {
   });
 }
 
-// Individual field validation function
+// Helper function to calculate age from date of birth
+function calculateAge(dateOfBirth) {
+  const today = new Date();
+  const birthDate = new Date(dateOfBirth);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
+
+// Helper function to get age range for a child's selected programs
+function getAgeRangeForChild(childId) {
+  const child = children.find((c) => c.id === childId);
+  if (!child || !child.programs || child.programs.length === 0) {
+    return null;
+  }
+
+  let minAge = Infinity;
+  let maxAge = -Infinity;
+  let programNames = [];
+
+  // Get age ranges from all selected programs for this child
+  child.programs.forEach((programId) => {
+    const orderItem = orderItems.find((item) => item.programId === programId);
+    if (orderItem && orderItem.age_range) {
+      const ageRange = orderItem.age_range;
+
+      // Assuming age_range is an object with min and max properties
+      // Adjust these property names based on your actual ACF field structure
+      const programMinAge = ageRange.min || ageRange.minimum || ageRange.from;
+      const programMaxAge = ageRange.max || ageRange.maximum || ageRange.to;
+
+      if (programMinAge !== undefined && programMinAge < minAge) {
+        minAge = programMinAge;
+      }
+      if (programMaxAge !== undefined && programMaxAge > maxAge) {
+        maxAge = programMaxAge;
+      }
+
+      programNames.push(orderItem.programName);
+    }
+  });
+
+  // If no valid age ranges found, return null
+  if (minAge === Infinity || maxAge === -Infinity) {
+    return null;
+  }
+
+  return {
+    min: minAge,
+    max: maxAge,
+    programs: programNames,
+  };
+}
+
+// Enhanced validateField function with age range validation
 function validateField(fieldId) {
   // Clear previous error for this field
   $(`#${fieldId}`).removeClass("border-red-500");
@@ -1085,15 +1159,46 @@ function validateField(fieldId) {
         }
       }
       break;
+
     case fieldId.includes("dateOfBirth"):
       if (!value) {
         showError("La date de naissance est requise");
         return false;
       }
 
-      // check if dob is in the future or even better if dob is smaller than the smallest possible age range (to restrict adding 2 month old, etc)
-      else {
-        // validation if dob matches the right age range for the selected programs
+      // Check if date is in the future
+      const today = new Date();
+      const birthDate = new Date(value);
+
+      if (birthDate > today) {
+        showError("La date de naissance ne peut pas être dans le futur");
+        return false;
+      }
+
+      // Extract child ID from field ID (e.g., "child-1-dateOfBirth" -> 1)
+      const childIdMatch = fieldId.match(/child-(\d+)-dateOfBirth/);
+      if (childIdMatch) {
+        const childId = parseInt(childIdMatch[1]);
+        const childAge = calculateAge(value);
+
+        // Get age range for this child's selected programs
+        const ageRange = getAgeRangeForChild(childId);
+
+        if (ageRange) {
+          if (childAge < ageRange.min || childAge > ageRange.max) {
+            const programList =
+              ageRange.programs.length > 1
+                ? ageRange.programs.slice(0, -1).join(", ") +
+                  " et " +
+                  ageRange.programs.slice(-1)
+                : ageRange.programs[0];
+
+            showError(
+              `L'âge de l'enfant (${childAge} ans) ne correspond pas à la tranche d'âge requise (${ageRange.min}-${ageRange.max} ans) pour le(s) programme(s) sélectionné(s): ${programList}`
+            );
+            return false;
+          }
+        }
       }
       break;
   }

@@ -106,7 +106,39 @@ function enqueue_woocommerce_assets()
                     $start_date = get_field('date_de_debut', $product_id) ?: '';
                     $end_date = get_field('date_de_fin', $product_id) ?: '';
                     $product_image = get_field('image_davant_page', $product_id);
-                    $age_range = get_field('tranche_dage', $product_id);
+                    $age_range_raw = get_field('tranche_dage', $product_id);
+                    
+                    // Format age range for JavaScript consumption
+                    $age_range = null;
+                    if ($age_range_raw) {
+                        // Handle different ACF field types
+                        if (is_array($age_range_raw)) {
+                            // If it's already an array with min/max
+                            $age_range = array(
+                                'min' => isset($age_range_raw['min']) ? (int)$age_range_raw['min'] : 
+                                        (isset($age_range_raw['minimum']) ? (int)$age_range_raw['minimum'] : 
+                                        (isset($age_range_raw['from']) ? (int)$age_range_raw['from'] : null)),
+                                'max' => isset($age_range_raw['max']) ? (int)$age_range_raw['max'] : 
+                                        (isset($age_range_raw['maximum']) ? (int)$age_range_raw['maximum'] : 
+                                        (isset($age_range_raw['to']) ? (int)$age_range_raw['to'] : null))
+                            );
+                        } elseif (is_string($age_range_raw)) {
+                            // If it's a string like "5-12" or "5 to 12"
+                            $matches = array();
+                            if (preg_match('/(\d+)[-\s]*(?:to|à|-)?\s*(\d+)/', $age_range_raw, $matches)) {
+                                $age_range = array(
+                                    'min' => (int)$matches[1],
+                                    'max' => (int)$matches[2]
+                                );
+                            }
+                        } elseif (is_numeric($age_range_raw)) {
+                            // If it's a single number, treat as both min and max
+                            $age_range = array(
+                                'min' => (int)$age_range_raw,
+                                'max' => (int)$age_range_raw
+                            );
+                        }
+                    }
 
                     // Create program ID from product slug or custom field
                     $program_id = get_post_field('post_name', $product_id); // Product slug
@@ -117,7 +149,7 @@ function enqueue_woocommerce_assets()
                         'name' => $product->get_name(),
                         'price' => (float) $product->get_price(),
                         'productImage' => (string) $product_image,
-                        'age_range' => $age_range,
+                        'age_range' => $age_range, // Now properly formatted
                         'quantity' => (int) $cart_item['quantity'],
                         'programId' => $program_id,
                         'programName' => $product->get_name(),
