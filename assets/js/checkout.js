@@ -190,6 +190,11 @@ function updateProgramDisplay(childId, programId) {
     // Remove click handler by cloning the element
     const newContainer = container.cloneNode(true);
     container.parentNode.replaceChild(newContainer, container);
+    
+    // Update the checkbox reference to point to the new element
+    const newCheckbox = newContainer.querySelector('input[type="checkbox"]');
+    newCheckbox.disabled = true;
+    
   } else {
     // Program has spots available or this child has it selected
     availabilitySpan.className =
@@ -204,9 +209,51 @@ function updateProgramDisplay(childId, programId) {
     );
     checkbox.disabled = false;
 
-    // Restore click handler - but we need to re-add event listeners
-    restoreContainerClickHandler(container, checkbox);
+    // Get the current container reference (in case it was cloned)
+    const currentContainer = document.getElementById(`child-${childId}-program-${programId}`)?.closest(".relative");
+    const currentCheckbox = document.getElementById(`child-${childId}-program-${programId}`);
+    
+    if (currentContainer && currentCheckbox) {
+      // Remove any existing event listeners by cloning
+      const newContainer = currentContainer.cloneNode(true);
+      currentContainer.parentNode.replaceChild(newContainer, currentContainer);
+      
+      // Get references to the new elements
+      const newCheckbox = newContainer.querySelector('input[type="checkbox"]');
+      
+      // Add fresh event listeners
+      addEventListenersToSingleCheckbox(newCheckbox, newContainer);
+    }
   }
+}
+
+// New helper function to add event listeners to a single checkbox
+function addEventListenersToSingleCheckbox(checkbox, container) {
+  if (!checkbox || !container) return;
+  
+  // Add change event listener to checkbox
+  checkbox.addEventListener("change", function (e) {
+    e.stopPropagation();
+    const isChecked = e.target.checked;
+    const programId = e.target.dataset.programId;
+    const childId = parseInt(e.target.dataset.childId);
+
+    container.classList.remove("border-red-500");
+    updateProgramAvailability(childId, programId, isChecked);
+  });
+
+  // Add click event listener to container
+  container.addEventListener("click", function (e) {
+    if (e.target !== checkbox && !checkbox.disabled) {
+      e.preventDefault();
+      checkbox.click();
+    }
+  });
+
+  // Prevent checkbox click from bubbling
+  checkbox.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
 }
 
 // Calculate totals
@@ -725,7 +772,6 @@ function addEventListenersToChildForm(childId, programs) {
         container.classList.remove("border-red-500");
 
         updateProgramAvailability(childId, programId, isChecked);
-        // updateChildProgramSelection(childId, programId, isChecked); // <-- ADD THIS LINE
       });
 
       // Add click event listener to container
