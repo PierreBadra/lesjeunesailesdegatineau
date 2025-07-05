@@ -662,7 +662,6 @@ function generateChildForm(childId, childData, programs, maxChildren) {
         }">
 					<div class="flex items-center p-4">
                         <div class="relative">
-                        <div class="relative">
                             <input class="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 sr-only peer" 
                                 type="checkbox" 
                                 id="child-${childId}-program-${program.programId}"  
