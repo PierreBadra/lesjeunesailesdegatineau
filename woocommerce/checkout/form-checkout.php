@@ -115,18 +115,18 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						class="transition-all duration-500 ease-in-out opacity-100 translate-x-0 pointer-events-auto">
 						<div class="border border-gray-200 rounded-xl p-8">
 							<div class="flex items-center gap-3 mb-8">
-								<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+								<div class="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 rounded-lg flex items-center justify-center">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" class="lucide lucide-user w-6 h-6 text-blue-600"
+										stroke-linejoin="round" class="lucide lucide-user w-6 h-6 text-blue-950"
 										__v0_r="0,11017,11040">
 										<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
 										<circle cx="12" cy="7" r="4"></circle>
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-2xl font-bold text-gray-900">Informations de facturation</h2>
-									<p class="text-gray-600">Entrez vos informations de contact</p>
+									<h2 class="text-xl font-[Oswald] tracking-widest uppercase font-medium bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">Informations de facturation</h2>
+									<p class="text-gray-600 font-[Inter]">Entrez vos informations de contact</p>
 								</div>
 							</div>
 
@@ -203,10 +203,10 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						class="transition-all duration-500 ease-in-out opacity-0 translate-x-4 pointer-events-none">
 						<div class="bg-white rounded-xl border border-gray-200  p-8">
 							<div class="flex items-center gap-3 mb-8">
-								<div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+								<div class="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 rounded-lg flex items-center justify-center">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" class="lucide lucide-users w-6 h-6 text-green-600"
+										stroke-linejoin="round" class="lucide lucide-users w-6 h-6 text-blue-950"
 										__v0_r="0,16731,16755">
 										<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
 										<circle cx="9" cy="7" r="4"></circle>
@@ -215,8 +215,8 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-2xl font-bold text-gray-900">Informations des enfants</h2>
-									<p class="text-gray-600">Ajoutez les détails de chaque participant</p>
+									<h2 class="text-xl font-[Oswald] tracking-widest uppercase font-medium bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">Informations des enfants</h2>
+									<p class="text-gray-600 font-[Inter]">Ajoutez les détails de chaque participant</p>
 								</div>
 							</div>
 
@@ -257,18 +257,18 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						class="transition-all duration-500 ease-in-out opacity-0 translate-x-4 pointer-events-none">
 						<div class="border border-gray-200 rounded-xl p-8">
 							<div class="flex items-center gap-3 mb-8">
-								<div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+								<div class="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-200 via-white via-yellow-300 to-yellow-600 rounded-lg flex items-center justify-center">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
 										stroke-linejoin="round"
-										class="text-purple-600 lucide lucide-credit-card w-5 h-5" __v0_r="0,7360,7369">
+										class="text-blue-950 lucide lucide-credit-card w-5 h-5" __v0_r="0,7360,7369">
 										<rect width="20" height="14" x="2" y="5" rx="2"></rect>
 										<line x1="2" x2="22" y1="10" y2="10"></line>
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-2xl font-bold text-gray-900">Informations de paiement</h2>
-									<p class="text-gray-600">Finalisez votre inscription</p>
+									<h2 class="text-xl font-[Oswald] tracking-widest uppercase font-medium bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent">Informations de paiement</h2>
+									<p class="text-gray-600 font-[Inter]">Finalisez votre inscription</p>
 								</div>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
