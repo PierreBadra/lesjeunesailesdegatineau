@@ -149,7 +149,7 @@ function enqueue_woocommerce_assets()
                         'name' => $product->get_name(),
                         'price' => (float) $product->get_price(),
                         'productImage' => (string) $product_image,
-                        'age_range' => $age_range, // Now properly formatted
+                        'ageRange' => $age_range, // Now properly formatted
                         'quantity' => (int) $cart_item['quantity'],
                         'programId' => $program_id,
                         'programName' => $product->get_name(),
