@@ -236,7 +236,7 @@ function updateOrderSummary() {
 				<h4 class="font-medium font-[Inter] text-gray-900 text-sm">${item.name}</h4>
 				<span class="text-sm font-medium text-gray-600">× ${item.quantity}</span>
 			</div>
-			<div class="text-sm font-medium text-gray-900">${(
+			<div class="text-sm font-medium text-gray-900">$${(
         item.price * item.quantity
       ).toFixed(2)}</div>
 		</div>
