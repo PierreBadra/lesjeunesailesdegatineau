@@ -725,6 +725,7 @@ function addEventListenersToChildForm(childId, programs) {
         container.classList.remove("border-red-500");
 
         updateProgramAvailability(childId, programId, isChecked);
+        updateChildProgramSelection(childId, programId, isChecked); // <-- ADD THIS LINE
       });
 
       // Add click event listener to container
