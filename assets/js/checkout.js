@@ -231,6 +231,50 @@ function updateOrderSummary() {
   orderItemsContainer.innerHTML = orderItems
     .map(
       (item) => `
+        <div class="flex flex-col sm:flex-row items-start sm:items-start gap-4 p-4 border border-gray-200 rounded-lg cart-item" data-cart-key="202cb962ac59075b964b07152d234b70">
+                <!-- Product Image -->
+                <div class="w-full sm:w-20 sm:h-20 h-32 flex-shrink-0">
+                    <img src="${item.productImage}" alt="${
+        item.name
+      }" class="w-full h-full object-cover rounded-lg">
+                </div>
+
+                <!-- Product Details -->
+                <div class="flex-grow w-full sm:w-auto space-y-2 sm:space-y-1">
+                    <h3 class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest text-sm sm:text-base mb-1">
+                        ${item.name}
+                    </h3>
+
+                    <div class="text-xs sm:text-sm font-[Inter] text-gray-600 mb-2 flex items-center gap-2">
+                        <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 sm:w-4 sm:h-4 lucide lucide-calendar-days-icon lucide-calendar-days flex-shrink-0">
+                            <path d="M8 2v4"></path>
+                            <path d="M16 2v4"></path>
+                            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                            <path d="M3 10h18"></path>
+                            <path d="M8 14h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 18h.01"></path>
+                            <path d="M12 18h.01"></path>
+                            <path d="M16 18h.01"></path>
+                        </svg>
+                        <p>Du
+                            <span>${item.startDate}</span> au <span>${
+        item.endDate
+      }</span>
+                        </p>
+                    </div>
+                    <div class="hidden sm:block text-sm lg:text-base font-bold text-blue-950">
+                        x${item.quantity}
+                    </div>
+                </div>
+
+                <div class="font-bold text-blue-950 text-sm lg:text-base item-total">
+                    ${(item.price * item.quantity).toFixed(2)}
+                </div>
+        </div>
+
+
 		<div class="flex justify-between items-start">
             <img src="${item.productImage}" alt="${
         item.name
