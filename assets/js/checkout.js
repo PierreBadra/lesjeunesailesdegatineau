@@ -190,11 +190,10 @@ function updateProgramDisplay(childId, programId) {
     // Remove click handler by cloning the element
     const newContainer = container.cloneNode(true);
     container.parentNode.replaceChild(newContainer, container);
-    
+
     // Update the checkbox reference to point to the new element
     const newCheckbox = newContainer.querySelector('input[type="checkbox"]');
     newCheckbox.disabled = true;
-    
   } else {
     // Program has spots available or this child has it selected
     availabilitySpan.className =
@@ -210,17 +209,21 @@ function updateProgramDisplay(childId, programId) {
     checkbox.disabled = false;
 
     // Get the current container reference (in case it was cloned)
-    const currentContainer = document.getElementById(`child-${childId}-program-${programId}`)?.closest(".relative");
-    const currentCheckbox = document.getElementById(`child-${childId}-program-${programId}`);
-    
+    const currentContainer = document
+      .getElementById(`child-${childId}-program-${programId}`)
+      ?.closest(".relative");
+    const currentCheckbox = document.getElementById(
+      `child-${childId}-program-${programId}`
+    );
+
     if (currentContainer && currentCheckbox) {
       // Remove any existing event listeners by cloning
       const newContainer = currentContainer.cloneNode(true);
       currentContainer.parentNode.replaceChild(newContainer, currentContainer);
-      
+
       // Get references to the new elements
       const newCheckbox = newContainer.querySelector('input[type="checkbox"]');
-      
+
       // Add fresh event listeners
       addEventListenersToSingleCheckbox(newCheckbox, newContainer);
     }
@@ -230,7 +233,7 @@ function updateProgramDisplay(childId, programId) {
 // New helper function to add event listeners to a single checkbox
 function addEventListenersToSingleCheckbox(checkbox, container) {
   if (!checkbox || !container) return;
-  
+
   // Add change event listener to checkbox
   checkbox.addEventListener("change", function (e) {
     e.stopPropagation();
@@ -1122,7 +1125,7 @@ function getDateRangeForChild(childId) {
       programNames.push(orderItem.programName);
     }
   });
-
+  programNames.sort();
   // If no valid date ranges found, return null
   if (!earliestStart && !latestEnd) {
     return null;
@@ -1167,7 +1170,7 @@ function getAgeRangeForChild(childId) {
       programNames.push(orderItem.programName);
     }
   });
-
+  programNames.sort();
   // If no valid age ranges found, return null
   if (minAge === Infinity || maxAge === -Infinity) {
     return null;
@@ -1263,22 +1266,24 @@ function validateField(fieldId) {
           return true; // or handle this case as needed
         }
 
-        const childAge = calculateAgeAtDate(value, dateRange.startDate);
+        const childAge = calculateAgeAtDate(value, today.toString());
 
         // Get age range for this child's selected programs
         const ageRange = getAgeRangeForChild(childId);
 
         if (ageRange) {
           if (childAge < ageRange.min || childAge > ageRange.max) {
-            const programList =
-              ageRange.programs.length > 1
-                ? ageRange.programs.slice(0, -1).join(", ") +
-                  " et " +
-                  ageRange.programs.slice(-1)
-                : ageRange.programs[0];
-
             showError(
-              `L'âge de l'enfant (${childAge} ans) ne correspond pas à la tranche d'âge requise (${ageRange.min}-${ageRange.max} ans) pour le(s) programme(s) sélectionné(s): ${programList}`
+              `L'âge de l'enfant (${childAge} ans) ne correspond pas à la tranche d'âge requise (${
+                ageRange.min
+              }-${
+                ageRange.max
+              } ans) pour la date de début du ou des programme(s) sélectionné(s) :
+                <ul class="list-disc list-inside">
+                ${ageRange.programs
+                  .map((program) => `<li>${program}</li>`)
+                  .join("")}
+                </ul>`
             );
             return false;
           }
