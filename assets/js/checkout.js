@@ -657,7 +657,7 @@ function generateChildForm(childId, childData, programs, maxChildren) {
             childData.programs.includes(program.programId);
 
           return `
-				<div class="relative rounded-lg border transition-all duration-200 border-gray-300 bg-white hover:bg-gray-50 hover:border-gray-400 cursor-pointer has-[:checked]:border-blue-950 has-[:checked]:bg-blue-950/50" data-program-container="${
+				<div class="relative rounded-lg border transition-all duration-200 border-gray-300 bg-white hover:bg-gray-50 hover:border-gray-400 cursor-pointer has-[:checked]:border-blue-950" data-program-container="${
           program.programId
         }">
 					<div class="flex items-center p-4">
@@ -668,8 +668,8 @@ function generateChildForm(childId, childData, programs, maxChildren) {
 							   data-child-id="${childId}" 
 							   data-program-id="${program.programId}"
 							   ${isChecked ? "checked" : ""}>
-                        <div class="w-6 h-6 border border-gray-200 rounded-md peer-checked:bg-gradient-to-br peer-checked:rom-yellow-400 peer-checked:via-yellow-200 peer-checked:via-white peer-checked:via-yellow-300 peer-checked:to-yellow-600 transition-all duration-150"></div>
-                        <svg class="absolute w-4 h-4 text-white left-1 top-1 opacity-0 peer-checked:opacity-100 transition-opacity duration-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <div class="w-6 h-6 bg-gray-200 rounded-md peer-checked:bg-gradient-to-br peer-checked:rom-yellow-400 peer-checked:via-yellow-200 peer-checked:via-white peer-checked:via-yellow-300 peer-checked:to-yellow-600 transition-all duration-150"></div>
+                        <svg class="absolute w-4 h-4 text-blue-950 left-1 top-1 opacity-0 peer-checked:opacity-100 transition-opacity duration-150" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
                         </div>
