@@ -817,11 +817,23 @@ function setupEventDelegation() {
       const programId = e.target.dataset.programId;
       const childId = parseInt(e.target.dataset.childId);
 
-      updateProgramAvailability(childId, programId, isChecked);
+      // Call your program availability update function
+      if (typeof updateProgramAvailability === "function") {
+        updateProgramAvailability(childId, programId, isChecked);
+      }
+
+      // Update child data
       updateChildProgramSelection(childId, programId, isChecked);
+
+      console.log(
+        `Program ${programId} for child ${childId} is ${
+          isChecked ? "selected" : "deselected"
+        }`
+      );
     }
   });
 
+  // Handle container clicks
   container.addEventListener("click", function (e) {
     const programContainer = e.target.closest("[data-program-container]");
     if (programContainer) {
@@ -832,7 +844,6 @@ function setupEventDelegation() {
     }
   });
 }
-
 
 // Generate payment summary
 function generatePaymentSummary() {
@@ -1014,8 +1025,6 @@ function initializeApp() {
       validateField("phone");
     });
   });
-
-  setupEventDelegation();
 }
 
 // Helper function to calculate age from date of birth
