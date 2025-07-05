@@ -1727,6 +1727,12 @@
       background-image: linear-gradient(var(--tw-gradient-stops));
     }
   }
+  .peer-checked\:from-yellow-400 {
+    &:is(:where(.peer):checked ~ *) {
+      --tw-gradient-from: var(--color-yellow-400);
+      --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+    }
+  }
   .peer-checked\:via-white {
     &:is(:where(.peer):checked ~ *) {
       --tw-gradient-via: var(--color-white);
