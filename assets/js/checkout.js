@@ -725,7 +725,7 @@ function addEventListenersToChildForm(childId, programs) {
         container.classList.remove("border-red-500");
 
         updateProgramAvailability(childId, programId, isChecked);
-        updateChildProgramSelection(childId, programId, isChecked); // <-- ADD THIS LINE
+        // updateChildProgramSelection(childId, programId, isChecked); // <-- ADD THIS LINE
       });
 
       // Add click event listener to container
@@ -817,23 +817,11 @@ function setupEventDelegation() {
       const programId = e.target.dataset.programId;
       const childId = parseInt(e.target.dataset.childId);
 
-      // Call your program availability update function
-      if (typeof updateProgramAvailability === "function") {
-        updateProgramAvailability(childId, programId, isChecked);
-      }
-
-      // Update child data
+      updateProgramAvailability(childId, programId, isChecked);
       updateChildProgramSelection(childId, programId, isChecked);
-
-      console.log(
-        `Program ${programId} for child ${childId} is ${
-          isChecked ? "selected" : "deselected"
-        }`
-      );
     }
   });
 
-  // Handle container clicks
   container.addEventListener("click", function (e) {
     const programContainer = e.target.closest("[data-program-container]");
     if (programContainer) {
@@ -844,6 +832,7 @@ function setupEventDelegation() {
     }
   });
 }
+
 
 // Generate payment summary
 function generatePaymentSummary() {
@@ -1025,6 +1014,8 @@ function initializeApp() {
       validateField("phone");
     });
   });
+
+  setupEventDelegation();
 }
 
 // Helper function to calculate age from date of birth
