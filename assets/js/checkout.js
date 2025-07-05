@@ -657,7 +657,7 @@ function generateChildForm(childId, childData, programs, maxChildren) {
             childData.programs.includes(program.programId);
 
           return `
-				<div class="relative rounded-lg border transition-all duration-200 border-gray-300 bg-white hover:bg-gray-50 hover:border-gray-400 cursor-pointer has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50" data-program-container="${
+				<div class="relative rounded-lg border transition-all duration-200 border-gray-300 bg-white hover:bg-gray-50 hover:border-gray-400 cursor-pointer has-[:checked]:border-blue-950 has-[:checked]:bg-blue-950/50" data-program-container="${
           program.programId
         }">
 					<div class="flex items-center p-4">
