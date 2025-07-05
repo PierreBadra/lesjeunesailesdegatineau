@@ -132,7 +132,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 							<div class="space-y-6">
 								<div>
-									<label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+									<label for="email" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 										Adresse courriel <span class="text-red-500">*</span>
 									</label>
 									<input type="email" id="email" name="email"
@@ -142,7 +142,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 								<div class="grid md:grid-cols-2 gap-6">
 									<div>
-										<label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+										<label for="firstName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											Prénom <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="firstName" name="firstName"
@@ -151,7 +151,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 									</div>
 
 									<div>
-										<label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
+										<label for="lastName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											Nom de famille <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="lastName" name="lastName"
@@ -161,7 +161,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 								</div>
 
 								<div>
-									<label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+									<label for="phone" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 										Numéro de téléphone <span class="text-red-500">*</span>
 									</label>
 									<input type="tel" id="phone" name="phone"
@@ -281,7 +281,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 							<div class="space-y-6">
 								<div>
-									<label for="cc-number" class="block text-sm font-medium text-gray-700 mb-2">
+									<label for="cc-number" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 										Numéro de carte <span class="text-red-500">*</span>
 									</label>
 									<input type="text" id="cc-number" name="cc-number" placeholder="1234 5678 9012 3456"
@@ -290,7 +290,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 								<div class="grid md:grid-cols-2 gap-6">
 									<div>
-										<label for="cc-exp" class="block text-sm font-medium text-gray-700 mb-2">
+										<label for="cc-exp" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											Date d'expiration <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="cc-exp" name="cc-exp" placeholder="MM/AA" max="5"
@@ -298,7 +298,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 									</div>
 
 									<div>
-										<label for="cc-cvc" class="block text-sm font-medium text-gray-700 mb-2">
+										<label for="cc-cvc" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											CVV <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="cc-cvc" name="cc-cvc" placeholder="123"
