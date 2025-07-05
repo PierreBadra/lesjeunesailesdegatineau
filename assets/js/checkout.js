@@ -618,17 +618,17 @@ function generateChildForm(childId, childData, programs, maxChildren) {
   childForm.id = `child-form-${childId}`;
   childForm.className = "bg-white p-6 rounded-lg border border-gray-200";
   childForm.innerHTML = `
-		<h3 class="text-lg font-semibold text-gray-900 mb-4">Enfant ${childId}</h3>
+		<h3 class="font-bold bg-gradient-to-r transition-colors duration-200 gradient-animate from-slate-900 via-blue-900 to-slate-800 bg-clip-text text-transparent uppercase font-[Oswald] tracking-widest text-lg mb-4">Enfant ${childId}</h3>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 			<div>
-				<label for="child-${childId}-firstName" class="block text-sm font-medium text-gray-700 mb-2">Prénom *</label>
+				<label for="child-${childId}-firstName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">Prénom <span class="text-red-500">*</span></label>
 				<input type="text" id="child-${childId}-firstName" value="${
     childData.firstName || ""
   }" 
 					class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors">
 			</div>
 			<div>
-				<label for="child-${childId}-lastName" class="block text-sm font-medium text-gray-700 mb-2">Nom de famille *</label>
+				<label for="child-${childId}-lastName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">Nom de famille <span class="text-red-500">*</span></label>
 				<input type="text" id="child-${childId}-lastName" value="${
     childData.lastName || ""
   }" 
@@ -636,18 +636,18 @@ function generateChildForm(childId, childData, programs, maxChildren) {
 			</div>
 		</div>
 		<div class="mb-4">
-			<label for="child-${childId}-dateOfBirth" class="block text-sm font-medium text-gray-700 mb-2">Date de naissance *</label>
+			<label for="child-${childId}-dateOfBirth" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">Date de naissance <span class="text-red-500">*</span></label>
 			<input type="date" id="child-${childId}-dateOfBirth" value="${
     childData.dateOfBirth || ""
   }" 
 				class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors">
 		</div>
 		<div class="mb-4">
-			<label for="child-${childId}-allergies" class="block text-sm font-medium text-gray-700 mb-2">Allergies</label>
+			<label for="child-${childId}-allergies" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">Allergies</label>
 			<textarea id="child-${childId}-allergies" value="${childData.allergies || ""}" 
 				class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors resize-vertical min-h-[6rem] max-h-[12rem]"></textarea>
 		</div>
-		<label class="block text-sm font-medium text-gray-700 mb-2">Programmes sélectionnés</label> 
+		<label class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">Programmes sélectionnés <span class="text-red-500">*</span></label> 
 		<div class="space-y-2">
 			${programs
         .map((program) => {
@@ -661,12 +661,16 @@ function generateChildForm(childId, childData, programs, maxChildren) {
           program.programId
         }">
 					<div class="flex items-center p-4">
-						<input class="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" 
+						<input class="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 sr-only peer" 
 							   type="checkbox" 
 							   id="child-${childId}-program-${program.programId}"  
 							   data-child-id="${childId}" 
 							   data-program-id="${program.programId}"
 							   ${isChecked ? "checked" : ""}>
+                        <div class="w-6 h-6 bg-gray-700 rounded-md peer-checked:bg-red-600 transition-all duration-300"></div>
+                        <svg class="absolute w-4 h-4 text-white left-1 top-1 opacity-0 peer-checked:opacity-100 transition-opacity duration-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
 						<div class="ml-4 flex-grow">
 							<div class="flex flex-col-reverse lg:flex-row items-start lg:items-center justify-between">
 								<h4 class="font-medium text-gray-900">${program.name}</h4>
@@ -686,9 +690,6 @@ function generateChildForm(childId, childData, programs, maxChildren) {
 								Du ${program.startDate} au ${program.endDate}
 							</p>
 						</div>
-					</div>
-					<div class="absolute top-2 right-2 opacity-0 has-[:checked]:opacity-100 transition-opacity">
-						<div class="w-2 h-2 bg-blue-500 rounded-full"></div>
 					</div>
 				</div>`;
         })
