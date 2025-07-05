@@ -136,7 +136,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 										Adresse courriel <span class="text-red-500">*</span>
 									</label>
 									<input type="email" id="email" name="email"
-										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 										placeholder="votre@courriel.com" />
 								</div>
 
@@ -146,7 +146,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 											Prénom <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="firstName" name="firstName"
-											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 											placeholder="Votre prénom" />
 									</div>
 
@@ -155,7 +155,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 											Nom de famille <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="lastName" name="lastName"
-											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 											placeholder="Votre nom de famille" />
 									</div>
 								</div>
@@ -165,7 +165,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 										Numéro de téléphone <span class="text-red-500">*</span>
 									</label>
 									<input type="tel" id="phone" name="phone"
-										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 										placeholder="(819) 555-0123" />
 								</div>
 							</div>
@@ -285,7 +285,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 										Numéro de carte <span class="text-red-500">*</span>
 									</label>
 									<input type="text" id="cc-number" name="cc-number" placeholder="1234 5678 9012 3456"
-										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" />
+										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors" />
 								</div>
 
 								<div class="grid md:grid-cols-2 gap-6">
@@ -294,7 +294,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 											Date d'expiration <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="cc-exp" name="cc-exp" placeholder="MM/AA" max="5"
-											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" />
+											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors" />
 									</div>
 
 									<div>
@@ -302,36 +302,11 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 											CVV <span class="text-red-500">*</span>
 										</label>
 										<input type="text" id="cc-cvc" name="cc-cvc" placeholder="123"
-											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" />
+											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors" />
 									</div>
 								</div>
 
-								<div class="flex items-center gap-3">
-									<input type="checkbox" id="savePaymentMethod" name="savePaymentMethod"
-										class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
-									<label for="savePaymentMethod" class="text-sm text-gray-700">
-										Enregistrer les informations de paiement pour mes prochains achats
-									</label>
-								</div>
-
-								<div class="bg-green-50 border border-green-200 rounded-lg p-4">
-									<div class="flex items-center gap-2 text-green-800 mb-2">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round"
-											class="lucide lucide-lock w-4 h-4" __v0_r="0,40047,40056">
-											<rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-											<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-										</svg>
-										<span class="font-medium">Paiement sécurisé</span>
-									</div>
-									<p class="text-sm text-green-700">
-										Vos informations de paiement sont cryptées et sécurisées. Nous n'enregistrons
-										pas vos données de carte de crédit.
-									</p>
-								</div>
-
-								<div class="flex items-start gap-3">
+								<!-- <div class="flex items-start gap-3">
 									<input type="checkbox" id="acceptTerms" name="acceptTerms" required
 										class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1" />
 									<label for="acceptTerms" class="text-sm text-gray-700">
@@ -343,7 +318,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 											class="text-blue-600 hover:underline">politique de confidentialité</a>.
 										<span class="text-red-500">*</span>
 									</label>
-								</div>
+								</div> -->
 							</div>
 
 							<div class="flex justify-between mt-8">

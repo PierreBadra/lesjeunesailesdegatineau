@@ -625,14 +625,14 @@ function generateChildForm(childId, childData, programs, maxChildren) {
 				<input type="text" id="child-${childId}-firstName" value="${
     childData.firstName || ""
   }" 
-					class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+					class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors">
 			</div>
 			<div>
 				<label for="child-${childId}-lastName" class="block text-sm font-medium text-gray-700 mb-2">Nom de famille *</label>
 				<input type="text" id="child-${childId}-lastName" value="${
     childData.lastName || ""
   }" 
-					class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+					class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors">
 			</div>
 		</div>
 		<div class="mb-4">
@@ -640,12 +640,12 @@ function generateChildForm(childId, childData, programs, maxChildren) {
 			<input type="date" id="child-${childId}-dateOfBirth" value="${
     childData.dateOfBirth || ""
   }" 
-				class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+				class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors">
 		</div>
 		<div class="mb-4">
 			<label for="child-${childId}-allergies" class="block text-sm font-medium text-gray-700 mb-2">Allergies</label>
 			<textarea id="child-${childId}-allergies" value="${childData.allergies || ""}" 
-				class="w-full resize-none h-fit px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"></textarea>
+				class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors resize-vertical min-h-[6rem] max-h-[12rem]"></textarea>
 		</div>
 		<label class="block text-sm font-medium text-gray-700 mb-2">Programmes sélectionnés</label> 
 		<div class="space-y-2">
