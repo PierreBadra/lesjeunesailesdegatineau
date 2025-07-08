@@ -1111,7 +1111,8 @@ function getDateRangeForChild(childId) {
         orderItem.end_date || orderItem.endDate || orderItem.program_end;
 
       if (programStartDate) {
-        const startDate = new Date(programStartDate);
+        const [programStartYear, programStartMonth, programStartDay] = programStartDate.split("-").map(Number);
+        const startDate = new Date(programStartYear, programStartMonth - 1, programStartDay);
         if (!earliestStart || startDate < earliestStart) {
           earliestStart = startDate;
         }
