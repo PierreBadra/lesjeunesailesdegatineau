@@ -1073,15 +1073,15 @@ function initializeApp() {
 // Helper function to calculate age from date of birth
 function calculateAgeAtDate(dateOfBirth, targetDate) {
   // Parse as local date to avoid timezone issues
-  const [year, month, day] = dateOfBirth.split("-").map(Number);
-  const checkDate = new Date(targetDate);
-  const birthDate = new Date(year, month - 1, day); // month is 0-indexed
-  let age = checkDate.getFullYear() - birthDate.getFullYear();
-  const monthDiff = checkDate.getMonth() - birthDate.getMonth();
+  const [birthYear, birthMonth, birthDay] = dateOfBirth.split("-").map(Number);
+//   const checkDate = new Date(targetDate);
+  const birthDate = new Date(birthYear, birthMonth - 1, birthDay); // month is 0-indexed
+  let age = targetDate.getFullYear() - birthDate.getFullYear();
+  const monthDiff = targetDate.getMonth() - birthDate.getMonth();
 
   if (
     monthDiff < 0 ||
-    (monthDiff === 0 && checkDate.getDate() < birthDate.getDate())
+    (monthDiff === 0 && targetDate.getDate() < birthDate.getDate())
   ) {
     age--;
   }
