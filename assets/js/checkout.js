@@ -1119,7 +1119,8 @@ function getDateRangeForChild(childId) {
       }
 
       if (programEndDate) {
-        const endDate = new Date(programEndDate);
+        const [programEndYear, programEndMonth, programEndDay] = programStartDate.split("-").map(Number);
+        const endDate = new Date(programEndYear, programEndMonth - 1, programEndDay);
         if (!latestEnd || endDate > latestEnd) {
           latestEnd = endDate;
         }
