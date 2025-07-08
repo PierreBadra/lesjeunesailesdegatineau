@@ -1268,7 +1268,7 @@ function validateField(fieldId) {
           return true; // or handle this case as needed
         }
 
-        const childAge = calculateAgeAtDate(value, today.toString());
+        const childAge = calculateAgeAtDate(value, dateRange.startDate);
 
         // Get age range for this child's selected programs
         const ageRange = getAgeRangeForChild(childId);
