@@ -103,11 +103,11 @@ function enqueue_woocommerce_assets()
                     $product_id = $cart_item['product_id'];
 
                     // Get ACF custom fields (replace 'start_date' and 'end_date' with your actual ACF field names)
-                    $start_date =  parse_french_string_date_to_english(get_field('date_de_debut', $product_id) ?: '');
+                    $start_date = parse_french_string_date_to_english(get_field('date_de_debut', $product_id) ?: '');
                     $end_date = parse_french_string_date_to_english(get_field('date_de_fin', $product_id) ?: '');
                     $product_image = get_field('image_davant_page', $product_id);
                     $age_range_raw = get_field('tranche_dage', $product_id);
-                    
+
                     // Format age range for JavaScript consumption
                     $age_range = null;
                     if ($age_range_raw) {
@@ -115,27 +115,27 @@ function enqueue_woocommerce_assets()
                         if (is_array($age_range_raw)) {
                             // If it's already an array with min/max
                             $age_range = array(
-                                'min' => isset($age_range_raw['min']) ? (int)$age_range_raw['min'] : 
-                                        (isset($age_range_raw['minimum']) ? (int)$age_range_raw['minimum'] : 
-                                        (isset($age_range_raw['from']) ? (int)$age_range_raw['from'] : null)),
-                                'max' => isset($age_range_raw['max']) ? (int)$age_range_raw['max'] : 
-                                        (isset($age_range_raw['maximum']) ? (int)$age_range_raw['maximum'] : 
-                                        (isset($age_range_raw['to']) ? (int)$age_range_raw['to'] : null))
+                                'min' => isset($age_range_raw['min']) ? (int) $age_range_raw['min'] :
+                                    (isset($age_range_raw['minimum']) ? (int) $age_range_raw['minimum'] :
+                                        (isset($age_range_raw['from']) ? (int) $age_range_raw['from'] : null)),
+                                'max' => isset($age_range_raw['max']) ? (int) $age_range_raw['max'] :
+                                    (isset($age_range_raw['maximum']) ? (int) $age_range_raw['maximum'] :
+                                        (isset($age_range_raw['to']) ? (int) $age_range_raw['to'] : null))
                             );
                         } elseif (is_string($age_range_raw)) {
                             // If it's a string like "5-12" or "5 to 12"
                             $matches = array();
                             if (preg_match('/(\d+)[-\s]*(?:to|à|-)?\s*(\d+)/', $age_range_raw, $matches)) {
                                 $age_range = array(
-                                    'min' => (int)$matches[1],
-                                    'max' => (int)$matches[2]
+                                    'min' => (int) $matches[1],
+                                    'max' => (int) $matches[2]
                                 );
                             }
                         } elseif (is_numeric($age_range_raw)) {
                             // If it's a single number, treat as both min and max
                             $age_range = array(
-                                'min' => (int)$age_range_raw,
-                                'max' => (int)$age_range_raw
+                                'min' => (int) $age_range_raw,
+                                'max' => (int) $age_range_raw
                             );
                         }
                     }
@@ -160,6 +160,45 @@ function enqueue_woocommerce_assets()
                 }
             }
 
+            // Get available payment gateways
+            $payment_gateways = array();
+            $stripe_data = array();
+            $bank_transfer_data = array();
+
+            if (class_exists('WooCommerce') && WC()->payment_gateways()) {
+                $available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
+
+                foreach ($available_gateways as $gateway_id => $gateway) {
+                    if ($gateway->enabled === 'yes') {
+                        $payment_gateways[$gateway_id] = array(
+                            'id' => $gateway_id,
+                            'title' => $gateway->get_title(),
+                            'description' => $gateway->get_description(),
+                            'icon' => $gateway->get_icon(),
+                            'supports' => $gateway->supports,
+                        );
+
+                        // Special handling for Stripe
+                        if ($gateway_id === 'stripe' || strpos($gateway_id, 'stripe') !== false) {
+                            $stripe_data = array(
+                                'publishable_key' => $gateway->get_option('publishable_key'),
+                                'payment_intent_endpoint' => admin_url('admin-ajax.php?action=create_stripe_payment_intent'),
+                                'confirm_payment_endpoint' => admin_url('admin-ajax.php?action=confirm_stripe_payment'),
+                            );
+                        }
+
+                        // Special handling for Bank Transfer (BACS)
+                        if ($gateway_id === 'bacs') {
+                            $bank_transfer_data = array(
+                                'account_details' => $gateway->get_option('account_details'),
+                                'instructions' => $gateway->get_option('instructions'),
+                                'endpoint' => admin_url('admin-ajax.php?action=process_bank_transfer'),
+                            );
+                        }
+                    }
+                }
+            }
+
             // Pass data to JavaScript
             wp_localize_script('checkout-js', 'checkoutData', array(
                 'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -168,7 +207,13 @@ function enqueue_woocommerce_assets()
                 'removeCartNonce' => wp_create_nonce('remove_cart_item'),
                 'orderItems' => $order_items,
                 'cartTotal' => class_exists('WooCommerce') && WC()->cart ? WC()->cart->get_cart_subtotal() : '',
-                'cartCount' => class_exists('WooCommerce') && WC()->cart ? WC()->cart->get_cart_contents_count() : 0
+                'cartCount' => class_exists('WooCommerce') && WC()->cart ? WC()->cart->get_cart_contents_count() : 0,
+                'paymentGateways' => $payment_gateways,
+                'stripeData' => $stripe_data,
+                'bankTransferData' => $bank_transfer_data,
+                'checkoutUrl' => wc_get_checkout_url(),
+                'currency' => get_woocommerce_currency(),
+                'currencySymbol' => get_woocommerce_currency_symbol(),
             ));
         }
     }
