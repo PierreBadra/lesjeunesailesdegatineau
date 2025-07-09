@@ -1052,19 +1052,19 @@ function initializeApp() {
   });
 
   $(document).ready(function () {
-    $("#firstName").on("blur", function () {
+    $("#billing_first_name").on("blur", function () {
       validateField("billing_first_name");
     });
 
-    $("#lastName").on("blur", function () {
+    $("#billing_last_name").on("blur", function () {
       validateField("billing_last_name");
     });
 
-    $("#email").on("blur", function () {
+    $("#billing_email").on("blur", function () {
       validateField("billing_email");
     });
 
-    $("#phone").on("blur", function () {
+    $("#billing_phone").on("blur", function () {
       validateField("billing_phone");
     });
   });
