@@ -569,7 +569,7 @@ function validateProgramAllocation() {
 function validateContactInfo() {
   let isValid = true;
 
-  const fields = ["firstName", "lastName", "email", "phone"];
+  const fields = ["billing_first_name", "billing_last_name", "billing_email", "billing_phone"];
   fields.forEach((field) => {
     if (!validateField(field)) {
       isValid = false;
@@ -1053,19 +1053,19 @@ function initializeApp() {
 
   $(document).ready(function () {
     $("#firstName").on("blur", function () {
-      validateField("firstName");
+      validateField("billing_first_name");
     });
 
     $("#lastName").on("blur", function () {
-      validateField("lastName");
+      validateField("billing_last_name");
     });
 
     $("#email").on("blur", function () {
-      validateField("email");
+      validateField("billing_email");
     });
 
     $("#phone").on("blur", function () {
-      validateField("phone");
+      validateField("billing_phone");
     });
   });
 }
@@ -1203,14 +1203,14 @@ function validateField(fieldId) {
   const value = $(`#${fieldId}`).val().trim();
 
   switch (true) {
-    case fieldId.includes("firstName") || fieldId == "billing_first_name":
+    case fieldId.includes("firstName") || fieldId === "billing_first_name":
       if (!value) {
         showError("Le prénom est requis");
         return false;
       }
       break;
 
-    case fieldId.includes("lastName") || fieldId == "billing_last_name":
+    case fieldId.includes("lastName") || fieldId === "billing_last_name":
       if (!value) {
         showError("Le nom de famille est requis");
         return false;
