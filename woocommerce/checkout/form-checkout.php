@@ -132,39 +132,39 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 							<div class="space-y-6">
 								<div>
-									<label for="email" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
+									<label for="billing_email" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 										Adresse courriel <span class="text-red-500">*</span>
 									</label>
-									<input type="email" id="email" name="email"
+									<input type="email" id="billing_email" name="billing_email"
 										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 										placeholder="votre@courriel.com" />
 								</div>
 
 								<div class="grid md:grid-cols-2 gap-6">
 									<div>
-										<label for="firstName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
+										<label for="billing_first_name" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											Prénom <span class="text-red-500">*</span>
 										</label>
-										<input type="text" id="firstName" name="firstName"
+										<input type="text" id="billing_first_name" name="billing_first_name"
 											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 											placeholder="Votre prénom" />
 									</div>
 
 									<div>
-										<label for="lastName" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
+										<label for="billing_last_name" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 											Nom de famille <span class="text-red-500">*</span>
 										</label>
-										<input type="text" id="lastName" name="lastName"
+										<input type="text" id="billing_last_name" name="billing_last_name"
 											class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 											placeholder="Votre nom de famille" />
 									</div>
 								</div>
 
 								<div>
-									<label for="phone" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
+									<label for="billing_phone" class="block text-sm font-medium font-[Inter] tracking-widest uppercase mb-2 text-gray-600 leading-relaxed">
 										Numéro de téléphone <span class="text-red-500">*</span>
 									</label>
-									<input type="tel" id="phone" name="phone"
+									<input type="tel" id="billing_phone" name="billing_phone"
 										class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 focus:border-transparent transition-colors"
 										placeholder="(819) 555-0123" />
 								</div>

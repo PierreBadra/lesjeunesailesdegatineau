@@ -1203,21 +1203,21 @@ function validateField(fieldId) {
   const value = $(`#${fieldId}`).val().trim();
 
   switch (true) {
-    case fieldId.includes("firstName"):
+    case fieldId.includes("firstName") || fieldId == "billing_first_name":
       if (!value) {
         showError("Le prénom est requis");
         return false;
       }
       break;
 
-    case fieldId.includes("lastName"):
+    case fieldId.includes("lastName") || fieldId == "billing_last_name":
       if (!value) {
         showError("Le nom de famille est requis");
         return false;
       }
       break;
 
-    case fieldId === "email":
+    case fieldId === "billing_email":
       if (!value) {
         showError("L'adresse courriel est requise");
         return false;
@@ -1230,7 +1230,7 @@ function validateField(fieldId) {
       }
       break;
 
-    case fieldId === "phone":
+    case fieldId === "billing_phone":
       if (!value) {
         showError("Le numéro de téléphone est requis");
         return false;
