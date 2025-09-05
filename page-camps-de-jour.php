@@ -173,7 +173,7 @@
                     <h2 class="text-2xl mb-4 uppercase font-[Oswald] tracking-widest">Aucun camp de jour disponible
                         actuellement
                     </h2>
-                    <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl ">Nous n’avons pas de
+                    <p class="text-white/80 mb-6 max-w-2xl mx-auto font-[Inter] text-lg sm:text-xl ">
                         Aucun camp de jour n’est offert pour le moment. Revenez bientôt pour découvrir nos prochaines
                         activités estivales!</p>
                     <div class="">
