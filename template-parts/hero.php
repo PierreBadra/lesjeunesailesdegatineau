@@ -7,6 +7,12 @@ $images = get_posts([
 ]);
 $image_urls = array_map('wp_get_attachment_url', wp_list_pluck($images, 'ID'));
 // Check if we have at least one image
+
+// Remove URLs containing 'woocommerce-placeholder'
+$image_urls = array_filter($image_urls, function ($url) {
+    return strpos($url, 'woocommerce-placeholder') === false;
+});
+
 $has_images = !empty($image_urls);
 // Default background image as fallback
 ?>
