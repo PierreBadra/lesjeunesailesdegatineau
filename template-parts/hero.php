@@ -13,6 +13,8 @@ $image_urls = array_filter($image_urls, function ($url) {
     return strpos($url, 'woocommerce-placeholder') === false;
 });
 
+var_dump($image_urls);
+
 $has_images = !empty($image_urls);
 // Default background image as fallback
 ?>
